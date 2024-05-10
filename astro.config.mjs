@@ -5,13 +5,16 @@ import sitemap from '@astrojs/sitemap';
 import wasm from "vite-plugin-wasm";
 import mdx from "@astrojs/mdx";
 
+import vercel from "@astrojs/vercel/serverless";
+
 // https://astro.build/config
 export default defineConfig({
   site: 'https://www.loskutoff.com',
   integrations: [react(), tailwind(), sitemap(), mdx()],
   vite: {
-    plugins: [
-      wasm()//, topLevelAwait()
+    plugins: [wasm() //, topLevelAwait()
     ]
-  }
+  },
+  output: "server",
+  adapter: vercel()
 });
