@@ -1,0 +1,56 @@
+---
+import HeaderLink from "./HeaderLink.astro";
+import { LinkedinLogo, GithubLogo, TwitterLogo, Sun, Moon } from "@phosphor-icons/react";
+import { ThemeSwitch } from "astro-color-scheme";
+
+type Props = {
+  className?: string;
+}
+
+const { className } = Astro.props;
+
+---
+
+<header
+        class:list={
+          [
+            'flex flex-col border-b border-slate-3 print:hidden md:h-full md:border-b-0 md:border-r',
+            className
+          ]
+        }
+>
+    <h2 class="flex w-full justify-left font-mono text-slate-12">
+        <HeaderLink href="/">
+            oh dear lordy lord
+        </HeaderLink>
+        <ThemeSwitch strategy="button">
+            <button>
+                <span class="sr-only">Toggle Theme</span>
+                <span class="dark:hidden"><Sun  /></span>
+                <span class="hidden dark:block"><Moon /></span>
+            </button>
+        </ThemeSwitch>
+    </h2>
+    <nav
+            class="flex h-full justify-center gap-4 font-black md:flex-col md:justify-start"
+    >
+        <HeaderLink href="/blog">Blog</HeaderLink>
+    </nav>
+    <div class="mr-8 mb-4 flex w-full justify-center gap-4">
+        <HeaderLink href="https://github.com/dearlordylord" target="_blank">
+            <GithubLogo size={18} />
+        </HeaderLink>
+        <!-- TODO TIL -->
+        <!-- TODO presentations -->
+        <!-- TODO apps -->
+        <!-- TODO resume -->
+        <!-- TODO dnd -->
+        <HeaderLink href="https://linkedin.com/in/igor-loskutov/" target="_blank">
+            <LinkedinLogo size={18} />
+        </HeaderLink>
+        <HeaderLink href="https://twitter.com/ohdearlordylord" target="_blank">
+            <TwitterLogo size={18} />
+        </HeaderLink>
+
+    </div>
+</header>

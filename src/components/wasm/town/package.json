@@ -1,0 +1,16 @@
+{
+  "name": "town",
+  "version": "0.1.0",
+  "files": [
+    "town_bg.wasm",
+    "town.js",
+    "town_bg.js",
+    "town.d.ts"
+  ],
+  "module": "town.js",
+  "types": "town.d.ts",
+  "sideEffects": [
+    "./town.js",
+    "./snippets/*"
+  ]
+}

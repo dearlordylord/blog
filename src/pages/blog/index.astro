@@ -1,0 +1,39 @@
+---
+import { SITE_TITLE, SITE_DESCRIPTION } from "../../constants";
+import Layout from "../../layouts/Base.astro";
+import { getCollection } from "astro:content";
+import FormattedDate from "../../components/Date.astro";
+
+
+const posts = (await getCollection("blog")).filter(p => p.data.published).sort(
+  (a, b) => b.data.published.valueOf() - a.data.published.valueOf()
+);
+
+---
+
+<Layout title={SITE_TITLE} description={SITE_DESCRIPTION}>
+    <section class="w-full">
+      {
+        posts.length === 0 ? (
+                <p>No posts found</p>
+        ) : (
+                <h1 class="prose prose-lg prose-slate dark:prose-invert decoration-teal-9 mb-6 underline decoration-wavy">
+                    Les écrits
+                </h1>
+        )
+      }
+        <ul>
+          {
+            posts.map((post) => (
+                    <li>
+                        <a href={`/blog/${post.slug}/`} class="flex space-x-1">
+                            <p>→</p>
+                            <p>{post.data.title}</p>
+                            <FormattedDate date={post.data.published} />
+                        </a>
+                    </li>
+            ))
+          }
+        </ul>
+    </section>
+</Layout>

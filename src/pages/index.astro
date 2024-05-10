@@ -1,0 +1,33 @@
+
+---
+import { SITE_TITLE, SITE_DESCRIPTION } from "../constants";
+import Layout from "../layouts/Base.astro";
+import TownMenu from '../components/town.tsx';
+
+
+---
+
+<script is:inline>
+  // solves Safari's "back" button cache issue
+  if (performance.navigation.type === 2) location.reload();
+  // attempt to disable bfcache
+  window.addEventListener('unload', function(){});
+  window.addEventListener('beforeunload', function(){});
+</script>
+
+<Layout
+        title={SITE_TITLE}
+        description={SITE_DESCRIPTION}
+>
+    <article
+            class="prose prose-lg prose-slate dark:prose-invert flex max-w-none flex-col items-center text-center"
+    >
+        <div class="w-full md:max-w-2xl">
+          <div class="content-center">
+              <TownMenu client:only="react" />
+              <p>WASD or mouse to move</p>
+          </div>
+
+        </div>
+    </article>
+</Layout>

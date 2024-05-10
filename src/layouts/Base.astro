@@ -1,0 +1,36 @@
+---
+import Head from "../components/Head.astro";
+import Header from "../components/Header.astro";
+import { SITE_DESCRIPTION, SITE_TITLE_FANCY } from "../constants";
+
+export interface Props {
+  title?: string;
+  description?: string;
+  heroImage?: string;
+}
+
+const { title, description, heroImage } = Astro.props;
+
+---
+
+<!DOCTYPE html>
+<html
+        lang="en"
+        class="h-full bg-slate-1 text-slate-12 transition-colors ease-in-out"
+>
+<head>
+    <Head
+            title={title || SITE_TITLE_FANCY}
+            description={description || SITE_DESCRIPTION}
+            image={heroImage}
+    />
+</head>
+<body class="h-full">
+<main class="flex h-full flex-col gap-6 p-6 md:flex-row">
+    <Header title={title} />
+    <div class="w-full">
+        <slot />
+    </div>
+</main>
+</body>
+</html>
