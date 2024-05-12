@@ -7,28 +7,23 @@ import cx from 'classnames';
 
 type Props = CollectionEntry<"blog">["data"] & { slug: string };
 
-const { title, description, published, updatedDate, heroImage, slug } =
+const { title, published, slug } =
   Astro.props;
+
+const opengraphImage = buildOGURL(Astro.url, slug);
 
 
 ---
 
-<Layout title={title} description={description} heroImage={heroImage}>
+<Layout title={title} description={undefined} opengraphImage={opengraphImage} >
     <article class="flex w-full flex-col items-center gap-6">
       {title && <h1 class="text-center text-4xl font-bold">{title}</h1>}
         <img
-                src={heroImage || buildOGURL(Astro.url, slug)}
+                src={opengraphImage}
                 alt=""
                 class="mb-6 w-full rounded-xl border border-slate-3 shadow-lg md:max-w-4xl"
         />
       {published && <DateC date={published} />}
-      {
-        updatedDate && (
-                      <div class="last-updated-on">
-                          Last updated on <DateC date={updatedDate} />
-                      </div>
-        )
-      }
         <hr />
         <div class={cx('prose prose-slate dark:prose-invert flex w-full flex-col md:max-w-4xl')}>
             <slot />

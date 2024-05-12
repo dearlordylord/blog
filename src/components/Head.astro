@@ -5,7 +5,7 @@ import { SITE_TITLE } from '../constants';
 export interface Props {
   title: string;
   description: string;
-  opengraphImage?: string;
+  opengraphImage: string | undefined;
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);

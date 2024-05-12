@@ -9,6 +9,7 @@ import TownMenu from '../components/town.tsx';
 
 <script is:inline>
   // solves Safari's "back" button cache issue
+  // eslint-disable-next-line
   if (performance.navigation.type === 2) location.reload();
   // attempt to disable bfcache
   window.addEventListener('unload', function(){});

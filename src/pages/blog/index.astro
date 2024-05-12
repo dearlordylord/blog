@@ -6,12 +6,12 @@ import FormattedDate from "../../components/Date.astro";
 
 
 const posts = (await getCollection("blog")).filter(p => p.data.published).sort(
-  (a, b) => b.data.published.valueOf() - a.data.published.valueOf()
+  (a, b) => b.data.published!.valueOf() - a.data.published!.valueOf()
 );
 
 ---
 
-<Layout title={SITE_TITLE} description={SITE_DESCRIPTION}>
+<Layout title={SITE_TITLE} description={SITE_DESCRIPTION} opengraphImage={undefined}>
     <section class="w-full">
       {
         posts.length === 0 ? (

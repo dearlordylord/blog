@@ -4,12 +4,12 @@ import Header from "../components/Header.astro";
 import { SITE_DESCRIPTION, SITE_TITLE_FANCY } from "../constants";
 
 export interface Props {
-  title?: string;
-  description?: string;
-  heroImage?: string;
+  title: string | undefined;
+  description: string | undefined;
+  opengraphImage: string | undefined;
 }
 
-const { title, description, heroImage } = Astro.props;
+const { title, description, opengraphImage } = Astro.props;
 
 ---
 
@@ -22,7 +22,7 @@ const { title, description, heroImage } = Astro.props;
     <Head
             title={title || SITE_TITLE_FANCY}
             description={description || SITE_DESCRIPTION}
-            image={heroImage}
+            opengraphImage={opengraphImage}
     />
 </head>
 <body class="h-full">

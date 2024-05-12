@@ -1,7 +1,7 @@
 ---
-import { CollectionEntry, getCollection } from "astro:content";
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
 import BlogPost from "../../layouts/BlogPost.astro";
-import { buildOGURL } from '../../utils';
 
 export async function getStaticPaths() {
   const posts = await getCollection("blog");
@@ -17,9 +17,9 @@ const { Content } = await post.render();
 // TODO theme for utterances
 ---
 
-<BlogPost {...post.data} slug={post.slug} heroImage={buildOGURL(Astro.url, post.slug)}>
+<BlogPost {...post.data} slug={post.slug}>
     <Content />
-    <script src="https://utteranc.es/client.js"
+    <script is:inline src="https://utteranc.es/client.js"
             repo="dearlordylord/blog"
             issue-term="pathname"
             theme="github-dark"
