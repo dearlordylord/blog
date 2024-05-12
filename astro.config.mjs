@@ -15,6 +15,9 @@ export default defineConfig({
     plugins: [wasm() //, topLevelAwait()
     ]
   },
+  experimental: {
+    optimizePackageImports: ['@phosphor-icons/react']
+  },
   output: "server",
   adapter: vercel()
 });
