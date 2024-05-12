@@ -5,7 +5,7 @@ import sitemap from '@astrojs/sitemap';
 import wasm from "vite-plugin-wasm";
 import mdx from "@astrojs/mdx";
 
-import vercel from "@astrojs/vercel/serverless";
+import vercel from "@astrojs/vercel/static";
 
 // https://astro.build/config
 export default defineConfig({
@@ -15,6 +15,6 @@ export default defineConfig({
     plugins: [wasm() //, topLevelAwait()
     ]
   },
-  output: "server",
+  output: "static",
   adapter: vercel()
 });
