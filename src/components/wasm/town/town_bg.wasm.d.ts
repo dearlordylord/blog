@@ -1,6 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
-export const memory: WebAssembly.Memory;
+// astro doesn't build otherwise
+// export const memory: WebAssembly.Memory;
 export function greet(a: number, b: number): void;
 export function report_window_focus(a: number): void;
 export function report_canvas_screen_position(a: number, b: number): void;
@@ -53,7 +54,8 @@ export function wgpu_render_bundle_insert_debug_marker(a: number, b: number): vo
 export function wgpu_render_bundle_push_debug_group(a: number, b: number): void;
 export function __wbindgen_malloc(a: number, b: number): number;
 export function __wbindgen_realloc(a: number, b: number, c: number, d: number): number;
-export const __wbindgen_export_2: WebAssembly.Table;
+// astro doesn't build otherwise
+// export const __wbindgen_export_2: WebAssembly.Table;
 export function _dyn_core__ops__function__FnMut__A____Output___R_as_wasm_bindgen__closure__WasmClosure___describe__invoke__h077dcdd40a388f12(a: number, b: number, c: number): void;
 export function _dyn_core__ops__function__FnMut__A____Output___R_as_wasm_bindgen__closure__WasmClosure___describe__invoke__h35d76c309f5c0090(a: number, b: number, c: number): void;
 export function _dyn_core__ops__function__FnMut_____Output___R_as_wasm_bindgen__closure__WasmClosure___describe__invoke__he7c45196e4ad9498(a: number, b: number): void;

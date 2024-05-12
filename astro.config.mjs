@@ -15,10 +15,6 @@ export default defineConfig({
     plugins: [wasm() //, topLevelAwait()
     ]
   },
-  experimental: {
-    // hacky hacks https://github.com/phosphor-icons/react/issues/45#issuecomment-1760724607
-    optimizePackageImports: ['@phosphor-icons/react']
-  },
   output: "server",
   adapter: vercel()
 });
