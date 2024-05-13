@@ -6,6 +6,7 @@ const blog = defineCollection({
     title: z.string(),
     // no published is draft
     published: z.date().optional(),
+    opengraphImage: z.string().optional(),
   }),
 });
 

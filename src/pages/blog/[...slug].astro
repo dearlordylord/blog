@@ -20,10 +20,11 @@ if (!post) {
   return Astro.redirect("/404");
 }
 const { Content } = await post.render();
+
 // TODO theme for utterances
 ---
 
-<BlogPost {...post.data} slug={post.slug}>
+<BlogPost {...post.data} slug={post.slug} opengraphImage={post.data.opengraphImage}>
     <Content />
     <script is:inline src="https://utteranc.es/client.js"
             repo="dearlordylord/blog"

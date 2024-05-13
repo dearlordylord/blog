@@ -7,11 +7,10 @@ import cx from 'classnames';
 
 type Props = CollectionEntry<"blog">["data"] & { slug: string };
 
-const { title, published, slug } =
+const { title, published, slug, opengraphImage: opengraphImage_ } =
   Astro.props;
 
-const opengraphImage = buildOGURL(Astro.url, slug);
-
+const opengraphImage = opengraphImage_ || buildOGURL(Astro.url, slug);
 
 ---
 
