@@ -8,10 +8,10 @@ import mdx from "@astrojs/mdx";
 import vercel from "@astrojs/vercel/static";
 
 const contentSecurityPolicy = [
-  // `default-src 'self'`,
-  // `img-src *`,
-  // `script-src 'self' 'unsafe-eval' 'unsafe-inline'`,
-  // `style-src 'self' 'unsafe-inline'`,
+  `default-src 'self'`,
+  `img-src *`,
+  `script-src 'self' 'unsafe-eval' 'unsafe-inline'`,
+  `style-src 'self' 'unsafe-inline'`,
   `connect-src 'self' api.umami.is cloud.umami.is`,
   // `frame-ancestors 'self' ${frameAncestors}`,
 ];
