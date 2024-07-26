@@ -7,9 +7,10 @@ export interface Props {
   title: string | undefined;
   description: string | undefined;
   opengraphImage: string | undefined;
+  opengraphImageAlt: string | undefined;
 }
 
-const { title, description, opengraphImage } = Astro.props;
+const { title, description, opengraphImage, opengraphImageAlt } = Astro.props;
 
 ---
 
@@ -23,6 +24,7 @@ const { title, description, opengraphImage } = Astro.props;
             title={title || SITE_TITLE_FANCY}
             description={description || SITE_DESCRIPTION}
             opengraphImage={opengraphImage}
+            opengraphImageAlt={opengraphImageAlt}
     />
 </head>
 <body class="h-full">

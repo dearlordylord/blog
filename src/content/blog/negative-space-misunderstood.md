@@ -4,6 +4,7 @@ tags: programming, types
 description: A positive rant on typing
 publication-date: 07/25/2024
 opengraphImage: /static/blog/negative-space-misunderstood/Always-Has-Been.png
+opengraphImageAlt: Always Has Been
 reading-time: 5
 author: Igor Loskutov
 social-media-url: https://github.com/dearlordylord

@@ -11,7 +11,7 @@ const posts = (await getCollection("blog")).filter(p => p.data.published).sort(
 
 ---
 
-<Layout title={SITE_TITLE} description={SITE_DESCRIPTION} opengraphImage={undefined}>
+<Layout title={SITE_TITLE} description={SITE_DESCRIPTION} opengraphImage={undefined} opengraphImageAlt={undefined}>
     <section class="w-full">
       {
         posts.length === 0 ? (
