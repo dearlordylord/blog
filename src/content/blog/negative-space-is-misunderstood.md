@@ -69,6 +69,8 @@ There is, come with me.
 
 # Run/Compile-time boundary
 
+![boundary ameba](https://www.loskutoff.com/static/blog/negative-space-misunderstood/boundary-ameba.jpeg)
+
 When we want to tell a String from a Number, it’s usually pretty clear.   
 A function `calculateArea` from the examples above won’t allow itself to be called like
 
