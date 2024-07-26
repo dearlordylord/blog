@@ -11,7 +11,7 @@ social-media-url: https://github.com/dearlordylord
 published: 2024-07-25T13:44:27Z
 ---
 
-# Reject Negative Space, be happy
+# What so negative about it?
 
 Negative Space programming is a new term for an old concept that has managed to captivate the industry’s attention thanks to recent popularisation by certain influencers.
 
@@ -19,18 +19,18 @@ It’s a very cool name indeed:
 
 > There’s a term in drawing called [“negative space”](https://en.wikipedia.org/wiki/Negative_space). The idea is very simple: you don’t draw what’s there – you draw what’s *not* there.[^1]
 
-But I feel it has become gravely misunderstood. I’ll show that most of this “negativity” can and should be brought back to the light, and it’s not too difficult to archive.
+But I feel it has become gravely misunderstood. I’ll show that most of this “negativity” can and should be brought back to the light (of type system), and it’s not too difficult to archive.
 
 # Parse, Don’t, Validate
 
 ![Scooby unmask](https://www.loskutoff.com/static/blog/negative-space-misunderstood/scooby.png)
 
-Negative Space is [understood](https://double-trouble.dev/post/negativ-space-programming/) as assertions of function arguments like:
+Negative Space is understood[^2] as assertions of function arguments like:
 
 ```typescript=
 function calculateArea(width: number, height: number) {  
-  assert(width > 0);  
-  assert(height > 0);  
+  assert(width > 0);
+  assert(height > 0);
   return width * height;  
 }  
 ```
@@ -60,7 +60,7 @@ function widen(width: number) {
 
 You can imagine that it becomes pretty bothersome to check it every time! You indeed need a lot of discipline in your team to maintain this practice. Still, this example is just a basic one; it becomes much more intricate when you have more complex structures.
 
-There’s in fact a term for this. It’s called Shotgun Parsing and was coined a while ago by a Haskell enthusiast [Lexi Lambda](https://lexi-lambda.github.io/blog/2019/11/05/parse-don-t-validate/) .
+There’s in fact a term for this. It’s called "Shotgun parsing" and was coined a while ago by a Haskell enthusiast Lexi Lambda[^3].
 
 > Shotgun parsing is a programming antipattern whereby parsing and input-validating code is mixed with and spread across processing code—throwing a cloud of checks at the input, and hoping, without any systematic justification, that one or another would catch all the “bad” cases.
 
@@ -130,9 +130,12 @@ I argue that when you have a number (or int, or uint) in your app, it’s probab
 
 You most likely can archive this result in your language. E.g. in Typescript, it can be done with one of the [advanced codecs libraries](https://github.com/effect-ts/effect/tree/main/packages/schema) (a post on them’all is coming soon) or even manually.
 
+The technique is language-dependent. I will expand on specific techniques for Typescript and probably some other languages in the future.
+
 The point is that you can move your boundary closer to the compile-time and train your compiler to help you avoid mistakes *and* strongly document your code at the same time.
 
 With this technique you also avoid most of the “Negative State” programming, it just becomes outsourced to the calling code/validation wrappers.
+
 
 # How should it be instead?
 
@@ -157,3 +160,5 @@ That’s where Negative Space shines. If your language makes your typing work di
 That's it. Stay positive (with less negative spaces), safe (from runtime errors) and happy (with what your programming language allows you to do).
 
 [^1]:  [https://alfasin.com/2017/12/21/negative-space-and-how-does-it-apply-to-coding/](https://alfasin.com/2017/12/21/negative-space-and-how-does-it-apply-to-coding/) 
+[^2]:  [https://double-trouble.dev/post/negativ-space-programming/](https://double-trouble.dev/post/negativ-space-programming/)
+[^3]:  [https://lexi-lambda.github.io/blog/2019/11/05/parse-don-t-validate/](https://lexi-lambda.github.io/blog/2019/11/05/parse-don-t-validate/)
