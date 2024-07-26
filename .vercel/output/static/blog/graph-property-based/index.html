@@ -1,0 +1,548 @@
+<!DOCTYPE html><html lang="en" class="h-full bg-slate-1 text-slate-12 transition-colors ease-in-out"> <head><!-- Global Metadata --><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><!-- icon generator guy recommendation https://stackoverflow.com/a/48969053/2123547 --><link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png"><link rel="shortcut icon" href="/icons/favicon.ico"><!-- / icon generator guy recommendation --><meta name="generator" content="Astro v4.8.2"><!-- Canonical URL --><link rel="canonical" href="https://www.loskutoff.com/blog/graph-property-based/"><!-- /Canonical URL --><!-- Primary Meta Tags --><title>Property-Based Testing for Temporal Graph Storage</title><meta name="title" content="Property-Based Testing for Temporal Graph Storage"><meta name="description" content="Igor's programming blog"><link rel="sitemap" href="/sitemap-index.xml"><!-- /Primary Meta Tags --><!-- Open Graph / Facebook --><meta property="og:type" content="website"><meta property="og:url" content="https://www.loskutoff.com/blog/graph-property-based/"><meta property="og:title" content="Property-Based Testing for Temporal Graph Storage"><meta property="og:description" content="Igor's programming blog"><meta property="og:image" content="https://www.loskutoff.com/static/blog/graph-property-based/goctopus.png"><!-- /Open Graph / Facebook --><!-- X --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://www.loskutoff.com/blog/graph-property-based/"><meta property="twitter:title" content="Property-Based Testing for Temporal Graph Storage"><meta property="twitter:description" content="Igor's programming blog"><meta property="twitter:image" content="/static/blog/graph-property-based/goctopus.png"><!-- /X --><!-- RSS Feed --><link rel="alternate" type="application/rss+xml" title="oh dear lordy lord" href="https://www.loskutoff.com/rss.xml"><!-- /RSS Feed --><!-- Third-party scripts --><link rel="stylesheet" href="/_astro/_slug_.BV9mTcdL.css"><script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+		var script = document.createElement('script');
+		script.defer = true;
+		script.src = '/_vercel/insights/script.js';
+		var head = document.querySelector('head');
+		head.appendChild(script);
+	</script></head> <body class="h-full"> <main class="flex h-full flex-col gap-6 p-6 md:flex-row"> <header class="flex flex-col border-b border-slate-3 print:hidden md:h-full md:border-b-0 md:border-r"> <h2 class="flex w-full justify-left font-mono text-slate-12"> <a href="/" class="md:w-min p-3 rounded-lg animate transition-all duration-200 hover:bg-slate-4" rel="prefetch"> 
+oh dear lordy lord
+ </a> <span id="astro-color-scheme-switch" data-astro-cid-zzomblhz>  <button> <span class="sr-only">Toggle Theme</span> <span class="dark:hidden"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 256 256"><path d="M120,40V16a8,8,0,0,1,16,0V40a8,8,0,0,1-16,0Zm72,88a64,64,0,1,1-64-64A64.07,64.07,0,0,1,192,128Zm-16,0a48,48,0,1,0-48,48A48.05,48.05,0,0,0,176,128ZM58.34,69.66A8,8,0,0,0,69.66,58.34l-16-16A8,8,0,0,0,42.34,53.66Zm0,116.68-16,16a8,8,0,0,0,11.32,11.32l16-16a8,8,0,0,0-11.32-11.32ZM192,72a8,8,0,0,0,5.66-2.34l16-16a8,8,0,0,0-11.32-11.32l-16,16A8,8,0,0,0,192,72Zm5.66,114.34a8,8,0,0,0-11.32,11.32l16,16a8,8,0,0,0,11.32-11.32ZM48,128a8,8,0,0,0-8-8H16a8,8,0,0,0,0,16H40A8,8,0,0,0,48,128Zm80,80a8,8,0,0,0-8,8v24a8,8,0,0,0,16,0V216A8,8,0,0,0,128,208Zm112-88H216a8,8,0,0,0,0,16h24a8,8,0,0,0,0-16Z"></path></svg></span> <span class="hidden dark:block"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 256 256"><path d="M233.54,142.23a8,8,0,0,0-8-2,88.08,88.08,0,0,1-109.8-109.8,8,8,0,0,0-10-10,104.84,104.84,0,0,0-52.91,37A104,104,0,0,0,136,224a103.09,103.09,0,0,0,62.52-20.88,104.84,104.84,0,0,0,37-52.91A8,8,0,0,0,233.54,142.23ZM188.9,190.34A88,88,0,0,1,65.66,67.11a89,89,0,0,1,31.4-26A106,106,0,0,0,96,56,104.11,104.11,0,0,0,200,160a106,106,0,0,0,14.92-1.06A89,89,0,0,1,188.9,190.34Z"></path></svg></span> </button>  </span>  <script>(function(){const strategy = "button";
+const defaultTheme = undefined;
+
+  const themeSwitch = document.getElementById("astro-color-scheme-switch");
+  const theme = localStorage.getItem("theme");
+  const themeMatcher = window.matchMedia("(prefers-color-scheme: dark)");
+  let systemTheme = themeMatcher.matches ? "dark" : "light";
+
+  themeMatcher.addEventListener("change", (event) => {
+    const theme = event.matches ? "dark" : "light";
+    systemTheme = theme;
+    if (localStorage.getItem("theme") === "system") {
+      updateAppliedTheme(theme);
+    }
+  });
+
+  function updateAppliedTheme(value) {
+    document.documentElement.classList.remove("light", "dark");
+    document.documentElement.classList.add(value);
+    document.documentElement.setAttribute("data-theme", value);
+  }
+
+  function updateTheme(value) {
+    const theme = value === "system" ? systemTheme : value;
+    updateAppliedTheme(theme);
+    localStorage.setItem("theme", value);
+  }
+
+  function setupThemeSwitch(selector, eventType, themeUpdater) {
+    const element = themeSwitch.querySelector(selector);
+    if (!element) {
+      throw new Error(
+        `plugin-astro-color-scheme: <${selector}> element must be present inside 'themeSwitch' or change the 'strategy' attribute`
+      );
+    }
+
+    if (selector === "form") {
+      element.value = theme || defaultTheme || systemTheme;
+      Array.from(element.querySelectorAll("input")).forEach((input) => {
+        input.checked = (theme || defaultTheme || systemTheme) === input.value;
+      });
+    } else {
+      element.value = theme || defaultTheme || systemTheme;
+    }
+
+    if (selector === "input") {
+      element.checked = defaultTheme !== element.value;
+    }
+
+    updateTheme(element.value);
+    element.addEventListener(eventType, themeUpdater);
+  }
+
+  switch (strategy) {
+    case "button":
+      setupThemeSwitch("button", "click", (event) => {
+        const button = event.currentTarget;
+        const settheme = button.value === "dark" ? "light" : "dark";
+        button.value = settheme;
+        updateTheme(settheme);
+      });
+      break;
+    case "select":
+      setupThemeSwitch("select", "change", (event) => {
+        const select = event.currentTarget;
+        updateTheme(select.value);
+      });
+      break;
+    case "checkbox":
+      setupThemeSwitch("input", "change", (event) => {
+        const checkbox = event.currentTarget;
+        const settheme = checkbox.value === "dark" ? "light" : "dark";
+        checkbox.value = settheme;
+        updateTheme(settheme);
+      });
+      break;
+    case "radio":
+      setupThemeSwitch("form", "click", (event) => {
+        updateTheme(event.currentTarget.value);
+      });
+      break;
+    default:
+      updateTheme(theme || defaultTheme || systemTheme);
+  }
+})();</script> </h2> <nav class="flex h-full justify-center gap-4 font-black md:flex-col md:justify-start"> <a href="/blog" class="md:w-min p-3 rounded-lg animate transition-all duration-200 hover:bg-slate-4" rel="prefetch"> Blog </a> </nav> <div class="mr-8 mb-4 flex w-full justify-center gap-4"> <a href="https://github.com/dearlordylord" class="md:w-min p-3 rounded-lg animate transition-all duration-200 hover:bg-slate-4" rel="prefetch" target="_blank">  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 256 256"><path d="M208.31,75.68A59.78,59.78,0,0,0,202.93,28,8,8,0,0,0,196,24a59.75,59.75,0,0,0-48,24H124A59.75,59.75,0,0,0,76,24a8,8,0,0,0-6.93,4,59.78,59.78,0,0,0-5.38,47.68A58.14,58.14,0,0,0,56,104v8a56.06,56.06,0,0,0,48.44,55.47A39.8,39.8,0,0,0,96,192v8H72a24,24,0,0,1-24-24A40,40,0,0,0,8,136a8,8,0,0,0,0,16,24,24,0,0,1,24,24,40,40,0,0,0,40,40H96v16a8,8,0,0,0,16,0V192a24,24,0,0,1,48,0v40a8,8,0,0,0,16,0V192a39.8,39.8,0,0,0-8.44-24.53A56.06,56.06,0,0,0,216,112v-8A58.14,58.14,0,0,0,208.31,75.68ZM200,112a40,40,0,0,1-40,40H112a40,40,0,0,1-40-40v-8a41.74,41.74,0,0,1,6.9-22.48A8,8,0,0,0,80,73.83a43.81,43.81,0,0,1,.79-33.58,43.88,43.88,0,0,1,32.32,20.06A8,8,0,0,0,119.82,64h32.35a8,8,0,0,0,6.74-3.69,43.87,43.87,0,0,1,32.32-20.06A43.81,43.81,0,0,1,192,73.83a8.09,8.09,0,0,0,1,7.65A41.72,41.72,0,0,1,200,104Z"></path></svg>  </a> <!-- TODO TIL --> <!-- TODO presentations --> <!-- TODO apps --> <!-- TODO resume --> <!-- TODO dnd --> <a href="https://linkedin.com/in/igor-loskutov/" class="md:w-min p-3 rounded-lg animate transition-all duration-200 hover:bg-slate-4" rel="prefetch" target="_blank">  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 256 256"><path d="M216,24H40A16,16,0,0,0,24,40V216a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V40A16,16,0,0,0,216,24Zm0,192H40V40H216V216ZM96,112v64a8,8,0,0,1-16,0V112a8,8,0,0,1,16,0Zm88,28v36a8,8,0,0,1-16,0V140a20,20,0,0,0-40,0v36a8,8,0,0,1-16,0V112a8,8,0,0,1,15.79-1.78A36,36,0,0,1,184,140ZM100,84A12,12,0,1,1,88,72,12,12,0,0,1,100,84Z"></path></svg>  </a> <a href="https://twitter.com/ohdearlordylord" class="md:w-min p-3 rounded-lg animate transition-all duration-200 hover:bg-slate-4" rel="prefetch" target="_blank">  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 256 256"><path d="M247.39,68.94A8,8,0,0,0,240,64H209.57A48.66,48.66,0,0,0,168.1,40a46.91,46.91,0,0,0-33.75,13.7A47.9,47.9,0,0,0,120,88v6.09C79.74,83.47,46.81,50.72,46.46,50.37a8,8,0,0,0-13.65,4.92c-4.31,47.79,9.57,79.77,22,98.18a110.93,110.93,0,0,0,21.88,24.2c-15.23,17.53-39.21,26.74-39.47,26.84a8,8,0,0,0-3.85,11.93c.75,1.12,3.75,5.05,11.08,8.72C53.51,229.7,65.48,232,80,232c70.67,0,129.72-54.42,135.75-124.44l29.91-29.9A8,8,0,0,0,247.39,68.94Zm-45,29.41a8,8,0,0,0-2.32,5.14C196,166.58,143.28,216,80,216c-10.56,0-18-1.4-23.22-3.08,11.51-6.25,27.56-17,37.88-32.48A8,8,0,0,0,92,169.08c-.47-.27-43.91-26.34-44-96,16,13,45.25,33.17,78.67,38.79A8,8,0,0,0,136,104V88a32,32,0,0,1,9.6-22.92A30.94,30.94,0,0,1,167.9,56c12.66.16,24.49,7.88,29.44,19.21A8,8,0,0,0,204.67,80h16Z"></path></svg>  </a> </div> </header> <div class="w-full">  <article class="flex w-full flex-col items-center gap-6"> <h1 class="text-center text-4xl font-bold">Property-Based Testing for Temporal Graph Storage</h1> <img src="/static/blog/graph-property-based/goctopus.png" alt="" class="mb-6 w-full rounded-xl border border-slate-3 shadow-lg md:max-w-4xl"> <time datetime="2024-05-10T13:44:27.000Z" class="whitespace-nowrap italic text-slate-11"> May 10, 2024 </time> <hr> <div class="prose prose-slate dark:prose-invert flex w-full flex-col md:max-w-4xl">  <center><big><p><strong>A motley of functional techniques to allow isomorphic and deterministic graph generation</strong></p></big><p><em>Written by Igor Loskutov. Originally published 2023-12-05 on the <a href="https://monadical.com/blog.html">Monadical blog</a>.</em></p></center>
+<h2 id="problem-scope">Problem scope</h2>
+<p>We’ve all been there. You take your introverted friend to a party, and they get all soggy and sad after just half an hour. How to keep them cheerful and fresh throughout the whole event? The answer is not to overload them with social interactions. Instead, you carefully calculate their path through the house, giving them time and space to cool down, and apply social encounters in a carefully administered way. To do this like an engineer, you need the plan of the house, the position of each person at the party, and their compatibility with your friend to build an optimal social-pressure-free experience for your friend to get healthy socialization and not get drained of energy.</p>
+<p>This is exactly<sup><a href="#user-content-fn-1" id="user-content-fnref-1" data-footnote-ref="" aria-describedby="footnote-label">1</a></sup> the kind of problem that our client wanted to solve using a graph database.</p>
+<blockquote>
+<p>A graph database is a type of database that stores data as nodes and edges, representing entities and their relationships, whereas a social graph is a graph that models the social connections between people or other entities.</p>
+</blockquote>
+<p>But our client had a very challenging and unusual requirement: they wanted to be able to query their social graph not only for the present moment but also for any point in the past (yesterday, last month, last year, ten years ago), with high accuracy and performance. This meant that their graph database had to support <a href="https://www.researchgate.net/publication/351428434_A_Model_and_Query_Language_for_Temporal_Graph_Databases">temporal queries</a>, which are not common in most graph databases.</p>
+<p>To make things even more complicated, their social graph was very dynamic, with frequent changes in the nodes and edges. Like real-life Facebook drama, people would often “unfriend” each other, creating different shapes and patterns in the subgraphs of their social network.</p>
+<p>How to even begin testing such a complex system? We implemented tests. And then more tests. Specifically, we implemented <a href="https://en.wikipedia.org/wiki/Software_testing#Property_testing">property-based tests</a> that run once every time our branch is updated, a technique that generates random inputs and checks that the system satisfies certain properties (ex: only one friendship can exist between two people at any point in time). And then, I wrote about it here.</p>
+<blockquote>
+<p>If you aren’t familiar with the concept of property-based testing, it is a way to test your code with random inputs. You use a tool that creates inputs for you and checks that your code works as expected for all of them. You also define properties, which are things that should always be true about your code, no matter the input.  For instance, instead of a predetermined string “Alice”, the test suite will run the code with inputs “Bob”, “”, “    “, “Alice “, and whatnot. The same goes for integers and floats. 0, 100, MAX_INTEGER, -1, 1.00000001 are the corner cases you might expect your property-based test to generate.</p>
+</blockquote>
+<p>But wait, there’s more. Our input is not just random primitives. It’s random graphs. We generate random graphs with nodes and edges, representing people and their relationships, and feed them to our graph database. Then we check that the database can handle historical queries on these graphs, without breaking or slowing down.</p>
+<blockquote>
+<p>The requirement to be historical also makes our graph system an <a href="https://learn.microsoft.com/en-us/azure/architecture/patterns/event-sourcing">event sourcing</a> that stores its aggregates for every event, the aggregate being the whole graph.</p>
+</blockquote>
+<p>And it gets more interesting. The randomness in property-based testing is not really random. It’s deterministic, which means we can control it and reproduce it. Property-based testing tools tell us the seed they use to generate the random inputs, so we can run the same exact test again if we need to. And we do need to.</p>
+<p>Why? Because we want to keep track of how our system performs over time. After each test, we save some metrics and analytics to spot any anomalies or issues later, but we can’t save the whole graph for each test because that would be far too much output. And trust me, we have a lot of output.</p>
+<p>How much? A lot. A huge amount. The temporal graph feature is so critical for our client’s business that we can’t afford to miss any bugs or errors. So we run our tests all day, every day. And not just on one machine, but on several machines in parallel. The amount of data we generate is staggering, so if we don’t optimize it, we’ll run out of storage space in no time.</p>
+<center><p><img src="https://docs.monadical.com/uploads/734c2f37-49d6-4e17-9a28-7d4b8ed8886a.gif" alt="sausages in a box!"/></p></center>
+<p>That’s why I want to focus on the graph generation process in this article. It’s a fascinating and challenging problem that deserves its own attention, whereas the details of the tests themselves are another story (which is outside the scope of this article, but which I may tell you about some other time).</p>
+<p>I’ll show you some cool<sup><a href="#user-content-fn-2" id="user-content-fnref-2" data-footnote-ref="" aria-describedby="footnote-label">2</a></sup> and unorthodox ways of generating graphs. Specifically, I’ll look at graphs that have the <strong>same formal requirements</strong> as the generated properties in property-based testing. I’ll do this with the help of state monad, newtypes, isomorphic/lazy code and some other concepts I’ll introduce you to.</p>
+<p>You may or may not use those in your daily job, but it’s always nice to know diverse concepts to enrich the spectrum of your toolkit and your intuition.</p>
+<p>And I just think that it’d be selfish of me not to share my findings.</p>
+<h2 id="definitions">Definitions</h2>
+<p>First of all, I’m going to colour-code some words; this should make it easier to distinguish each unique challenge of the task and to link those challenges with the terminology used. I’ll also explain how each requirement/solution is important and how it’s implemented.</p>
+<p>In the picture below is a general outline of all the problems and solutions that I’ll cover. Also, notice that some solutions morph into “problems” that require their own solutions, which I’ll deal with as they arise.</p>
+<p>In the text below, I’ll highlight the terms and their synonyms/anything related to a specific problem/solution with an appropriate colour. You can always backtrack to this diagram and look up which part of the problem/solution spectrum I’m talking about.</p>
+<p><a name="problem-solution-graph"></a><img src="https://docs.monadical.com/uploads/acc080ef-6c96-4d6b-8d6e-7ce64d714671.jpg" alt="problem/solutuon outline diagram" title="problem/solutuon outline diagram"/></p>
+<p>So, without further ado, let’s  implement what I call an <font color="red">isomorphic</font><a href="#isomorphic">*</a> <font color="orange">lazy</font><a href="#lazy">**</a> <font color="yellow" style="background-color: black">deterministic</font><a href="#deterministic">***</a> <font color="green">random</font><a href="#random">****</a> (<font color="yellow" style="background-color: black">pseudo</font>-<font color="green">random</font>) <font color="aqua">quasi-realistic</font><a href="#quasi-realistic">*****</a> artificial social graph generation process.</p>
+<blockquote>
+<p>I’ll use TypeScript for this task. It has a nice maintainability/adaptability balance, and it lets me <font color="red">share</font> a lot of logic between the front end and the back end. Later, you’ll see that it goes along with the idea of <font color="red">client-side widgets</font> in this article really well.</p>
+</blockquote>
+<p>First, let’s break down this definition.</p>
+<p><a name="isomorphic"></a><font color="red">Isomorphic</font> means that the program is able to run both on the “server” (i.e., a Node.js process) and on the “client” (i.e., browsers, both in a main thread and in a web worker). Why? I want to provide you, dear Reader, with the bliss of rendered generated graphs on <a href="https://graphgen-ts.apps.loskutoff.com/">this page</a>, but I don’t want to DDoS my servers while doing it. Therefore, although the Isomorphism of this code was not an <strong>original requirement</strong>, it’ll be nice to have it.</p>
+<p><a name="lazy"></a><font color="orange">Laziness</font> in this context means that the computation is prepared and ready to run only when it needs to, i.e., when the next random graph is requested.</p>
+<p><font color="orange">Laziness</font> turned out to be about user experience as well. In implementing it, I made an interesting observation: having a simulation giving you its completion status (i.e. “50% completed”) improves the UX, at least for me. However, the initial purpose of <font color="orange">laziness</font> was the graph generation duration <font color="indigo">profiling</font><sup><a href="#user-content-fn-3" id="user-content-fnref-3" data-footnote-ref="" aria-describedby="footnote-label">3</a></sup><sup><a href="#user-content-fn-4" id="user-content-fnref-4" data-footnote-ref="" aria-describedby="footnote-label">4</a></sup>.</p>
+<p>I also realized that <font color="orange">laziness</font> is crucial for the computation to be <font color="orange">poll-based</font> and not push-based. The <font color="violet">test process</font> involves both a stream of generated graphs and a stream of database writes, and the latter is much slower. I don’t want the generator to spam us with graphs and take a lot of CPU resources from the process.</p>
+<p>The lazy evaluation also feels faster from a UX perspective, because the user sees the loading indicator.</p>
+<p><a name="deterministic"></a><font color="yellow" style="background-color: black">Determinism</font> is the core of the whole operation. Since I’m about to use the code for the <font color="violet">property-based</font> testing of my algorithms, it’s important for me to have my test cases easily reproducible. To have this, I want the generated graph to be absolutely the same in every detail to the input of the generative process. And <font color="yellow" style="background-color: black">determinism</font> lets me have easily reproducible test cases.</p>
+<p>Note, however, that the test cases themselves won’t be covered in this article since it strays into NDA content and is also not crucial for the topic. Note also that although I could have my code non-deterministic and get by with saving the whole graph generated — so, <strong>output</strong> instead of <strong>input</strong> — this hack turns out to be direly impractical, making me save 1+mb of a graph for each set of inputs. Having the calculation non-deterministic would also make this article less exciting!</p>
+<p><a name="random"></a><font color="green">Randomness</font>, or rather <font color="yellow" style="background-color: black">pseudo</font>-<font color="green">randomness</font>, shares the same purpose as <font color="yellow" style="background-color: black">determinism</font> above. I need my test cases to generate different outputs for the same set of parametric inputs, but I need to control this randomness with an initial <strong>seed</strong> given to the graph.</p>
+<p><a name="quasi-realistic"></a><font color="aqua">Quasi-realistic</font> means that I want my graphs to be life-like. Our social graphs have a very distinct property: some of its nodes accumulate many more edges than others. In networks like this<sup><a href="#user-content-fn-5" id="user-content-fnref-5" data-footnote-ref="" aria-describedby="footnote-label">5</a></sup>, “<a href="https://isomorphis.wordpress.com/2012/05/09/why-the-rich-get-richer-and-other-preferential-attachments/">the rich get richer</a>”. Those graphs are also allowed to have cycles<sup><a href="#user-content-fn-6" id="user-content-fnref-6" data-footnote-ref="" aria-describedby="footnote-label">6</a></sup>.</p>
+<p>Note that in my case, the graphs are directional; we could work with non-directional graphs the same way, though.</p>
+<iframe src="https://graphgen-ts.apps.loskutoff.com/?seed=seed2&model=barabasi-albert&heterogeneity=0.44&density=0.08&nodes=788" width="100%" height="600px"></iframe>
+<p><em>The first graph of our rogue gallery, “organic-medium”, where we simulate “the rich get richer” approach with the Barabási-Albert nonlinear preferential attachment model.</em></p>
+<h3 id="what-is-not-in-scope">What is not in scope</h3>
+<p>Graph generation <strong>Performance</strong> isn’t the greatest concern because bottlenecks lie elsewhere, although the generation -&gt; force simulation -&gt; rendering pipeline seems to be performant enough to work with in real time. I’m sure it’s possible to make the pipeline more performant, i.e. using pure generators with imperative code, or getting rid of <font color="orange">Laziness</font><a href="#lazy">*</a> entirely. The current bottleneck, though, is certainly database I/O and computations inside the database itself.</p>
+<p><strong>Code complexity</strong> isn’t a priority, although it’s nice to have. Because the task at hand is not standard, I also kept my mind open to unorthodox approaches to explore how it can be done in better ways. For instance, you’ll see that newtypes (which I’ll talk about later) have complicated readability quite a bit.</p>
+<h3 id="solutions-outline">Solutions Outline</h3>
+<p>So the main problem is to deterministically generate quasi-social graphs. This problem imposes multiple requirements that consequently spawn their own problems with themselves. Laziness, quasi-realism, isomorphism, and determinism are the properties that were deemed important for the task at hand.</p>
+<p><font color="orange">Lazy evaluation</font> isn’t standard practice in Javascript<sup><a href="#user-content-fn-7" id="user-content-fnref-7" data-footnote-ref="" aria-describedby="footnote-label">7</a></sup>, although it is supported by the language.</p>
+<p>We’ll try to do both <font color="orange">lazy</font> and <font color="yellow" style="background-color: black">functional</font> here. Functional programming seems to be a good model for this case because the main characteristic of the whole computation is functional purity<sup><a href="#user-content-fn-8" id="user-content-fnref-8" data-footnote-ref="" aria-describedby="footnote-label">8</a></sup>. Even the side effect of writing into the database looks more-or-less “pure-ish” because the database is effectively re-created for each test. The generation algorithm is also <font color="orange">lazy</font> because we want to see the graph generation progress (and potentially, in future, set it into one big lazy pipeline with forceatlas2 layout simulation).</p>
+<p>Lazy evaluation solves my <font color="indigo">profiling</font> problem and also lets me organize the computation to work in <strong>polling</strong> mode. With graph generation in Node.js, it’s especially important because the generation process tends to take over the whole main thread, and unless managed properly, it is a black box until a large bunch of its execution is done. This problem is purely development/technical but is nice to solve nevertheless.</p>
+<p>It was also important to make the generation process <font color="indigo">pausable/resumable</font> because certain IO bottlenecks existed in my case, primarily Database IO and Web Socket IO (which I won’t delve into in this article).</p>
+<p>Additionally, I want the code to be <font color="yellow" style="background-color: black">functional</font> to help with deterministic behaviour. Determinism is important in this case because it allows me to eventually repeat the computation exactly as it happened, even if randomness was involved. Remember, we store metrics of each execution, and the execution output is huge without determinism.</p>
+<p>Going <font color="yellow" style="background-color: black">functional</font> is not necessary here, and we can archive determinism without it, but with PRNGs, it turned out to be a very convenient way to organize computation.</p>
+<p>I’ll solve the <font color="yellow" style="background-color: black">functional</font> part with an iconic <a href="https://wiki.haskell.org/State_Monad">State Monad pattern</a> implemented in <a href="https://github.com/gcanti">Giulio Canti</a>’s <a href="https://github.com/gcanti/fp-ts">fp-ts</a> library. And by using a lesser-known <a href="https://github.com/incetarik/fp-ts-stream/">fp-ts-stream</a> library, I hope to help myself with <font color="orange">laziness</font>.</p>
+<p>I’ll sprinkle it with a <strong><span style="text-decoration:underline;"><a href="https://serokell.io/blog/lorentz-haskell-newtypes">NewType</a></span></strong> pattern to help us with arithmetic. I noticed that a lot of arithmetic types in the code are constrained, i.e. “can be only 0 to 1” or “can be only a positive integer”. Many of them are not combinable either; we can’t multiply graph <strong>Density</strong> and <strong>Heterogeneity</strong>, as that won’t make sense! (Well, in most contexts, at least). For more intuition, I invite you to read <a href="https://twitter.com/YuriyBogomolov">Yuri Bogomolov</a>’s <a href="https://ybogomolov.me/primitives-were-a-mistake">article about primitives</a>. I’ll use <a href="https://github.com/gcanti/newtype-ts">newtype-ts</a> implementation here.</p>
+<p>I also want the graph layout to be <strong>memoizable</strong><sup><a href="#user-content-fn-9" id="user-content-fnref-9" data-footnote-ref="" aria-describedby="footnote-label">9</a></sup>. This is a small detail but it helps your device battery while you load this article; it doesn’t need to do all these layout computations!</p>
+<p>Furthermore, I’d like the generator code to be <font color="red">isomorphic</font>, running both frontend and backend. Running it on a <strong>web worker</strong> with a <strong>loading indicator</strong> has proven to be a great UX. Running it on the server is a part of the original requirement of the code, where we’d want to run it headless 24/7. It’s quite easy to achieve in TypeScript. You have Workspaces and a plethora of <a href="https://monorepo.tools/">monorepo</a> <a href="https://monadical.com/posts/from-chaos-to-cohesion.html">solutions</a> to share code between systems. I’ll use <a href="https://nx.dev/">Nx</a> here.</p>
+<p>I also want to generate <font color="aqua">life-like</font> graphs that potentially reflect the real social connection network. I’ll use the <a href="https://en.wikipedia.org/wiki/Non-linear_preferential_attachment">non-linear preferential attachment</a> branching model, a special case of which is the <a href="https://en.wikipedia.org/wiki/Barab%C3%A1si%E2%80%93Albert_model">Barabási-Albert</a> model. I’ll also use a straightforward brute force <a href="https://5thsrd.org/rules/advantage_and_disadvantage/">Dungeons and Dragons Fifth Edition Core Rulebook</a><sup><a href="#user-content-fn-10" id="user-content-fnref-10" data-footnote-ref="" aria-describedby="footnote-label">10</a></sup> model adaptation to show how easy it is to encode even such a tricky (from an engineering perspective) algorithm when you apply the <strong>state monad</strong>.</p>
+<iframe src="https://graphgen-ts.apps.loskutoff.com/?seed=seed&model=dnd&heterogeneity=0.15&density=0.07&nodes=1730" width="100%" height="600px"></iframe>
+<p><em>This is a graph generated with the DnD branching model.</em></p>
+<blockquote>
+<h4 id="when-solutions-become-problems">When solutions become problems</h4>
+<p>We have stated problems and solutions, but you may notice they intermingle a bit. This is because of the nature of our overall <a href="#problem-solution-graph">solution domain</a>: it’s not a linear story (as much as we’d like to see it usually) but it is a branching tree, or rather a directed graph (with no cycles, of course!).
+For instance, you can see that “<font color="orange">lazy evaluation</font>” solves the solution “<font color="orange">loading indicator</font>”. It’s all right and there is nothing to be afraid of: we eventually get to the leaf, or rather the end node, whichever solution path we’ve taken.</p>
+</blockquote>
+<h2 id="the-main-focus">The main focus</h2>
+<p>Basically, the process generates a hell of a lot of graphs and runs tests on them. We want to be checking our system for errors and metrics 24/7 after all.</p>
+<p>Given that our graph database works with very specific types of graphs - <strong>social graphs</strong> - we’d like it to be performant for this particular case (remember that we collect the performance metrics of each run). We need to generate random graphs but we also want them to look <font color="aqua">like real</font> social graphs. There is an old <a href="https://en.wikipedia.org/wiki/Scale-free_network">observation</a> that social graphs exhibit a common trait of power <a href="https://en.wikipedia.org/wiki/Power_law">law</a> distribution. This class of networks was called <font color="aqua">scale-free</font><sup><a href="#user-content-fn-11" id="user-content-fnref-11" data-footnote-ref="" aria-describedby="footnote-label">11</a></sup>, and there is a family of algorithms for generating them randomly.</p>
+<p>Let’s implement this algorithm. The core of it will be <font color="aqua">graph link branching heuristics</font>. Let’s at least start and then see how soon we can end this journey.</p>
+<p>In my implementation, graph generation has two major phases: <strong>Genesis</strong> and <strong>Abundance</strong>. During <strong>Genesis</strong>, the generative algorithm starts from a single node and adds edges and nodes like beads on a string. There is a parameter responsible for “branchiness” called <strong>Heterogeneity</strong>, which governs how “stringy” the graph will be in this phase. Two corner cases of <strong>Heterogeneity</strong> are shown below:</p>
+<iframe src="https://graphgen-ts.apps.loskutoff.com/?heterogeneity=0" width="100%" height="600px"></iframe>
+<iframe src="https://graphgen-ts.apps.loskutoff.com/?heterogeneity=1&seed=seed2345678" width="100%" height="600px"></iframe>
+<p>During <strong>Genesis</strong>, the number of <strong>nodes</strong> is always equal to the number of <strong>edges</strong> + 1.</p>
+<p>When I reach the target count of <strong>nodes</strong>, there is an optional phase of <strong>Abundance</strong> that adds extra <strong>edges</strong> if it’s required.</p>
+<p>In both phases, the crucial part of the generative process is “<font color="aqua">how does it choose the nodes to connect</font>”.</p>
+<p>The goal is to give the “rich” <strong>nodes</strong> better chances, controlling this degree of social inequality through the <strong>Heterogeneity</strong> parameter.</p>
+<p>One elegant way of giving some nodes a better chance to obtain more links than others is n<a href="https://en.wikipedia.org/wiki/Non-linear_preferential_attachment">on-linear preferential attachment</a>. It’s basically a self-reinforcing biased random distribution, where the nodes that already accumulated some edges have better and better chances to obtain even more (just like capitalism, yee-haw!).</p>
+<p>Regardless of your economic ideologies, <a href="https://en.wikipedia.org/wiki/Non-linear_preferential_attachment">non-linear preferential attachment</a> works very well for our power law distribution simulation. At <strong>Heterogeneity</strong> 0.5, it boils down to the <a href="https://en.wikipedia.org/wiki/Barab%C3%A1si%E2%80%93Albert_model">Barabasi-Albert</a> algorithm, generating <font color="aqua">believable</font> social graphs</p>
+<p>I’ll guide you through the core of non-linear preferential attachment, Barabási-Albert-style.</p>
+<p>Here, I’ll assume that we want to simulate a social graph with only one type of non-directional relation, i.e. “friends”. We’ll start with a small pre-defined graph (you’ll see that you can generate it from any point, even from scratch; it’s just more convenient to start a bit further away from it).</p>
+<p>Let me graphically show you just a couple of steps of the algorithm:</p>
+<p><img src="https://docs.monadical.com/uploads/9e57bd08-2609-4e87-8fe7-438b42aa3f63.jpg" alt="nlpa algorithm graphics" title="nlpa algorithm graphics"/></p>
+<p>In Figure 1, there is a simple graph with one node having most of the connections. We’ll mark two nodes that are going to be significant for us as “A” and “B”. We’ll call all insignificant nodes x, y, z.</p>
+<p>In Figure 2, we add a node (“C”) to the graph: here, our task is to determine what connections (edges) it will form with the existing nodes. In this case, the probabilistic model kicks in. For every existing node we “roll the dice”, with the chances of success being higher for the nodes that have already accumulated some connections.</p>
+<p>Note that this tactic works just as well if we were to choose only one edge to create; however, here, I have no limit to potential edges.</p>
+<p>Let’s assume in Figure 3 that the connection A-C was formed (it had a high probability of doing so, after all), and also, very accidentally, the connection B-C was formed as well. B got lucky! Now, in Figures 4 and 5, we account for the new power balance. We give B and C better chances to form a link. Unfortunately, as we see in (5), B and C (and every other node) still weren’t lucky enough, but A formed a link again because it was already power-tripping. (Hooray to A, I guess?)</p>
+<iframe src="https://graphgen-ts.apps.loskutoff.com/?heterogeneity=0.44&seed=seed2&model=barabasi-albert&density=0.08&nodes=788" width="100%" height="600px"></iframe>
+<p>That’s it! The task is done, right? …right?</p>
+<h3 id="non-random-randomness">Non-random randomness</h3>
+<p>There’s a large (quite literally) inconvenience, though. The graphs generated can be large. A lot of them are being generated and tested, and a lot of those test results are being logged, which takes up a significant amount of disk space. Let’s optimize this!</p>
+<p>We can save only the input parameters and close the case, but there’s an issue: every time a <code>Math.random()</code> function is called, its return value is unpredictable. Because of this, during graph generation, several runs of the same process with the same parameters would yield different graphs! How can we make <font color="green">randomness</font> <font color="yellow" style="background-color: black">non-random</font>?</p>
+<h3 id="pseudo-randomness">Pseudo-randomness</h3>
+<p>To get a reproducible sequence that behaves like a random number sequence, <font color="yellow" style="background-color: black">Pseudo</font> <font color="green">Random</font> Number Generators (PRNG) <a href="https://paulgray.net/the-state-monad/">are used</a>.</p>
+<p>PRNGs always require, implicitly or explicitly, a “seed” that determines what sequence of pseudo-random numbers it will yield during sequential calls. If you’ve played <a href="https://www.minecraft.net/">Minecraft</a><sup><a href="#user-content-fn-12" id="user-content-fnref-12" data-footnote-ref="" aria-describedby="footnote-label">12</a></sup> or <a href="https://store.steampowered.com/app/975370/Dwarf_Fortress/">Dwarf Fortress</a>, you’re probably familiar with seed world generation, when, giving a specific seed string, the game engine always generates the same game universe.</p>
+<p>That’s exactly it. <font color="green">PRNGs</font>. Deterministic<sup><a href="#user-content-fn-13" id="user-content-fnref-13" data-footnote-ref="" aria-describedby="footnote-label">13</a></sup> <font color="green">randomness</font>.</p>
+<p>What the sequence generation looks like, laid out imperatively, is:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="typescript"><code><span class="line"></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> seed</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> ‘</span><span style="color:#79B8FF">123</span><span style="color:#E1E4E8">’;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> generator</span><span style="color:#F97583"> =</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Generator</span><span style="color:#E1E4E8">(seed);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(generator.</span><span style="color:#B392F0">next</span><span style="color:#E1E4E8">()); </span><span style="color:#6A737D">// always 0.123</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(generator.</span><span style="color:#B392F0">next</span><span style="color:#E1E4E8">()); </span><span style="color:#6A737D">// always 0.789</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(generator.</span><span style="color:#B392F0">next</span><span style="color:#E1E4E8">()); </span><span style="color:#6A737D">// always 0.001</span></span>
+<span class="line"></span>
+<span class="line"></span></code></pre>
+<p>That would be an implicit state stored inside the <code>generator</code> object. Some libraries work like this.</p>
+<p>And yet again, we can implement it in the generative process and call it done.</p>
+<p>But how do we pass the <code>Generator</code> object around? Do we keep it as a global, or do we add it to each function as an argument? Both approaches will work, actually, and both have pros and cons. The global object is easy to implement, but you won’t be able to re-run your generative processes without proper clean-up. You won’t be able to run them in parallel<sup><a href="#user-content-fn-14" id="user-content-fnref-14" data-footnote-ref="" aria-describedby="footnote-label">14</a></sup> either.</p>
+<p>So I chose to pass it around. There is another fork in the road now, though: to pass a mutable reference or somehow make the computation immutable?</p>
+<p>We all know that <a href="https://web.mit.edu/6.005/www/fa15/classes/09-immutability/">mutability introduces complexity</a>. I’m trying to avoid it at any cost. I’d rather eat a frog! But how to make a <font color="green">PRNG</font> immutable?</p>
+<p>In the example above, Generator is an object, which encapsulates both behaviour and data. And, most of the time, that’s not what we want to have in our software.</p>
+<p>First of all, we can separate those:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="typescript"><code><span class="line"></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> state0</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> initialGeneratorState</span><span style="color:#E1E4E8">(‘seed’);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#E1E4E8"> [</span><span style="color:#79B8FF">n0</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">state1</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">=</span><span style="color:#B392F0"> generate</span><span style="color:#E1E4E8">(state0);  </span><span style="color:#6A737D">// n0 is always 0.123</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#E1E4E8"> [</span><span style="color:#79B8FF">n1</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">state2</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">=</span><span style="color:#B392F0"> generate</span><span style="color:#E1E4E8">(state0);  </span><span style="color:#6A737D">// n1 is always 0.789</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#E1E4E8"> [</span><span style="color:#79B8FF">n2</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">state3</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">=</span><span style="color:#B392F0"> generate</span><span style="color:#E1E4E8">(state0);  </span><span style="color:#6A737D">// n2 is always 0.001</span></span>
+<span class="line"></span>
+<span class="line"></span></code></pre>
+<p>So far, so good. But there’s always a point when we want to pass the generator state around our functions. For instance, in one place, I want to use it to generate the probability of an <strong>edge</strong> being attached to a <strong>node</strong>, and in another, I’m using it to generate a random (<font color="yellow" style="background-color: black">not-so-random</font>) UUID for <strong>node</strong> id.</p>
+<p>This looks like a context to pass around through computations, and there is, coincidentally or not, a pattern out there to make it easier!</p>
+<h4 id="state-monad">State Monad</h4>
+<p>Here, I stop for a bit and ruminate. Do we want this article <a href="https://www.youtube.com/watch?v=C2w45qRc3aU">to</a> <a href="https://paulgray.net/the-state-monad/">be</a> <a href="https://homepages.inf.ed.ac.uk/wadler/papers/marktoberdorf/baastad.pdf">yet</a> <a href="http://learnyouahaskell.com/a-fistful-of-monads">another</a> <a href="https://fsharpforfunandprofit.com/rop/">monad</a> <a href="https://www.haskell.org/tutorial/monads.html">tutorial</a>? I don’t! Go figure it out yourself. They’re very simple when you finally understand them!</p>
+<p>Instead, let’s focus on usage with <font color="green">PRNG</font>.</p>
+<p>The code that invokes 16 sequential <font color="yellow" style="background-color: black">pseudo</font>-<font color="green">random</font> generator calls and combines them into a UUID looks like this:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="typescript"><code><span class="line"></span>
+<span class="line"><span style="color:#6A737D">// rng is PRNG state passed to us and is in the scope</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">// note how ‘rng’ (and newRng) pops in and out of the computation, never showing itself in the middle</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#E1E4E8"> [</span><span style="color:#79B8FF">rand16</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">newRng</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">=</span><span style="color:#B392F0"> pipe</span><span style="color:#E1E4E8">(</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">  interval</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">16</span><span style="color:#E1E4E8">),</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79B8FF">  A</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">map</span><span style="color:#E1E4E8">(() </span><span style="color:#F97583">=&gt;</span><span style="color:#E1E4E8"> random0255),</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79B8FF">  A</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">sequence</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">ST</span><span style="color:#E1E4E8">.Applicative),</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">  apply</span><span style="color:#E1E4E8">(rng)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> newId</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> v4</span><span style="color:#E1E4E8">({</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">  random: rand16,</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">});</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">return</span><span style="color:#E1E4E8"> [newId, newRng];</span></span>
+<span class="line"></span>
+<span class="line"></span></code></pre>
+<blockquote>
+<p>Note about the <code>pipe</code> function: it’s just an application flattened: i.e. instead of f5(f4(f3(f2(f1(v))))) you have <code>pipe(v, f1, f2, f3, f4, f5)</code>. This rearrangement makes it a lot simpler to work with <a href="https://en.wikipedia.org/wiki/Currying">curried</a> functions and, as a result, with many <a href="https://en.wikipedia.org/wiki/Functional_programming">functional programming</a> primitives. Another way of thinking of it is immediately applied <a href="http://www.sfu.ca/~tjd/383summer2019/haskell_comp_and_app_lhs.html">composition</a>. (i.e. in Haskell, you’d do <code>f5 . f4 . f3 . f2 . f1</code> and apply it to <code>v</code>).</p>
+</blockquote>
+<p>It doesn’t look as spectacular for NLPA, where I just read State and pass the new State further, but check how the DnD bruteforce lays out:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="typescript"><code><span class="line"></span>
+<span class="line"><span style="color:#B392F0">pipe</span><span style="color:#E1E4E8">(</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">  // helper to create an array of n elements, i.e. times=3 =&gt; [undefined, undefined, undefined]</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">  interval</span><span style="color:#E1E4E8">(times),</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">  // here, random is a monadical computation that carries an immutable State through its input and output</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79B8FF">  RA</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">map</span><span style="color:#E1E4E8">(() </span><span style="color:#F97583">=&gt;</span><span style="color:#E1E4E8"> random), </span><span style="color:#6A737D">// RA is ReadonlyArray</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">  // sequence is running those computations in sequence, one-by-one, passing the immutable RNG State through</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79B8FF">  ST</span><span style="color:#E1E4E8">.sequenceArray, </span><span style="color:#6A737D">// ST is State</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">  // reduce the content of State monad (a ReadonlyArray, at this point) into a single value, which would be our RNG result (choosing highest or lowest value, depending on advantage/disadvantage chosen strategy</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79B8FF">  ST</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">map</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">RA</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">reduce</span><span style="color:#E1E4E8">(unit, reducer))</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">);</span></span>
+<span class="line"></span>
+<span class="line"></span></code></pre>
+<p>This is one of the examples of monadical computations in my graph generator, where monads help with keeping code concise and focusing on “what” I want to archive, not “how”. Here it helps specifically with passing the immutable RNG state, which I need for the computation to stay deterministic but still reasonably random. Without it, I’d have to pass this state manually.</p>
+<p>This code would take a <code>times</code> of random numbers from the passed <font color="green">PRNG</font> state, reduce it to the minimum (or maximum), and pass the result along with the new state (regenerated <code>times</code> times) further. This logic is equivalent to Dungeons and Dragons 5E <a href="https://5thsrd.org/rules/advantage_and_disadvantage/">advantage/disadvantage</a> mechanic, where you roll two dice<sup><a href="#user-content-fn-15" id="user-content-fnref-15" data-footnote-ref="" aria-describedby="footnote-label">15</a></sup> and choose the largest/smallest result but scaled to “n” rolls.</p>
+<p>And so on and so forth.</p>
+<p>I could have managed without the state monad, but yet again, I’d very much like to have immutability built into my computations.</p>
+<p>We have actually just covered the <font color="yellow" style="background-color: black">deterministic</font> part of the process. For the purpose of the original main task of <font color="violet">property-based testing</font>, it’s more than enough. We have our parameters serializable, and we generate the seed and parameters in the test, run whatever algorithms we want, save the result of the run (not saving the whole graph) and move on.</p>
+<p><img src="https://docs.monadical.com/uploads/2e962a23-f46e-428b-8714-860863e70033.jpg" alt="property-based testing part of the solution graph" title="Property-based testing part of the solution graph"/></p>
+<p>Congratulations! Here’s a graph for you.</p>
+<iframe src="https://graphgen-ts.apps.loskutoff.com/?seed=seed22222&model=barabasi-albert&heterogeneity=1&density=0&nodes=529" width="100%" height="600px"></iframe>
+<p>Don’t worry, it just has very high <strong>Heterogeneity</strong>.</p>
+<h3 id="a-word-about-newtypes">A word about Newtypes</h3>
+<p>It’s worth introducing a typing pattern that I used in this program, which is about extra primitive types stringency. I call it Newtypes here, as a <a href="https://wiki.haskell.org/Newtype">Haskell</a> tribute. To show how Newtypes can be used, let’s go with an obvious example. My graph generation process has, among others, these numerical parameters:</p>
+<p><img src="https://docs.monadical.com/uploads/a9baceec-382f-4731-b496-9a0e6534708d.png" alt="graph view app numerical parameters bar" title="Heterogeneity, density, and nodes count"/></p>
+<p>Heterogeneity can be any decimal in [0, 1]. Density can be any decimal in [0, 1]. Nodes can be any positive integer. Or rather, a non-negative integer. I want to have a graph with 0 nodes possible, which is simply my whim.</p>
+<p>So, <strong>Heterogeneity</strong> is a parameter of how “branchy” the graph is.</p>
+<p><strong>Density</strong> dictates how many more <strong>Edges</strong> the graph will have than <strong>Nodes</strong>. With a lot of edges, it becomes very dense - try it. Any value of <strong>Density</strong> higher than 0 will make the phase of <strong>Abundance</strong> possible. <strong>Density</strong> 0 means there is only <strong>Genesis</strong>.</p>
+<p>The number of <strong>Nodes</strong> is basically how many nodes the generated graph will have.</p>
+<p>In TypeScript, we can define it like this:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="typescript"><code><span class="line"></span>
+<span class="line"><span style="color:#F97583">declare</span><span style="color:#F97583"> const</span><span style="color:#79B8FF"> heterogeneity</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> number</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">declare</span><span style="color:#F97583"> const</span><span style="color:#79B8FF"> density</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> number</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">declare</span><span style="color:#F97583"> const</span><span style="color:#79B8FF"> nodes</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> number</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"></span></code></pre>
+<p>Now, we can conveniently add nodes with heterogeneity:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="typescript"><code><span class="line"></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> nodes</span><span style="color:#F97583"> =</span><span style="color:#79B8FF"> 1000</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> heterogeneity</span><span style="color:#F97583"> =</span><span style="color:#79B8FF"> 0.5</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> x</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> nodes </span><span style="color:#F97583">+</span><span style="color:#E1E4E8"> heterogeneity; </span><span style="color:#6A737D">// 1000.5</span></span>
+<span class="line"></span>
+<span class="line"></span></code></pre>
+<p>And even pass density instead of heterogeneity to our methods:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="typescript"><code><span class="line"></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#B392F0"> doSomethingWithHeterogeneityAndDensity</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">heterogeneity</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> number</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">density</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> number</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=&gt;</span><span style="color:#E1E4E8"> {}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> heterogeneity</span><span style="color:#F97583"> =</span><span style="color:#79B8FF"> 0.5</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> density</span><span style="color:#F97583"> =</span><span style="color:#79B8FF"> 0</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">doSomethingWithHeterogeneityAndDensity</span><span style="color:#E1E4E8">(density, heterogeneity);</span></span>
+<span class="line"></span>
+<span class="line"></span></code></pre>
+<p>Do you think, however, that it’s just <strong>too</strong> convenient? Probably.</p>
+<p>Let’s make our lives harder and make <a href="https://fsharpforfunandprofit.com/posts/designing-with-types-making-illegal-states-unrepresentable/">invalid states unrepresentable</a>.</p>
+<p>Because what the hell does <code>nodes + heterogeneity; // 1000.5</code> even mean? The next step would be to convert 1000.5 into USD and send it to a random user. Because this action makes exactly as much sense as adding <strong>Nodes</strong> with <strong>Heterogeneity</strong>. Why can we even do that? Don’t we have, like… types to prevent it?</p>
+<p>Should we even be able to forget the argument order in <code>doSomethingWithHeterogeneityAndDensity</code> and pass <strong>Heterogeneity</strong> instead of <strong>Density</strong> (and vice-versa)?</p>
+<p>Why does the type system prevent us from passing a number to a function expecting a string, but doesn’t prevent us from passing i.e. Velocity to a function expecting Distance?</p>
+<p>Although those questions look rhetorical, I think I can attempt to give an answer. Tooling immaturity - that’s it. The concept of “number is not a number” and “string is not a string” is, unfortunately, as it is precise, alien to the same degree.</p>
+<p>There is even an opinion that having strings (and numbers, if you let me extrapolate) is more often than not <a href="https://ybogomolov.me/primitives-were-a-mistake">a sign of bad domain design</a>.</p>
+<p>And it’s time to stop using primitives where they don’t belong!</p>
+<p><img src="https://docs.monadical.com/uploads/a1fc7f69-7e17-4f91-a2b0-3b897889e0bb.gif" alt="it's time to stop!"/></p>
+<p>Follow me.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="typescript"><code><span class="line"></span>
+<span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> type</span><span style="color:#B392F0"> Heterogeneity</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> Newtype</span><span style="color:#E1E4E8">&lt;{ </span><span style="color:#F97583">readonly</span><span style="color:#FFAB70"> HETEROGENEITY</span><span style="color:#F97583">:</span><span style="color:#B392F0"> unique</span><span style="color:#79B8FF"> symbol</span><span style="color:#E1E4E8"> }, </span><span style="color:#B392F0">Decimal01</span><span style="color:#E1E4E8">&gt;;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> type</span><span style="color:#B392F0"> Density</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> Newtype</span><span style="color:#E1E4E8">&lt;{ </span><span style="color:#F97583">readonly</span><span style="color:#FFAB70"> DENSITY</span><span style="color:#F97583">:</span><span style="color:#B392F0"> unique</span><span style="color:#79B8FF"> symbol</span><span style="color:#E1E4E8"> }, </span><span style="color:#B392F0">Decimal01</span><span style="color:#E1E4E8">&gt;;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> type</span><span style="color:#B392F0"> ListLength</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> Newtype</span><span style="color:#E1E4E8">&lt;{ </span><span style="color:#F97583">readonly</span><span style="color:#FFAB70"> LIST_LENGTH</span><span style="color:#F97583">:</span><span style="color:#B392F0"> unique</span><span style="color:#79B8FF"> symbol</span><span style="color:#E1E4E8"> }, </span><span style="color:#B392F0">NonNegativeInteger</span><span style="color:#E1E4E8">&gt;; </span><span style="color:#6A737D">// Nodes</span></span>
+<span class="line"></span>
+<span class="line"></span></code></pre>
+<p>And the helper types used above are:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="typescript"><code><span class="line"></span>
+<span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> type</span><span style="color:#B392F0"> Decimal01</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> Newtype</span><span style="color:#E1E4E8">&lt;{ </span><span style="color:#F97583">readonly</span><span style="color:#FFAB70"> DECIMAL01</span><span style="color:#F97583">:</span><span style="color:#B392F0"> unique</span><span style="color:#79B8FF"> symbol</span><span style="color:#E1E4E8"> }, </span><span style="color:#B392F0">NonNegative</span><span style="color:#E1E4E8">&gt;,</span></span>
+<span class="line"></span>
+<span class="line"></span></code></pre>
+<p>whereas <code>NonNegativeInteger</code> and <code>NonNegative</code> are helper types from the library <a href="https://github.com/gcanti/newtype-ts">newtype-ts</a>.</p>
+<p>I define the runtime bridges between Newtypes and primitives like this:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="typescript"><code><span class="line"></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#B392F0"> moreThanOne</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">n</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> number</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=&gt;</span><span style="color:#E1E4E8"> n </span><span style="color:#F97583">&gt;</span><span style="color:#79B8FF"> 1</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> oneOrLess</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> not</span><span style="color:#E1E4E8">(moreThanOne);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> nonNegativeIsDecimal01</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> flow</span><span style="color:#E1E4E8">(prismNonNegative.reverseGet, oneOrLess);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> const</span><span style="color:#79B8FF"> prismDecimal01</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> pipe</span><span style="color:#E1E4E8">(prism</span><span style="color:#F97583">&lt;</span><span style="color:#E1E4E8">Decimal01</span><span style="color:#F97583">&gt;</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">apply</span><span style="color:#E1E4E8">(nonNegativeIsDecimal01), prismNonNegative.compose);</span></span>
+<span class="line"></span>
+<span class="line"></span></code></pre>
+<p>Prism is the bridge itself. It will take a primitive, ensure its bounds, and spit out the Newtype.</p>
+<p>Sometimes, I also want to cast a primitive into a Newtype when I’m quite sure that I’m passing a correct value and ready to get an exception right in my face:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="typescript"><code><span class="line"></span>
+<span class="line"><span style="color:#6A737D">// where castToPrism is a helper function that does some mundane stuff</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> const</span><span style="color:#79B8FF"> castDecimal01</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> castToPrism</span><span style="color:#E1E4E8">(prismDecimal01)(</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">  (</span><span style="color:#FFAB70">n</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=&gt;</span><span style="color:#9ECBFF"> `Invalid cast, prismDecimal01 is not in range 0-1: ${</span><span style="color:#E1E4E8">n</span><span style="color:#9ECBFF">}`</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">);</span></span>
+<span class="line"></span>
+<span class="line"></span></code></pre>
+<p>Now we can have the previous examples from the start of this paragraph rewritten like this:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="typescript"><code><span class="line"></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> nodes</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> castListLength</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">1000</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> heterogeneity</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> castHeterogeneity</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">0.5</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">// @ts-expect-error</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> x</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> nodes </span><span style="color:#F97583">+</span><span style="color:#E1E4E8"> heterogeneity; </span><span style="color:#6A737D">// won’t compile</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#B392F0"> doSomethingWithHeterogeneityAndDensity</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">heterogeneity</span><span style="color:#F97583">:</span><span style="color:#B392F0"> Heterogeneity</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">density</span><span style="color:#F97583">:</span><span style="color:#B392F0"> Density</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=&gt;</span><span style="color:#E1E4E8"> {}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> density</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> castDensity</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">// @ts-expect-error</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">doSomethingWithHeterogeneityAndDensity</span><span style="color:#E1E4E8">(density, heterogeneity);  </span><span style="color:#6A737D">// won’t compile</span></span>
+<span class="line"></span>
+<span class="line"></span></code></pre>
+<p>What’s the catch?</p>
+<p><code>heterogeneity1 + heterogeneity2</code> won’t compile as well. They’re not primitives anymore.</p>
+<p>We’ll have to define something like <code>addHeterogeneities(h1: Heterogeneity, h2: Heterogeneity): Heterogeneity</code> and use it for additions. Same for multiplication, etc. You can even use <a href="https://gcanti.github.io/fp-ts/modules/Semiring.ts.html">Semiring</a> for it.</p>
+<p>To me, that makes code more painful to read. I just wish the language had this supported at its core. It seems that without core support, we can’t have Newtype math look nice (read “use <code>+</code>”).</p>
+<p>So, <strong>pros</strong>: it makes the type level or the code much more strict. <strong>Cons</strong>: it does look ugly.</p>
+<p>I’ll continue trying to make this approach work, though, in the future. I think it has a lot of promise and is direly underappreciated. This underrepresentation even becomes a self-fulfilling prophecy: the feature is not popular; ergo, we don’t add it to the language. We don’t have the feature in the language, ergo, it’s not popular.</p>
+<h3 id="the-lazy-part">The lazy part</h3>
+<p><img src="https://docs.monadical.com/uploads/bf7a0766-409a-4e10-a3ba-721d69513916.jpg" alt="the lazy part" title="The lazy section of the problem/solution graph"/></p>
+<p>Alright, we’re really close: the Lazy part and then some <font color="red">technicalities</font>.</p>
+<p>I want to give you a loading indicator. Not only that, but I would also love to be able to see how fast my graph generation phase goes.</p>
+<p>Let me give you some insight into the parts/phases of graph generation and representation pipeline.</p>
+<p>First, we’d like to generate the graph, which is just nodes and edges, represented in whatever way. <a href="https://en.wikipedia.org/wiki/Adjacency_list">Adjacency List</a> data structure is quite popular. I use one from the <a href="https://thi.ng/">thi.ng</a> toolkit (check it out - it’s fascinating).</p>
+<p>Secondly, we’d like this data to be placed on a 2d or 3d or nd (if you’re evil) plane. Graph layout algorithms do this, and the most generic “family” are <a href="https://en.wikipedia.org/wiki/Force-directed_graph_drawing">force-directed</a> algorithms. <a href="https://cs.brown.edu/people/rtamassi/gdhandbook/chapters/force-directed.pdf">This paper</a> summarizes them nicely. My favourite so far is <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4051631/">forceatlas2</a> because it can work with dynamically added nodes/edges, therefore, streaming. I use <a href="https://github.com/d3/d3-force">D3</a>, though, for now (too much bother otherwise). There is a nice <a href="https://github.com/vasturiano/react-force-graph">graph drawing library</a> that does a lot out-of-the-box, and I picked it because it has nice animations and integrates D3 force layout for me; I also wanted to focus on graph generation and distinguish <a href="http://g6-v3-2.antv.vision/en">G6</a>. The docs are partially in Chinese, but they do some crazy stuff with layouts, including running their computation through <a href="https://webgpufundamentals.org/webgpu/lessons/webgpu-compute-shaders.html">webgpu compute shaders</a>. It’s just too awesome not to tell you.</p>
+<p>The third part is to render it all, preferably with nice animations, curvy shapes and mouse interactions.</p>
+<p>So, in the final product that you see in those iframes, only the graph generation phase is lazy. But the potential, having switched to <strong>forceatlas2</strong>, is to see graph generation in real-time, making the whole pipeline lazy.</p>
+<p>In order to add <font color="orange">laziness</font> to graph generation, I went the way of <a href="https://martinfowler.com/eaaDev/EventSourcing.html">event sourcing</a>. Instead of the graph itself, the algorithm produces the events “node added” and “edge added”. Those are collected into a graph data structure before being fed to the Layout simulation.</p>
+<p><img src="https://docs.monadical.com/uploads/b683cbc1-66b9-4962-a020-a368e35002e0.jpg" alt="Graph event sourcing" title="Graph event sourcing"/></p>
+<p>To keep it all functional, I use a lesser-known <a href="https://github.com/incetarik/fp-ts-stream/">fp-ts-stream</a> library. It has a similar API to fp-ts but does it lazily. Pure <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator">Generators</a> could be used for this purpose, too (they are used in <a href="https://github.com/incetarik/fp-ts-stream/">fp-ts-stream</a> internally).</p>
+<p>As a bonus, the generation process feels much faster when I see a <font color="orange">loading indicator</font>.</p>
+<h3 id="monorepo-and-web-workers">Monorepo and web workers</h3>
+<p>This is the easiest part, really.</p>
+<p>I use the generator code on the <font color="red">backend</font>, but I also want to <font color="red">show the generator to you</font>.</p>
+<p>First, I tried to generate graphs on the backend and send them through API. This is the obvious solution.</p>
+<p>I found that not only could the generated graphs be quite large JSONs (so, network load), but also, I don’t have proper <font color="orange">streaming</font> (which could be solved with <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API">WebSocket</a>, which is another way of doing it).</p>
+<p>I found, though, that the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers">Web Worker</a> generates the graph much faster (or rather, perceivably much faster - I didn’t actually benchmark it) than my API.</p>
+<p>The Web Worker code is stupidly simple:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="typescript"><code><span class="line"></span>
+<span class="line"><span style="color:#6A737D">/// &lt;</span><span style="color:#85E89D">reference</span><span style="color:#B392F0"> lib</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">&quot;webworker&quot;</span><span style="color:#6A737D"> /&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> { pipe } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> &#39;fp-ts/function&#39;</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">import</span><span style="color:#79B8FF"> *</span><span style="color:#F97583"> as</span><span style="color:#E1E4E8"> STR </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> &#39;fp-ts-stream/Stream&#39;</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> { Seed } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> &#39;@firfi/utils/rng/seed/types&#39;</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> { GraphGeneratorSettingsInput } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> &#39;@firfi/graphgen/index&#39;</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> { getRandomFinalizedGraph } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> &#39;@firfi/graphgen/getRandomGraph&#39;</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">onmessage</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> (</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFAB70">  e</span><span style="color:#F97583">:</span><span style="color:#B392F0"> MessageEvent</span><span style="color:#E1E4E8">&lt;{</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFAB70">    seed</span><span style="color:#F97583">:</span><span style="color:#B392F0"> Seed</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFAB70">    settings</span><span style="color:#F97583">:</span><span style="color:#B392F0"> GraphGeneratorSettingsInput</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">  }&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">) </span><span style="color:#F97583">=&gt;</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">  pipe</span><span style="color:#E1E4E8">(</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">    getRandomFinalizedGraph</span><span style="color:#E1E4E8">(e.data.seed)(e.data.settings),</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79B8FF">    STR</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">map</span><span style="color:#E1E4E8">((</span><span style="color:#FFAB70">e</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=&gt;</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">      postMessage</span><span style="color:#E1E4E8">(e);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">    }),</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79B8FF">    STR</span><span style="color:#E1E4E8">.toArray </span><span style="color:#6A737D">// to actually run it</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">  );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">};</span></span>
+<span class="line"></span>
+<span class="line"></span></code></pre>
+<p>And it even handles cancellations/reinitialization with <code>worker.terminate();</code> and seems to be fine about it.</p>
+<p>To marry the backend and frontend/Web Worker code, I used an <a href="https://nx.dev/">Nx monorepo</a>. It fits at least TypeScript projects quite well, and codesharing is incredible.</p>
+<h2 id="now-now-lets-see-what-weve-made16">Now, now, let’s see what we’ve made<sup><a href="#user-content-fn-16" id="user-content-fnref-16" data-footnote-ref="" aria-describedby="footnote-label">16</a></sup></h2>
+<p>Let’s review.  <br/>
+<br/>
+We’ve learned:</p>
+<ul>
+<li>
+<p>That it’s possible to make a TypeScript <font color="red">isomorphic</font> with a <font color="red">monorepo</font><sup><a href="#user-content-fn-17" id="user-content-fnref-17" data-footnote-ref="" aria-describedby="footnote-label">17</a></sup></p>
+</li>
+<li>
+<p>That <font color="orange">perceived performance and UX</font> can be improved by having a <font color="orange">loading indicator</font> for long-running tasks, which can be made possible with <font color="orange">lazy computations</font>.</p>
+</li>
+<li>
+<p>That <font color="yellow" style="background-color: black">determinism</font> can help with various advanced tasks such as <font color="violet">property-based testing</font> and game networking.</p>
+</li>
+<li>
+<p>That <font color="yellow" style="background-color: black">pseudo</font>-<font color="green">random</font> number generators take a special place in <font color="yellow" style="background-color: black">deterministic</font> computations.</p>
+</li>
+<li>
+<p>That there are algorithms for <font color="aqua">quasi-realistic</font> graph generation.</p>
+</li>
+<li>
+<p>And that Newtype is a nice pattern but not so well supported in TypeScript.</p>
+</li>
+<li>
+<p>We also learned the <a href="https://en.wikipedia.org/wiki/Dungeons_%26_Dragons">Dungeons and Dragons</a> 5E advantage/disadvantage rule and that it might even help you with weighted random number generation… sometimes.</p>
+</li>
+</ul>
+<p>And we have established software foundations for continuous property-based testing using random graph structures.</p>
+<p><strong>That’s it! Have fun and enjoy!</strong></p>
+<p><a href="https://graphgen-ts.apps.loskutoff.com/">https://graphgen-ts.apps.loskutoff.com/</a></p>
+<h2 id="notes">Notes</h2>
+<section data-footnotes="" class="footnotes"><h2 class="sr-only" id="footnote-label">Footnotes</h2>
+<ol>
+<li id="user-content-fn-1">
+<p>Well, the real case differs a bit from this extended metaphor, but we’ve framed it in this way to keep our NDA intact. <a href="#user-content-fnref-1" data-footnote-backref="" aria-label="Back to reference 1" class="data-footnote-backref">↩</a></p>
+</li>
+<li id="user-content-fn-2">
+<p>According to my own benchmarks, i.e., in my opinion <a href="#user-content-fnref-2" data-footnote-backref="" aria-label="Back to reference 2" class="data-footnote-backref">↩</a></p>
+</li>
+<li id="user-content-fn-3">
+<p><a href="https://en.wikipedia.org/wiki/Profiling_(computer_programming)">https://en.wikipedia.org/wiki/Profiling_(computer_programming)</a> <a href="#user-content-fnref-3" data-footnote-backref="" aria-label="Back to reference 3" class="data-footnote-backref">↩</a></p>
+</li>
+<li id="user-content-fn-4">
+<p>I don’t go further into this as I found it less important later. It was an important starting point, though. <a href="#user-content-fnref-4" data-footnote-backref="" aria-label="Back to reference 4" class="data-footnote-backref">↩</a></p>
+</li>
+<li id="user-content-fn-5">
+<p><a href="https://en.wikipedia.org/wiki/Scale-free_network">https://en.wikipedia.org/wiki/Scale-free_network</a> <a href="#user-content-fnref-5" data-footnote-backref="" aria-label="Back to reference 5" class="data-footnote-backref">↩</a></p>
+</li>
+<li id="user-content-fn-6">
+<p><a href="https://en.wikipedia.org/wiki/Cycle_(graph_theory)">https://en.wikipedia.org/wiki/Cycle_(graph_theory)</a> <a href="#user-content-fnref-6" data-footnote-backref="" aria-label="Back to reference 6" class="data-footnote-backref">↩</a></p>
+</li>
+<li id="user-content-fn-7">
+<p>In my experience, at least, especially when you compare with Haskell. Even Elm<a href="https://groups.google.com/g/elm-discuss/c/9XxV9L0zoA0/m/ZUU9RGKAthoJ"> is not lazily evaluated</a> <a href="#user-content-fnref-7" data-footnote-backref="" aria-label="Back to reference 7" class="data-footnote-backref">↩</a></p>
+</li>
+<li id="user-content-fn-8">
+<p><a href="https://en.wikipedia.org/wiki/Pure_function">https://en.wikipedia.org/wiki/Pure_function</a> <a href="#user-content-fnref-8" data-footnote-backref="" aria-label="Back to reference 8" class="data-footnote-backref">↩</a></p>
+</li>
+<li id="user-content-fn-9">
+<p><a href="https://en.wikipedia.org/wiki/Memoization">https://en.wikipedia.org/wiki/Memoization</a> <a href="#user-content-fnref-9" data-footnote-backref="" aria-label="Back to reference 9" class="data-footnote-backref">↩</a></p>
+</li>
+<li id="user-content-fn-10">
+<p>Which is also the core game mechanic for wildly popular videogame Baldurs’ Gate 3 <a href="https://store.steampowered.com/app/1086940/Baldurs_Gate_3/">https://store.steampowered.com/app/1086940/Baldurs_Gate_3/</a> <a href="#user-content-fnref-10" data-footnote-backref="" aria-label="Back to reference 10" class="data-footnote-backref">↩</a></p>
+</li>
+<li id="user-content-fn-11">
+<p><a href="https://en.wikipedia.org/wiki/Scale-free_network">https://en.wikipedia.org/wiki/Scale-free_network</a> <a href="#user-content-fnref-11" data-footnote-backref="" aria-label="Back to reference 11" class="data-footnote-backref">↩</a></p>
+</li>
+<li id="user-content-fn-12">
+<p>I’ll take this opportunity to plug Cory Spencer’s <a href="https://monadical.com/posts/mincraft-skin-generation.html">article</a> about Minecraft skin generation with AI <a href="#user-content-fnref-12" data-footnote-backref="" aria-label="Back to reference 12" class="data-footnote-backref">↩</a></p>
+</li>
+<li id="user-content-fn-13">
+<p>Deterministic computations, apparently, are a big deal in <a href="https://ruoyusun.com/2019/03/29/game-networking-2.html">videogame network programming</a> <a href="#user-content-fnref-13" data-footnote-backref="" aria-label="Back to reference 13" class="data-footnote-backref">↩</a></p>
+</li>
+<li id="user-content-fn-14">
+<p>Node is single-threaded but, if any asynchronous computation is introduced, concurrent calls will still mess each other up <a href="#user-content-fnref-14" data-footnote-backref="" aria-label="Back to reference 14" class="data-footnote-backref">↩</a></p>
+</li>
+<li id="user-content-fn-15">
+<p>Well, unless you are an Elf or a Half-Elf of Xanathar’s Guide to Everything with the trait Elven Accuracy, when you are able to roll 3 advantage rolls instead of 2 in some situations. <a href="#user-content-fnref-15" data-footnote-backref="" aria-label="Back to reference 15" class="data-footnote-backref">↩</a></p>
+</li>
+<li id="user-content-fn-16">
+<p><a href="https://www.youtube.com/watch?v=Q0w2djkO_bc">https://www.youtube.com/watch?v=Q0w2djkO_bc</a> <a href="#user-content-fnref-16" data-footnote-backref="" aria-label="Back to reference 16" class="data-footnote-backref">↩</a></p>
+</li>
+<li id="user-content-fn-17">
+<p>But really, you can just use <a href="https://docs.npmjs.com/cli/v9/using-npm/workspaces">workspaces</a> <a href="#user-content-fnref-17" data-footnote-backref="" aria-label="Back to reference 17" class="data-footnote-backref">↩</a></p>
+</li>
+</ol>
+</section> <script src="https://utteranc.es/client.js" repo="dearlordylord/blog" issue-term="pathname" theme="github-dark" crossorigin="anonymous" async>
+    </script>  </div> </article>  </div> </main> </body></html>
