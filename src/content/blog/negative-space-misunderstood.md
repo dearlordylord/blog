@@ -72,7 +72,7 @@ When we want to tell a String from a Number, it’s usually pretty clear.
 A function `calculateArea` from the examples above won’t allow itself to be called like
 
 ```typescript=  
-calculateArea(“100”, “200”)  
+calculateArea("100", "200")  
 ```
 
 Unless you’re not using a language with no type checks (I assume you don’t, otherwise, why are you reading this).
@@ -133,7 +133,7 @@ With this technique you also avoid most of the “Negative State” programming,
 
 # How should it be instead?
 
-![imagination sponge bob](https://www.loskutoff.com/static/blog/negative-space-misunderstood/imagination.png)
+![imagination sponge bob](https://www.loskutoff.com/static/blog/negative-space-misunderstood/imagination.jpg)
 
 Taking the approach one step further, you sometimes can archive this:
 
