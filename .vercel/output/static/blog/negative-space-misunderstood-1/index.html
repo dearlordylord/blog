@@ -1,0 +1,198 @@
+<!DOCTYPE html><html lang="en" class="h-full bg-slate-1 text-slate-12 transition-colors ease-in-out"> <head><!-- Global Metadata --><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><!-- icon generator guy recommendation https://stackoverflow.com/a/48969053/2123547 --><link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png"><link rel="shortcut icon" href="/icons/favicon.ico"><!-- / icon generator guy recommendation --><meta name="generator" content="Astro v4.8.2"><!-- Canonical URL --><link rel="canonical" href="https://www.loskutoff.com/blog/negative-space-misunderstood-1/"><!-- /Canonical URL --><!-- Primary Meta Tags --><title>Negative Space Programming: it&#39;s not bad, it&#39;s just misunderstood</title><meta name="title" content="Negative Space Programming: it's not bad, it's just misunderstood"><meta name="description" content="Igor's programming blog"><link rel="sitemap" href="/sitemap-index.xml"><!-- /Primary Meta Tags --><!-- Open Graph / Facebook --><meta property="og:type" content="website"><meta property="og:url" content="https://www.loskutoff.com/blog/negative-space-misunderstood-1/"><meta property="og:title" content="Negative Space Programming: it's not bad, it's just misunderstood"><meta property="og:description" content="Igor's programming blog"><meta property="og:image" content="https://www.loskutoff.com/static/blog/negative-space-misunderstood/Always-Has-Been.png"><!-- /Open Graph / Facebook --><!-- X --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://www.loskutoff.com/blog/negative-space-misunderstood-1/"><meta property="twitter:site" content="@ohdearlordylord"><meta property="twitter:title" content="Negative Space Programming: it's not bad, it's just misunderstood"><meta property="twitter:description" content="Igor's programming blog"><meta property="twitter:image" content="https://www.loskutoff.com/static/blog/negative-space-misunderstood/Always-Has-Been.png?1721957549273"><meta property="twitter:image:alt" content="Always Has Been"><!-- /X --><!-- RSS Feed --><link rel="alternate" type="application/rss+xml" title="oh dear lordy lord" href="https://www.loskutoff.com/rss.xml"><!-- /RSS Feed --><!-- Third-party scripts --><link rel="stylesheet" href="/_astro/_slug_.BV9mTcdL.css"><script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+		var script = document.createElement('script');
+		script.defer = true;
+		script.src = '/_vercel/insights/script.js';
+		var head = document.querySelector('head');
+		head.appendChild(script);
+	</script></head> <body class="h-full"> <main class="flex h-full flex-col gap-6 p-6 md:flex-row"> <header class="flex flex-col border-b border-slate-3 print:hidden md:h-full md:border-b-0 md:border-r"> <h2 class="flex w-full justify-left font-mono text-slate-12"> <a href="/" class="md:w-min p-3 rounded-lg animate transition-all duration-200 hover:bg-slate-4" rel="prefetch"> 
+oh dear lordy lord
+ </a> <span id="astro-color-scheme-switch" data-astro-cid-zzomblhz>  <button> <span class="sr-only">Toggle Theme</span> <span class="dark:hidden"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 256 256"><path d="M120,40V16a8,8,0,0,1,16,0V40a8,8,0,0,1-16,0Zm72,88a64,64,0,1,1-64-64A64.07,64.07,0,0,1,192,128Zm-16,0a48,48,0,1,0-48,48A48.05,48.05,0,0,0,176,128ZM58.34,69.66A8,8,0,0,0,69.66,58.34l-16-16A8,8,0,0,0,42.34,53.66Zm0,116.68-16,16a8,8,0,0,0,11.32,11.32l16-16a8,8,0,0,0-11.32-11.32ZM192,72a8,8,0,0,0,5.66-2.34l16-16a8,8,0,0,0-11.32-11.32l-16,16A8,8,0,0,0,192,72Zm5.66,114.34a8,8,0,0,0-11.32,11.32l16,16a8,8,0,0,0,11.32-11.32ZM48,128a8,8,0,0,0-8-8H16a8,8,0,0,0,0,16H40A8,8,0,0,0,48,128Zm80,80a8,8,0,0,0-8,8v24a8,8,0,0,0,16,0V216A8,8,0,0,0,128,208Zm112-88H216a8,8,0,0,0,0,16h24a8,8,0,0,0,0-16Z"></path></svg></span> <span class="hidden dark:block"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 256 256"><path d="M233.54,142.23a8,8,0,0,0-8-2,88.08,88.08,0,0,1-109.8-109.8,8,8,0,0,0-10-10,104.84,104.84,0,0,0-52.91,37A104,104,0,0,0,136,224a103.09,103.09,0,0,0,62.52-20.88,104.84,104.84,0,0,0,37-52.91A8,8,0,0,0,233.54,142.23ZM188.9,190.34A88,88,0,0,1,65.66,67.11a89,89,0,0,1,31.4-26A106,106,0,0,0,96,56,104.11,104.11,0,0,0,200,160a106,106,0,0,0,14.92-1.06A89,89,0,0,1,188.9,190.34Z"></path></svg></span> </button>  </span>  <script>(function(){const strategy = "button";
+const defaultTheme = undefined;
+
+  const themeSwitch = document.getElementById("astro-color-scheme-switch");
+  const theme = localStorage.getItem("theme");
+  const themeMatcher = window.matchMedia("(prefers-color-scheme: dark)");
+  let systemTheme = themeMatcher.matches ? "dark" : "light";
+
+  themeMatcher.addEventListener("change", (event) => {
+    const theme = event.matches ? "dark" : "light";
+    systemTheme = theme;
+    if (localStorage.getItem("theme") === "system") {
+      updateAppliedTheme(theme);
+    }
+  });
+
+  function updateAppliedTheme(value) {
+    document.documentElement.classList.remove("light", "dark");
+    document.documentElement.classList.add(value);
+    document.documentElement.setAttribute("data-theme", value);
+  }
+
+  function updateTheme(value) {
+    const theme = value === "system" ? systemTheme : value;
+    updateAppliedTheme(theme);
+    localStorage.setItem("theme", value);
+  }
+
+  function setupThemeSwitch(selector, eventType, themeUpdater) {
+    const element = themeSwitch.querySelector(selector);
+    if (!element) {
+      throw new Error(
+        `plugin-astro-color-scheme: <${selector}> element must be present inside 'themeSwitch' or change the 'strategy' attribute`
+      );
+    }
+
+    if (selector === "form") {
+      element.value = theme || defaultTheme || systemTheme;
+      Array.from(element.querySelectorAll("input")).forEach((input) => {
+        input.checked = (theme || defaultTheme || systemTheme) === input.value;
+      });
+    } else {
+      element.value = theme || defaultTheme || systemTheme;
+    }
+
+    if (selector === "input") {
+      element.checked = defaultTheme !== element.value;
+    }
+
+    updateTheme(element.value);
+    element.addEventListener(eventType, themeUpdater);
+  }
+
+  switch (strategy) {
+    case "button":
+      setupThemeSwitch("button", "click", (event) => {
+        const button = event.currentTarget;
+        const settheme = button.value === "dark" ? "light" : "dark";
+        button.value = settheme;
+        updateTheme(settheme);
+      });
+      break;
+    case "select":
+      setupThemeSwitch("select", "change", (event) => {
+        const select = event.currentTarget;
+        updateTheme(select.value);
+      });
+      break;
+    case "checkbox":
+      setupThemeSwitch("input", "change", (event) => {
+        const checkbox = event.currentTarget;
+        const settheme = checkbox.value === "dark" ? "light" : "dark";
+        checkbox.value = settheme;
+        updateTheme(settheme);
+      });
+      break;
+    case "radio":
+      setupThemeSwitch("form", "click", (event) => {
+        updateTheme(event.currentTarget.value);
+      });
+      break;
+    default:
+      updateTheme(theme || defaultTheme || systemTheme);
+  }
+})();</script> </h2> <nav class="flex h-full justify-center gap-4 font-black md:flex-col md:justify-start"> <a href="/blog" class="md:w-min p-3 rounded-lg animate transition-all duration-200 hover:bg-slate-4" rel="prefetch"> Blog </a> </nav> <div class="mr-8 mb-4 flex w-full justify-center gap-4"> <a href="https://github.com/dearlordylord" class="md:w-min p-3 rounded-lg animate transition-all duration-200 hover:bg-slate-4" rel="prefetch" target="_blank">  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 256 256"><path d="M208.31,75.68A59.78,59.78,0,0,0,202.93,28,8,8,0,0,0,196,24a59.75,59.75,0,0,0-48,24H124A59.75,59.75,0,0,0,76,24a8,8,0,0,0-6.93,4,59.78,59.78,0,0,0-5.38,47.68A58.14,58.14,0,0,0,56,104v8a56.06,56.06,0,0,0,48.44,55.47A39.8,39.8,0,0,0,96,192v8H72a24,24,0,0,1-24-24A40,40,0,0,0,8,136a8,8,0,0,0,0,16,24,24,0,0,1,24,24,40,40,0,0,0,40,40H96v16a8,8,0,0,0,16,0V192a24,24,0,0,1,48,0v40a8,8,0,0,0,16,0V192a39.8,39.8,0,0,0-8.44-24.53A56.06,56.06,0,0,0,216,112v-8A58.14,58.14,0,0,0,208.31,75.68ZM200,112a40,40,0,0,1-40,40H112a40,40,0,0,1-40-40v-8a41.74,41.74,0,0,1,6.9-22.48A8,8,0,0,0,80,73.83a43.81,43.81,0,0,1,.79-33.58,43.88,43.88,0,0,1,32.32,20.06A8,8,0,0,0,119.82,64h32.35a8,8,0,0,0,6.74-3.69,43.87,43.87,0,0,1,32.32-20.06A43.81,43.81,0,0,1,192,73.83a8.09,8.09,0,0,0,1,7.65A41.72,41.72,0,0,1,200,104Z"></path></svg>  </a> <!-- TODO TIL --> <!-- TODO presentations --> <!-- TODO apps --> <!-- TODO resume --> <!-- TODO dnd --> <a href="https://linkedin.com/in/igor-loskutov/" class="md:w-min p-3 rounded-lg animate transition-all duration-200 hover:bg-slate-4" rel="prefetch" target="_blank">  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 256 256"><path d="M216,24H40A16,16,0,0,0,24,40V216a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V40A16,16,0,0,0,216,24Zm0,192H40V40H216V216ZM96,112v64a8,8,0,0,1-16,0V112a8,8,0,0,1,16,0Zm88,28v36a8,8,0,0,1-16,0V140a20,20,0,0,0-40,0v36a8,8,0,0,1-16,0V112a8,8,0,0,1,15.79-1.78A36,36,0,0,1,184,140ZM100,84A12,12,0,1,1,88,72,12,12,0,0,1,100,84Z"></path></svg>  </a> <a href="https://twitter.com/ohdearlordylord" class="md:w-min p-3 rounded-lg animate transition-all duration-200 hover:bg-slate-4" rel="prefetch" target="_blank">  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 256 256"><path d="M247.39,68.94A8,8,0,0,0,240,64H209.57A48.66,48.66,0,0,0,168.1,40a46.91,46.91,0,0,0-33.75,13.7A47.9,47.9,0,0,0,120,88v6.09C79.74,83.47,46.81,50.72,46.46,50.37a8,8,0,0,0-13.65,4.92c-4.31,47.79,9.57,79.77,22,98.18a110.93,110.93,0,0,0,21.88,24.2c-15.23,17.53-39.21,26.74-39.47,26.84a8,8,0,0,0-3.85,11.93c.75,1.12,3.75,5.05,11.08,8.72C53.51,229.7,65.48,232,80,232c70.67,0,129.72-54.42,135.75-124.44l29.91-29.9A8,8,0,0,0,247.39,68.94Zm-45,29.41a8,8,0,0,0-2.32,5.14C196,166.58,143.28,216,80,216c-10.56,0-18-1.4-23.22-3.08,11.51-6.25,27.56-17,37.88-32.48A8,8,0,0,0,92,169.08c-.47-.27-43.91-26.34-44-96,16,13,45.25,33.17,78.67,38.79A8,8,0,0,0,136,104V88a32,32,0,0,1,9.6-22.92A30.94,30.94,0,0,1,167.9,56c12.66.16,24.49,7.88,29.44,19.21A8,8,0,0,0,204.67,80h16Z"></path></svg>  </a> </div> </header> <div class="w-full">  <article class="flex w-full flex-col items-center gap-6"> <h1 class="text-center text-4xl font-bold">Negative Space Programming: it&#39;s not bad, it&#39;s just misunderstood</h1> <img src="/static/blog/negative-space-misunderstood/Always-Has-Been.png" alt="Always Has Been" class="mb-6 w-full rounded-xl border border-slate-3 shadow-lg md:max-w-4xl"> <time datetime="2024-07-25T13:44:27.000Z" class="whitespace-nowrap italic text-slate-11"> Jul 25, 2024 </time> <hr> <div class="prose prose-slate dark:prose-invert flex w-full flex-col md:max-w-4xl">  <h1 id="reject-negative-space-be-happy">Reject Negative Space, be happy</h1>
+<p>Negative Space programming is a new term for an old concept that has managed to captivate the industry’s attention thanks to recent popularisation by certain influencers.</p>
+<p>It’s a very cool name indeed:</p>
+<blockquote>
+<p>There’s a term in drawing called <a href="https://en.wikipedia.org/wiki/Negative_space">“negative space”</a>. The idea is very simple: you don’t draw what’s there – you draw what’s <em>not</em> there.<sup><a href="#user-content-fn-1" id="user-content-fnref-1" data-footnote-ref="" aria-describedby="footnote-label">1</a></sup></p>
+</blockquote>
+<p>But I feel it has become gravely misunderstood. I’ll show that most of this “negativity” can and should be brought back to the light, and it’s not too difficult to archive.</p>
+<h1 id="parse-dont-validate">Parse, Don’t, Validate</h1>
+<p><img src="https://www.loskutoff.com/static/blog/negative-space-misunderstood/scooby.png" alt="Scooby unmask"></p>
+<p>Negative Space is <a href="https://double-trouble.dev/post/negativ-space-programming/">understood</a> as assertions of function arguments like:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> calculateArea</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">width</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> number</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">height</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> number</span><span style="color:#E1E4E8">) {  </span></span>
+<span class="line"><span style="color:#B392F0">  assert</span><span style="color:#E1E4E8">(width </span><span style="color:#F97583">></span><span style="color:#79B8FF"> 0</span><span style="color:#E1E4E8">);  </span></span>
+<span class="line"><span style="color:#B392F0">  assert</span><span style="color:#E1E4E8">(height </span><span style="color:#F97583">></span><span style="color:#79B8FF"> 0</span><span style="color:#E1E4E8">);  </span></span>
+<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> width </span><span style="color:#F97583">*</span><span style="color:#E1E4E8"> height;  </span></span>
+<span class="line"><span style="color:#E1E4E8">}  </span></span>
+<span class="line"></span></code></pre>
+<blockquote>
+<p>The examples will be in Typescript, just because I’m very hands-on with it. However, the practices here could apply to any compiled language. It could’ve been your favourite Rust, for all I care; I just wanted to finish this writing in one evening.</p>
+</blockquote>
+<p>It looks nice and reasonable until we get another bunch of functions that expect width/height:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"></span>
+<span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> stretch</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">widthOrHeight</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> number</span><span style="color:#E1E4E8">) {  </span></span>
+<span class="line"><span style="color:#B392F0">  assert</span><span style="color:#E1E4E8">(widthOrHeight </span><span style="color:#F97583">></span><span style="color:#79B8FF"> 0</span><span style="color:#E1E4E8">);  </span></span>
+<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> widthOrHeight </span><span style="color:#F97583">*</span><span style="color:#79B8FF"> 2</span><span style="color:#E1E4E8">;  </span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> heighten</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">height</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> number</span><span style="color:#E1E4E8">) {  </span></span>
+<span class="line"><span style="color:#B392F0">  assert</span><span style="color:#E1E4E8">(height </span><span style="color:#F97583">></span><span style="color:#79B8FF"> 0</span><span style="color:#E1E4E8">);  </span></span>
+<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> height </span><span style="color:#F97583">*</span><span style="color:#79B8FF"> 2</span><span style="color:#E1E4E8">;  </span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> widen</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">width</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> number</span><span style="color:#E1E4E8">) {  </span></span>
+<span class="line"><span style="color:#B392F0">  assert</span><span style="color:#E1E4E8">(width </span><span style="color:#F97583">></span><span style="color:#79B8FF"> 0</span><span style="color:#E1E4E8">);  </span></span>
+<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> width </span><span style="color:#F97583">*</span><span style="color:#79B8FF"> 2</span><span style="color:#E1E4E8">;  </span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"></span></code></pre>
+<p>You can imagine that it becomes pretty bothersome to check it every time! You indeed need a lot of discipline in your team to maintain this practice. Still, this example is just a basic one; it becomes much more intricate when you have more complex structures.</p>
+<p>There’s in fact a term for this. It’s called Shotgun Parsing and was coined a while ago by a Haskell enthusiast <a href="https://lexi-lambda.github.io/blog/2019/11/05/parse-don-t-validate/">Lexi Lambda</a> .</p>
+<blockquote>
+<p>Shotgun parsing is a programming antipattern whereby parsing and input-validating code is mixed with and spread across processing code—throwing a cloud of checks at the input, and hoping, without any systematic justification, that one or another would catch all the “bad” cases.</p>
+</blockquote>
+<p>Ok, there must be a way out of here, I hear you saying.<br>
+There is, come with me.</p>
+<h1 id="runcompile-time-boundary">Run/Compile-time boundary</h1>
+<p>When we want to tell a String from a Number, it’s usually pretty clear.<br>
+A function <code>calculateArea</code> from the examples above won’t allow itself to be called like</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#B392F0">calculateArea</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">"100"</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">"200"</span><span style="color:#E1E4E8">)  </span></span>
+<span class="line"></span></code></pre>
+<p>Unless you’re not using a language with no type checks (I assume you don’t, otherwise, why are you reading this).</p>
+<p>So, we can clearly tell the difference between “100” and 100, there’s no ambiguity in that, and the compiler agrees.</p>
+<p>Now, things are not so obvious when we compare a negative and a positive value, e.g. -1 and 1 (if we’re using ints that many languages provide) or if we compare, e.g. 2 and 3.14, which Typescript allows you to do. What is the context of comparison? Do we care about the values being negative or “float-y”?</p>
+<p>Apparently, for the function <code>calculateArea</code>, there IS a difference. Negative values are just not in the function domain! And floats not always, too, although that depends on your application’s purpose only.</p>
+<p>I call this ambiguity boundary between runtime and compile-time. They often move case-by-case, taking more “compile-time” space or more “runtime” space.</p>
+<p>In some sense, the example</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> calculateArea</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">width</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> number</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">height</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> number</span><span style="color:#E1E4E8">) {  </span></span>
+<span class="line"><span style="color:#B392F0">  assert</span><span style="color:#E1E4E8">(width </span><span style="color:#F97583">></span><span style="color:#79B8FF"> 0</span><span style="color:#E1E4E8">);  </span></span>
+<span class="line"><span style="color:#B392F0">  assert</span><span style="color:#E1E4E8">(height </span><span style="color:#F97583">></span><span style="color:#79B8FF"> 0</span><span style="color:#E1E4E8">);  </span></span>
+<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> width </span><span style="color:#F97583">*</span><span style="color:#E1E4E8"> height;  </span></span>
+<span class="line"><span style="color:#E1E4E8">}  </span></span>
+<span class="line"></span></code></pre>
+<p>Reminds me</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> calculateArea</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">width</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> any</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">height</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> any</span><span style="color:#E1E4E8">) {  </span></span>
+<span class="line"><span style="color:#B392F0">  assert</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">typeof</span><span style="color:#E1E4E8"> width </span><span style="color:#F97583">===</span><span style="color:#9ECBFF"> 'number'</span><span style="color:#E1E4E8">);  </span></span>
+<span class="line"><span style="color:#B392F0">  assert</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">typeof</span><span style="color:#E1E4E8"> height </span><span style="color:#F97583">===</span><span style="color:#9ECBFF"> 'number'</span><span style="color:#E1E4E8">);  </span></span>
+<span class="line"><span style="color:#B392F0">  assert</span><span style="color:#E1E4E8">(width </span><span style="color:#F97583">></span><span style="color:#79B8FF"> 0</span><span style="color:#E1E4E8">);  </span></span>
+<span class="line"><span style="color:#B392F0">  assert</span><span style="color:#E1E4E8">(height </span><span style="color:#F97583">></span><span style="color:#79B8FF"> 0</span><span style="color:#E1E4E8">);  </span></span>
+<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> width </span><span style="color:#F97583">*</span><span style="color:#E1E4E8"> height;  </span></span>
+<span class="line"><span style="color:#E1E4E8">}  </span></span>
+<span class="line"></span></code></pre>
+<p>I just see the same picture, it’s just that the boundary is fully moved towards runtime.</p>
+<h1 id="how-can-it-be-instead">How can it be instead?</h1>
+<p>One word: <strong>newtypes</strong>. Actually, a second word: <strong>branded types</strong>.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"></span>
+<span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> calculateArea</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">width</span><span style="color:#F97583">:</span><span style="color:#B392F0"> Width</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">height</span><span style="color:#F97583">:</span><span style="color:#B392F0"> Height</span><span style="color:#E1E4E8">)</span><span style="color:#F97583">:</span><span style="color:#B392F0"> Area</span><span style="color:#E1E4E8"> {  </span></span>
+<span class="line"><span style="color:#6A737D">  // ...   </span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"></span></code></pre>
+<p>That’s it. I’d have said “Bye,” but you deserve more elaboration.</p>
+<p>I argue that when you have a number (or int, or uint) in your app, it’s probably not the right abstraction. It doesn’t tell what this value means, only how it’s stored. There’s a <a href="https://ybogomolov.me/primitives-were-a-mistake">great article</a> that expands on it. You most likely want meaningful types closer to the goal you want to archive.</p>
+<p>You most likely can archive this result in your language. E.g. in Typescript, it can be done with one of the <a href="https://github.com/effect-ts/effect/tree/main/packages/schema">advanced codecs libraries</a> (a post on them’all is coming soon) or even manually.</p>
+<p>The point is that you can move your boundary closer to the compile-time and train your compiler to help you avoid mistakes <em>and</em> strongly document your code at the same time.</p>
+<p>With this technique you also avoid most of the “Negative State” programming, it just becomes outsourced to the calling code/validation wrappers.</p>
+<h1 id="how-should-it-be-instead">How should it be instead?</h1>
+<p><img src="https://www.loskutoff.com/static/blog/negative-space-misunderstood/imagination.jpg" alt="imagination sponge bob"></p>
+<p>Taking the approach one step further, you sometimes can archive this:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> w</span><span style="color:#F97583">:</span><span style="color:#B392F0"> Width</span><span style="color:#F97583"> =</span><span style="color:#79B8FF"> 100</span><span style="color:#E1E4E8">;  </span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> h</span><span style="color:#F97583">:</span><span style="color:#B392F0"> Height</span><span style="color:#F97583"> =</span><span style="color:#79B8FF"> 200</span><span style="color:#E1E4E8">;  </span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> w2</span><span style="color:#F97583">:</span><span style="color:#B392F0"> Width</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> w </span><span style="color:#F97583">*</span><span style="color:#79B8FF"> 2</span><span style="color:#E1E4E8">; </span><span style="color:#6A737D">// scalar multiplication is possible  </span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> w3</span><span style="color:#F97583">:</span><span style="color:#B392F0"> Width</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> w </span><span style="color:#F97583">+</span><span style="color:#E1E4E8"> h; </span><span style="color:#6A737D">// compile-time error  </span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> w4</span><span style="color:#F97583">:</span><span style="color:#B392F0"> Width</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> w </span><span style="color:#F97583">-</span><span style="color:#E1E4E8"> w2; </span><span style="color:#6A737D">// result is negative: error or not? Compile time or runtime?  </span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> area</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> calculateArea</span><span style="color:#E1E4E8">(w, h); </span><span style="color:#6A737D">// square meter  </span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> area2</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> area </span><span style="color:#F97583">*</span><span style="color:#E1E4E8"> area; </span><span style="color:#6A737D">// quadruple meter? Doesn’t make sense! Compile-time error  </span></span>
+<span class="line"></span></code></pre>
+<p>Unfortunately, not with any language you can do it without damaging your DevEx. <a href="https://www.loskutoff.com/blog/graph-property-based/">I tried that with Newtypes</a> in Typescript; it was horrible. Branded types work much better but also much weaker (e.g. you can multiply Area by Area).</p>
+<p>That’s where Negative Space shines. If your language makes your typing work difficult, assert away. The point is, <strong>use Negative Space programming when it’s really necessary</strong>. It is a powerful tool, that comes with responsibilities.</p>
+<p>That’s it. Stay positive (with less negative spaces), safe (from runtime errors) and happy (with what your programming language allows you to do).</p>
+<section data-footnotes="" class="footnotes"><h2 class="sr-only" id="footnote-label">Footnotes</h2>
+<ol>
+<li id="user-content-fn-1">
+<p><a href="https://alfasin.com/2017/12/21/negative-space-and-how-does-it-apply-to-coding/">https://alfasin.com/2017/12/21/negative-space-and-how-does-it-apply-to-coding/</a> <a href="#user-content-fnref-1" data-footnote-backref="" aria-label="Back to reference 1" class="data-footnote-backref">↩</a></p>
+</li>
+</ol>
+</section> <script src="https://utteranc.es/client.js" repo="dearlordylord/blog" issue-term="pathname" theme="github-dark" crossorigin="anonymous" async>
+    </script>  </div> </article>  </div> </main> </body></html>
