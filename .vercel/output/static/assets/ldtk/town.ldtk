@@ -1049,9 +1049,9 @@
 							"height": 16,
 							"defUid": 7,
 							"px": [32,208],
-							"fieldInstances": [{ "__identifier": "path", "__type": "String", "__value": "resume.pdf", "__tile": null, "defUid": 8, "realEditorValues": [{
+							"fieldInstances": [{ "__identifier": "path", "__type": "String", "__value": "luffy-resume.pdf", "__tile": null, "defUid": 8, "realEditorValues": [{
 								"id": "V_String",
-								"params": ["resume.pdf"]
+								"params": ["luffy-resume.pdf"]
 							}] }]
 						}
 					]
