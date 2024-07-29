@@ -136,7 +136,7 @@ It was also important to make the generation process <font color="indigo">pausab
 
 Additionally, I want the code to be <font color="yellow" style="background-color: black">functional</font> to help with deterministic behaviour. Determinism is important in this case because it allows me to eventually repeat the computation exactly as it happened, even if randomness was involved. Remember, we store metrics of each execution, and the execution output is huge without determinism.
 
-Going <font color="yellow" style="background-color: black">functional</font> is not necessary here, and we can archive determinism without it, but with PRNGs, it turned out to be a very convenient way to organize computation.
+Going <font color="yellow" style="background-color: black">functional</font> is not necessary here, and we can achieve determinism without it, but with PRNGs, it turned out to be a very convenient way to organize computation.
 
 I’ll solve the <font color="yellow" style="background-color: black">functional</font> part with an iconic [State Monad pattern](https://wiki.haskell.org/State_Monad) implemented in [Giulio Canti](https://github.com/gcanti)’s [fp-ts](https://github.com/gcanti/fp-ts) library. And by using a lesser-known [fp-ts-stream](https://github.com/incetarik/fp-ts-stream/) library, I hope to help myself with <font color="orange">laziness</font>.
 
@@ -335,7 +335,7 @@ pipe(
 
 ```
 
-This is one of the examples of monadical computations in my graph generator, where monads help with keeping code concise and focusing on “what” I want to archive, not “how”. Here it helps specifically with passing the immutable RNG state, which I need for the computation to stay deterministic but still reasonably random. Without it, I’d have to pass this state manually.
+This is one of the examples of monadical computations in my graph generator, where monads help with keeping code concise and focusing on “what” I want to achieve, not “how”. Here it helps specifically with passing the immutable RNG state, which I need for the computation to stay deterministic but still reasonably random. Without it, I’d have to pass this state manually.
 
 This code would take a `times` of random numbers from the passed <font color="green">PRNG</font> state, reduce it to the minimum (or maximum), and pass the result along with the new state (regenerated `times` times) further. This logic is equivalent to Dungeons and Dragons 5E [advantage/disadvantage](https://5thsrd.org/rules/advantage_and_disadvantage/) mechanic, where you roll two dice[^15] and choose the largest/smallest result but scaled to “n” rolls.
 

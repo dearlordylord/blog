@@ -19,7 +19,7 @@ It’s a very cool name indeed:
 
 > There’s a term in drawing called [“negative space”](https://en.wikipedia.org/wiki/Negative_space). The idea is very simple: you don’t draw what’s there – you draw what’s *not* there.[^1]
 
-But I feel it has become gravely misunderstood. I’ll show that most of this “negativity” can and should be brought back to the light (of type system), and it’s not too difficult to archive.
+But I feel it has become gravely misunderstood. I’ll show that most of this “negativity” can and should be brought back to the light (of type system), and it’s not too difficult to achieve.
 
 # Parse, Don’t, Validate
 
@@ -126,9 +126,9 @@ function calculateArea(width: Width, height: Height): Area {
 
 That’s it. I’d have said “Bye,” but you deserve more elaboration.
 
-I argue that when you have a number (or int, or uint) in your app, it’s probably not the right abstraction. It doesn’t tell what this value means, only how it’s stored. There’s a [great article](https://ybogomolov.me/primitives-were-a-mistake) that expands on it. You most likely want meaningful types closer to the goal you want to archive.
+I argue that when you have a number (or int, or uint) in your app, it’s probably not the right abstraction. It doesn’t tell what this value means, only how it’s stored. There’s a [great article](https://ybogomolov.me/primitives-were-a-mistake) that expands on it. You most likely want meaningful types closer to the goal you want to achieve.
 
-You most likely can archive this result in your language. E.g. in Typescript, it can be done with one of the [advanced codecs libraries](https://github.com/effect-ts/effect/tree/main/packages/schema) (a post on them’all is coming soon) or even manually.
+You most likely can achieve this result in your language. E.g. in Typescript, it can be done with one of the [advanced codecs libraries](https://github.com/effect-ts/effect/tree/main/packages/schema) (a post on them’all is coming soon) or even manually.
 
 The technique is language-dependent. I will expand on specific techniques for Typescript and probably some other languages in the future.
 
@@ -141,7 +141,7 @@ With this technique you also avoid most of the “Negative State” programming,
 
 ![imagination sponge bob](https://www.loskutoff.com/static/blog/negative-space-misunderstood/imagination.jpg)
 
-Taking the approach one step further, you sometimes can archive this:
+Taking the approach one step further, you sometimes can achieve this:
 
 ```typescript=  
 const w: Width = 100;  
