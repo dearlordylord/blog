@@ -39,5 +39,6 @@
     "prettier": "^3.2.5",
     "prettier-plugin-astro": "^0.13.0",
     "prettier-plugin-tailwindcss": "^0.5.14"
-  }
+  },
+  "packageManager": "pnpm@9.6.0+sha1.65cd48c20dd329b7f455088b6dd17d4d5b6d02e3"
 }
