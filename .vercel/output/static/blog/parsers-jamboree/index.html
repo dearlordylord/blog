@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en" class="h-full bg-slate-1 text-slate-12 transition-colors ease-in-out"> <head><!-- Global Metadata --><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><!-- icon generator guy recommendation https://stackoverflow.com/a/48969053/2123547 --><link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png"><link rel="shortcut icon" href="/icons/favicon.ico"><!-- / icon generator guy recommendation --><meta name="generator" content="Astro v4.8.2"><!-- Canonical URL --><link rel="canonical" href="https://www.loskutoff.com/blog/parsers-jamboree/"><!-- /Canonical URL --><!-- Primary Meta Tags --><title>Parsers Jamboree</title><meta name="title" content="Parsers Jamboree"><meta name="description" content="Igor's programming blog"><link rel="sitemap" href="/sitemap-index.xml"><!-- /Primary Meta Tags --><!-- Open Graph / Facebook --><meta property="og:type" content="website"><meta property="og:url" content="https://www.loskutoff.com/blog/parsers-jamboree/"><meta property="og:title" content="Parsers Jamboree"><meta property="og:description" content="Igor's programming blog"><meta property="og:image" content="https://www.loskutoff.com/static/blog/parsers-jamboree/infer-botticelli.jpg"><!-- /Open Graph / Facebook --><!-- X --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://www.loskutoff.com/blog/parsers-jamboree/"><meta property="twitter:site" content="@ohdearlordylord"><meta property="twitter:title" content="Parsers Jamboree"><meta property="twitter:description" content="Igor's programming blog"><meta property="twitter:image" content="https://www.loskutoff.com/static/blog/parsers-jamboree/infer-botticelli.jpg?1723747801691"><meta property="twitter:image:alt" content="Infer by Botticelli"><!-- /X --><!-- RSS Feed --><link rel="alternate" type="application/rss+xml" title="oh dear lordy lord" href="https://www.loskutoff.com/rss.xml"><!-- /RSS Feed --><!-- Third-party scripts --><link rel="stylesheet" href="/_astro/_slug_.KtXkW0NO.css"><script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+<!DOCTYPE html><html lang="en" class="h-full bg-slate-1 text-slate-12 transition-colors ease-in-out"> <head><!-- Global Metadata --><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><!-- icon generator guy recommendation https://stackoverflow.com/a/48969053/2123547 --><link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png"><link rel="shortcut icon" href="/icons/favicon.ico"><!-- / icon generator guy recommendation --><meta name="generator" content="Astro v4.8.2"><!-- Canonical URL --><link rel="canonical" href="https://www.loskutoff.com/blog/parsers-jamboree/"><!-- /Canonical URL --><!-- Primary Meta Tags --><title>Parsers Jamboree</title><meta name="title" content="Parsers Jamboree"><meta name="description" content="Igor's programming blog"><link rel="sitemap" href="/sitemap-index.xml"><!-- /Primary Meta Tags --><!-- Open Graph / Facebook --><meta property="og:type" content="website"><meta property="og:url" content="https://www.loskutoff.com/blog/parsers-jamboree/"><meta property="og:title" content="Parsers Jamboree"><meta property="og:description" content="Igor's programming blog"><meta property="og:image" content="https://www.loskutoff.com/static/blog/parsers-jamboree/infer-botticelli.jpg"><!-- /Open Graph / Facebook --><!-- X --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://www.loskutoff.com/blog/parsers-jamboree/"><meta property="twitter:site" content="@ohdearlordylord"><meta property="twitter:title" content="Parsers Jamboree"><meta property="twitter:description" content="Igor's programming blog"><meta property="twitter:image" content="https://www.loskutoff.com/static/blog/parsers-jamboree/infer-botticelli.jpg?1725298492559"><meta property="twitter:image:alt" content="Infer by Botticelli"><!-- /X --><!-- RSS Feed --><link rel="alternate" type="application/rss+xml" title="oh dear lordy lord" href="https://www.loskutoff.com/rss.xml"><!-- /RSS Feed --><!-- Third-party scripts --><link rel="stylesheet" href="/_astro/_slug_.KtXkW0NO.css"><script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
 		var script = document.createElement('script');
 		script.defer = true;
 		script.src = '/_vercel/insights/script.js';
@@ -90,11 +90,310 @@ const defaultTheme = undefined;
     default:
       updateTheme(theme || defaultTheme || systemTheme);
   }
-})();</script> </h2> <nav class="flex h-full justify-center gap-4 font-black md:flex-col md:justify-start"> <a href="/blog" class="md:w-min p-3 rounded-lg animate transition-all duration-200 hover:bg-slate-4" rel="prefetch"> Blog </a> </nav> <div class="mr-8 mb-4 flex w-full justify-center gap-4"> <a href="https://github.com/dearlordylord" class="md:w-min p-3 rounded-lg animate transition-all duration-200 hover:bg-slate-4" rel="prefetch" target="_blank">  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 256 256"><path d="M208.31,75.68A59.78,59.78,0,0,0,202.93,28,8,8,0,0,0,196,24a59.75,59.75,0,0,0-48,24H124A59.75,59.75,0,0,0,76,24a8,8,0,0,0-6.93,4,59.78,59.78,0,0,0-5.38,47.68A58.14,58.14,0,0,0,56,104v8a56.06,56.06,0,0,0,48.44,55.47A39.8,39.8,0,0,0,96,192v8H72a24,24,0,0,1-24-24A40,40,0,0,0,8,136a8,8,0,0,0,0,16,24,24,0,0,1,24,24,40,40,0,0,0,40,40H96v16a8,8,0,0,0,16,0V192a24,24,0,0,1,48,0v40a8,8,0,0,0,16,0V192a39.8,39.8,0,0,0-8.44-24.53A56.06,56.06,0,0,0,216,112v-8A58.14,58.14,0,0,0,208.31,75.68ZM200,112a40,40,0,0,1-40,40H112a40,40,0,0,1-40-40v-8a41.74,41.74,0,0,1,6.9-22.48A8,8,0,0,0,80,73.83a43.81,43.81,0,0,1,.79-33.58,43.88,43.88,0,0,1,32.32,20.06A8,8,0,0,0,119.82,64h32.35a8,8,0,0,0,6.74-3.69,43.87,43.87,0,0,1,32.32-20.06A43.81,43.81,0,0,1,192,73.83a8.09,8.09,0,0,0,1,7.65A41.72,41.72,0,0,1,200,104Z"></path></svg>  </a> <!-- TODO TIL --> <!-- TODO presentations --> <!-- TODO apps --> <!-- TODO resume --> <!-- TODO dnd --> <a href="https://linkedin.com/in/igor-loskutov/" class="md:w-min p-3 rounded-lg animate transition-all duration-200 hover:bg-slate-4" rel="prefetch" target="_blank">  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 256 256"><path d="M216,24H40A16,16,0,0,0,24,40V216a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V40A16,16,0,0,0,216,24Zm0,192H40V40H216V216ZM96,112v64a8,8,0,0,1-16,0V112a8,8,0,0,1,16,0Zm88,28v36a8,8,0,0,1-16,0V140a20,20,0,0,0-40,0v36a8,8,0,0,1-16,0V112a8,8,0,0,1,15.79-1.78A36,36,0,0,1,184,140ZM100,84A12,12,0,1,1,88,72,12,12,0,0,1,100,84Z"></path></svg>  </a> <a href="https://twitter.com/ohdearlordylord" class="md:w-min p-3 rounded-lg animate transition-all duration-200 hover:bg-slate-4" rel="prefetch" target="_blank">  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 256 256"><path d="M247.39,68.94A8,8,0,0,0,240,64H209.57A48.66,48.66,0,0,0,168.1,40a46.91,46.91,0,0,0-33.75,13.7A47.9,47.9,0,0,0,120,88v6.09C79.74,83.47,46.81,50.72,46.46,50.37a8,8,0,0,0-13.65,4.92c-4.31,47.79,9.57,79.77,22,98.18a110.93,110.93,0,0,0,21.88,24.2c-15.23,17.53-39.21,26.74-39.47,26.84a8,8,0,0,0-3.85,11.93c.75,1.12,3.75,5.05,11.08,8.72C53.51,229.7,65.48,232,80,232c70.67,0,129.72-54.42,135.75-124.44l29.91-29.9A8,8,0,0,0,247.39,68.94Zm-45,29.41a8,8,0,0,0-2.32,5.14C196,166.58,143.28,216,80,216c-10.56,0-18-1.4-23.22-3.08,11.51-6.25,27.56-17,37.88-32.48A8,8,0,0,0,92,169.08c-.47-.27-43.91-26.34-44-96,16,13,45.25,33.17,78.67,38.79A8,8,0,0,0,136,104V88a32,32,0,0,1,9.6-22.92A30.94,30.94,0,0,1,167.9,56c12.66.16,24.49,7.88,29.44,19.21A8,8,0,0,0,204.67,80h16Z"></path></svg>  </a> </div> </header> <div class="w-full">  <article class="flex w-full flex-col items-center gap-6"> <h1 class="text-center text-4xl font-bold">Parsers Jamboree</h1> <img src="/static/blog/parsers-jamboree/infer-botticelli.jpg" alt="Infer by Botticelli" class="mb-6 w-full rounded-xl border border-slate-3 shadow-lg md:max-w-4xl">  <hr> <div class="prose prose-slate dark:prose-invert flex w-full flex-col md:max-w-4xl">  <p><img src="/static/blog/parsers-jamboree/infer-botticelli.jpg" alt="1"/>
-<img src="/static/blog/parsers-jamboree/dsquared.png" alt="2"/>
-<img src="/static/blog/parsers-jamboree/inputs.png" alt="3"/>
-<img src="/static/blog/parsers-jamboree/outputs.png" alt="4"/>
-<img src="/static/blog/parsers-jamboree/bricks.png" alt="5"/>
-<img src="/static/blog/parsers-jamboree/frontend.png" alt="6"/>
-<img src="/static/blog/parsers-jamboree/interface.png" alt="7"/></p> <script src="https://utteranc.es/client.js" repo="dearlordylord/blog" issue-term="pathname" theme="github-dark" crossorigin="anonymous" async>
+})();</script> </h2> <nav class="flex h-full justify-center gap-4 font-black md:flex-col md:justify-start"> <a href="/blog" class="md:w-min p-3 rounded-lg animate transition-all duration-200 hover:bg-slate-4" rel="prefetch"> Blog </a> </nav> <div class="mr-8 mb-4 flex w-full justify-center gap-4"> <a href="https://github.com/dearlordylord" class="md:w-min p-3 rounded-lg animate transition-all duration-200 hover:bg-slate-4" rel="prefetch" target="_blank">  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 256 256"><path d="M208.31,75.68A59.78,59.78,0,0,0,202.93,28,8,8,0,0,0,196,24a59.75,59.75,0,0,0-48,24H124A59.75,59.75,0,0,0,76,24a8,8,0,0,0-6.93,4,59.78,59.78,0,0,0-5.38,47.68A58.14,58.14,0,0,0,56,104v8a56.06,56.06,0,0,0,48.44,55.47A39.8,39.8,0,0,0,96,192v8H72a24,24,0,0,1-24-24A40,40,0,0,0,8,136a8,8,0,0,0,0,16,24,24,0,0,1,24,24,40,40,0,0,0,40,40H96v16a8,8,0,0,0,16,0V192a24,24,0,0,1,48,0v40a8,8,0,0,0,16,0V192a39.8,39.8,0,0,0-8.44-24.53A56.06,56.06,0,0,0,216,112v-8A58.14,58.14,0,0,0,208.31,75.68ZM200,112a40,40,0,0,1-40,40H112a40,40,0,0,1-40-40v-8a41.74,41.74,0,0,1,6.9-22.48A8,8,0,0,0,80,73.83a43.81,43.81,0,0,1,.79-33.58,43.88,43.88,0,0,1,32.32,20.06A8,8,0,0,0,119.82,64h32.35a8,8,0,0,0,6.74-3.69,43.87,43.87,0,0,1,32.32-20.06A43.81,43.81,0,0,1,192,73.83a8.09,8.09,0,0,0,1,7.65A41.72,41.72,0,0,1,200,104Z"></path></svg>  </a> <!-- TODO TIL --> <!-- TODO presentations --> <!-- TODO apps --> <!-- TODO resume --> <!-- TODO dnd --> <a href="https://linkedin.com/in/igor-loskutov/" class="md:w-min p-3 rounded-lg animate transition-all duration-200 hover:bg-slate-4" rel="prefetch" target="_blank">  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 256 256"><path d="M216,24H40A16,16,0,0,0,24,40V216a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V40A16,16,0,0,0,216,24Zm0,192H40V40H216V216ZM96,112v64a8,8,0,0,1-16,0V112a8,8,0,0,1,16,0Zm88,28v36a8,8,0,0,1-16,0V140a20,20,0,0,0-40,0v36a8,8,0,0,1-16,0V112a8,8,0,0,1,15.79-1.78A36,36,0,0,1,184,140ZM100,84A12,12,0,1,1,88,72,12,12,0,0,1,100,84Z"></path></svg>  </a> <a href="https://twitter.com/ohdearlordylord" class="md:w-min p-3 rounded-lg animate transition-all duration-200 hover:bg-slate-4" rel="prefetch" target="_blank">  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 256 256"><path d="M247.39,68.94A8,8,0,0,0,240,64H209.57A48.66,48.66,0,0,0,168.1,40a46.91,46.91,0,0,0-33.75,13.7A47.9,47.9,0,0,0,120,88v6.09C79.74,83.47,46.81,50.72,46.46,50.37a8,8,0,0,0-13.65,4.92c-4.31,47.79,9.57,79.77,22,98.18a110.93,110.93,0,0,0,21.88,24.2c-15.23,17.53-39.21,26.74-39.47,26.84a8,8,0,0,0-3.85,11.93c.75,1.12,3.75,5.05,11.08,8.72C53.51,229.7,65.48,232,80,232c70.67,0,129.72-54.42,135.75-124.44l29.91-29.9A8,8,0,0,0,247.39,68.94Zm-45,29.41a8,8,0,0,0-2.32,5.14C196,166.58,143.28,216,80,216c-10.56,0-18-1.4-23.22-3.08,11.51-6.25,27.56-17,37.88-32.48A8,8,0,0,0,92,169.08c-.47-.27-43.91-26.34-44-96,16,13,45.25,33.17,78.67,38.79A8,8,0,0,0,136,104V88a32,32,0,0,1,9.6-22.92A30.94,30.94,0,0,1,167.9,56c12.66.16,24.49,7.88,29.44,19.21A8,8,0,0,0,204.67,80h16Z"></path></svg>  </a> </div> </header> <div class="w-full">  <article class="flex w-full flex-col items-center gap-6"> <h1 class="text-center text-4xl font-bold">Parsers Jamboree</h1> <img src="/static/blog/parsers-jamboree/infer-botticelli.jpg" alt="Infer by Botticelli" class="mb-6 w-full rounded-xl border border-slate-3 shadow-lg md:max-w-4xl">  <hr> <div class="prose prose-slate dark:prose-invert flex w-full flex-col md:max-w-4xl">  <h2 id="typescript-validators-jamboree">Typescript Validators Jamboree</h2>
+<p>A Fair(ly cruel) Review of Typescript Validation Libraries</p>
+<h2 id="motivation">Motivation</h2>
+<p>Lots of validator libraries exist and pop up regularly in the Typescript world.</p>
+<p>The fact that there are so many has to mean something.</p>
+<p>Let’s examine some of them pragmatically and find out ourselves.</p>
+<p>What’s a validator? I use this terminology rather frivolously here, as sometimes this kind of feature is called “parsers” or “codecs.” “Parsers” doesn’t sit well with me because it also means <a href="https://en.wikipedia.org/wiki/Parsing">a wider CS concept</a> which could cause confusion. “Codecs” is a more accurate word, but not all the libraries in this review have the “codec” semantics. But remember, kids: <a href="https://lexi-lambda.github.io/blog/2019/11/05/parse-don-t-validate/">parse, don’t validate!</a> Most libraries here are actually “parsers,” but they bring a narrower set of features.</p>
+<blockquote>
+<p>The data format that all of those libraries validate is ultimately JSON-compatible dictionaries. That is dictated by how Javascript interacts with the outside world: whether you get a JSON string or a protobuf binary, at some stage, it usually ends up as an untyped dictionary with primitives or more dictionaries as values.</p>
+</blockquote>
+<p>So, for this review, the validator is something that takes a piece of data that’s supposed to be specifically structured and checks that it indeed conforms to such a structure, carrying this information further into your codebase:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="mermaid"><code><span class="line"><span style="color:#E1E4E8">graph TD</span></span>
+<span class="line"><span style="color:#E1E4E8">   A[Specification: object should have a key someNumber whose value is a number and a key someString whose value is a string]</span></span>
+<span class="line"><span style="color:#E1E4E8">   B[&quot;{ &#39;someNumber&#39;: 1, &#39;someString&#39;: &#39;string!&#39; }&quot;]</span></span>
+<span class="line"><span style="color:#E1E4E8">   C[&quot;{ &#39;someNumber&#39;: 1, &#39;someString&#39;: &#39;string!&#39; }&quot;]</span></span>
+<span class="line"><span style="color:#E1E4E8">   D[&quot;{ &#39;notExpected&#39;: &#39;hello?&#39; }&quot;]</span></span>
+<span class="line"><span style="color:#E1E4E8">   E[Error: Invalid Input]</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">   A --&gt;|Validates| B</span></span>
+<span class="line"><span style="color:#E1E4E8">   B --&gt;|Converts to| C</span></span>
+<span class="line"><span style="color:#E1E4E8">   A --&gt;|Validates| D</span></span>
+<span class="line"><span style="color:#E1E4E8">   D --&gt;|Returns| E</span></span>
+<span class="line"></span></code></pre>
+<h2 id="disclaimer">Disclaimer</h2>
+<p>Let’s get this out of the way: I assume that most of the codebases out there need to interact with unreliable data sources, such as HTTP API inputs or sometimes even database reads. All of such interactions benefit from having a structure and validation of this structure.</p>
+<p>I also assume that most, if not all, of those codebases, benefit from a transparent and well-defined domain model encoded in a type system if such a system is present in the stack that you use.</p>
+<p>Here, I focus only on the Typescript ecosystem. That also means it falls out of scope if the lib doesn’t support the type system well enough despite “running” with Typescript code.</p>
+<p>Another thing that’s out of scope is runtime and compile-time performance. It’s a tricky beast that deserves its research. One of the best performance comparisons out there is <a href="https://moltar.github.io/typescript-runtime-type-benchmarks/">https://moltar.github.io/typescript-runtime-type-benchmarks/</a>.</p>
+<p>In this review, I assume we all agree that catching errors earlier is better than seeing them later. This disclaimer will come in handy later when I discuss criteria such as <a href="https://ybogomolov.me/primitives-were-a-mistake">tagged types</a>.</p>
+<h2 id="criteria">Criteria</h2>
+<p>Among the other criteria, **expressiveness **will dominate the evaluation process. That means a special focus of this review is how well the validator libraries leverage the Typescript type system to solidify the gap between runtime “chaos” and compile-time “order.”</p>
+<blockquote>
+<p>It also means that being able to “transform” outside world types into domain/language types is expected, although lacking this ability doesn’t justify disqualification.</p>
+<p>The most obvious example is when, through JSON, we receive an array of items that are supposed to be unique, e.g., the user’s favourite colours: we don’t tolerate when the user has favourited “pink” three times! In Javascript, this assumption naturally translates into the Set data structure, which the validator (</p>
+</blockquote>
+<p><strong>Composability</strong> is another critical focus. I’d like to reuse already defined validators and combine them freely like LEGO blocks. Who wouldn’t? Real life dictates that sometimes (and eventually happens on most codebases), your data becomes fragmented, be it <a href="https://docs.stripe.com/expand">partial API results</a> or multiple sources of truth.</p>
+<p>Besides that, I’ll pay some attention to the <strong>easy-to-use</strong> aspect, which could mean whether the API looks reasonable (from my perspective, although I’ll try to be objective) or whether it’s easy to set up in your project and maintainable.</p>
+<p>With that said, there’s not going to be any point system or winners/losers, just an enumeration of what worked and what didn’t, together with my personal opinion, which is bound to be subjective sometimes.</p>
+<p>Therefore, this review “features” mostly feature comparisons, leading me to the main criterion measurement, <strong>the test case</strong>.</p>
+<h3 id="the-test-case">The test case</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="mermaid"><code><span class="line"><span style="color:#E1E4E8">graph TD</span></span>
+<span class="line"><span style="color:#E1E4E8">   A[User]</span></span>
+<span class="line"></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">   subgraph Properties</span></span>
+<span class="line"><span style="color:#E1E4E8">       direction TB</span></span>
+<span class="line"><span style="color:#E1E4E8">       A --&gt; B1[name: non-empty string]</span></span>
+<span class="line"><span style="color:#E1E4E8">       A --&gt; B2[email: quasi-valid email]</span></span>
+<span class="line"><span style="color:#E1E4E8">       A --&gt; B3[createdAt: ISO date string]</span></span>
+<span class="line"><span style="color:#E1E4E8">       A --&gt; B4[updatedAt: ISO date string, not before createdAt]</span></span>
+<span class="line"><span style="color:#E1E4E8">       A --&gt; B5[subscription: FREE, PRO, PREMIUM]</span></span>
+<span class="line"><span style="color:#E1E4E8">       A --&gt; B6[stripeId: starts with cus_]</span></span>
+<span class="line"><span style="color:#E1E4E8">       A --&gt; B7[visits: non-negative integer]</span></span>
+<span class="line"><span style="color:#E1E4E8">       A --&gt; B8[favouriteColours: red, green, blue, or #NNNNNN, no duplicates]</span></span>
+<span class="line"><span style="color:#E1E4E8">       A --&gt; B9[profile]</span></span>
+<span class="line"><span style="color:#E1E4E8">       A --&gt; B10[fileSystem]</span></span>
+<span class="line"><span style="color:#E1E4E8">   end</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">   subgraph Profile</span></span>
+<span class="line"><span style="color:#E1E4E8">       direction TB</span></span>
+<span class="line"><span style="color:#E1E4E8">       B9 --&gt; C1[type: listener]</span></span>
+<span class="line"><span style="color:#E1E4E8">       C1 --&gt; D1[boughtTracks: non-negative integer]</span></span>
+<span class="line"><span style="color:#E1E4E8">       B9 --&gt; C2[type: artist]</span></span>
+<span class="line"><span style="color:#E1E4E8">       C2 --&gt; D2[publishedTracks: non-negative integer]</span></span>
+<span class="line"><span style="color:#E1E4E8">   end</span></span>
+<span class="line"></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">   subgraph FileSystem</span></span>
+<span class="line"><span style="color:#E1E4E8">       direction TB</span></span>
+<span class="line"><span style="color:#E1E4E8">       B10 --&gt; E1[type: directory]</span></span>
+<span class="line"><span style="color:#E1E4E8">       E1 --&gt; F1[name: string]</span></span>
+<span class="line"><span style="color:#E1E4E8">       E1 --&gt; F2[children: array of file or directory]</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">       F2 --&gt; G1[type: directory]</span></span>
+<span class="line"><span style="color:#E1E4E8">       G1 --&gt; H1[name: string]</span></span>
+<span class="line"><span style="color:#E1E4E8">       G1 --&gt; H2[children: fileSystem]</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">       F2 --&gt; G2[type: file]</span></span>
+<span class="line"><span style="color:#E1E4E8">       G2 --&gt; H3[name: string]</span></span>
+<span class="line"><span style="color:#E1E4E8">   end</span></span>
+<span class="line"></span></code></pre>
+<p>It’s not an actual use case but a combination of use cases I’ve encountered. The purpose is to check as many features as possible with a reasonably compact data structure.</p>
+<ul>
+<li>
+<p>User ID - it’s a string, but is it? Should I be able to pass it to a function that expects another domain-specific ID, such as a blog ID? I’d like my code not to allow making this mistake.</p>
+</li>
+<li>
+<p>User Name - is it allowed to be an empty string? Should it be of a type “string,” then?</p>
+</li>
+<li>
+<p>Email validation is quite tricky—some <a href="https://www.netmeister.org/blog/email.html">would say impossible</a>—but I’d like to check whether libs 1) can do arbitrary regex validation and 2) realize that it isn’t a straightforward task. So, I’m going to consider the absence of built-in email validation a benefit and, on the contrary, <strong>the presence of such a validation a detriment</strong>.</p>
+</li>
+<li>
+<p>createdAt/updatedAt - first, this checks how the libs recognize support <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toISOString">ISO 8601</a> date parsing. They don’t have to have it battery-included; it must be simple to implement. It could’ve been the <a href="https://en.wikipedia.org/wiki/Unix_time">UNIX timestamp</a> instead; it doesn’t matter.<sup><a href="#user-content-fn-1" id="user-content-fnref-1" data-footnote-ref="" aria-describedby="footnote-label">1</a></sup> Secondly, can the lib represent such a date as a Date object in my code? Believe it or not, not every library could do this. Last, can the lib perform “bird’s view” checks comparing the values of multiple fields? After all, the phrase “User has been created <strong>after</strong> it was modified” doesn’t make much sense and often indicates temporal ordering errors in the system.</p>
+</li>
+<li>
+<p>Subscription type - just a check that a lib can do enums.</p>
+</li>
+<li>
+<p>Stripe Id - a check of whether the lib recognized the existence of <a href="https://www.typescriptlang.org/docs/handbook/2/template-literal-types.html">template literals</a> in Typescript. Typescript supports time literals, so for the library’s feature completeness, I expect it to have them, too.</p>
+</li>
+<li>
+<p>Visits - it’s probably far from how I’d store this in a real model, but this check is for if the lib can do integers. It is also important to me whether it’s possible to represent the “uncanny valley” between Typescript compile time and runtime, representing non-negative numbers.</p>
+</li>
+<li>
+<p>Favourite Colours is a check whether the lib 1) recognizes the existence of unique arrays, 2) can do Sets (and, consequently, any other arbitrary custom transformation), 3) can represent a union of an enum and a regex-checked string such as hex colour value.</p>
+</li>
+<li>
+<p>Profile - a check of whether the lib recognizes the existence of <a href="https://www.typescriptlang.org/docs/handbook/unions-and-intersections.html">union types</a>. Union types are one of Typescript’s most powerful data design features. I can’t imagine a codebase that won’t benefit from them. Here, profiles can be of two distinct types, each with its particular set of fields.</p>
+</li>
+<li>
+<p>File System is probably the most “imaginary” field in the User object! It checks whether the lib supports recursive data structures (called “lazy” in many libs because of implementation details) and is spiced up with unions.</p>
+</li>
+</ul>
+<p>You’ll see that some of my testing data structure fields check multiple features. This is done to test the <strong>composability</strong> of such features, too.</p>
+<h3 id="validity-checks-hierarchy">Validity checks hierarchy</h3>
+<p><img src="https://loskutoff.com/static/blog/parsers-jamboree/infer-botticelli.jpg" alt="Inferno by Botticelli" title="Inferno"/></p>
+<p>This is probably a good time to talk about types. I like types and would love to see them everywhere. Sorry, Lisp bros. I like the types that articulate domain design well.</p>
+<p>I also like <a href="https://martinfowler.com/bliki/DomainDrivenDesign.html">domain-driven design</a>, so here we go.</p>
+<p>Briefly, a type can be strongly knitted between compile time and runtime. You see this, e.g., in a String. If I want a String in my code, I get it both while typing and running it. A String is always a String. There’s nothing to add here.</p>
+<p>The same is true for a Number. If I want to count my users’ <a href="https://www.youtube.com/watch?v=m6ID-dv2f34">money</a>, I just use a Number. It’s beautiful. I can multiply and divide it, and my users’ money accumulates floating-point errors. I can also multiply it by itself. My users’ dollars become Dollars Squared: exactly what they need!</p>
+<p><img src="https://loskutoff.com/static/blog/parsers-jamboree/dsquared.png" alt="DSquared by Google" title="Dsquared"/></p>
+<blockquote>
+<p>Taken from an old <a href="https://www.reddit.com/r/softwaregore/comments/baz7x8/square_dollars/">Reddit thread</a></p>
+</blockquote>
+<p>Wait a second, Igor. Have you gone mad? Dollar Squared? Well, check your codebase. If it’s possible to multiply your users’ money by themselves, your compiler certainly isn’t used in full. Which is okay, but can we still do better?</p>
+<p>But in reality, it’s not all black and white. Some types are not easily presentable by the compiler. The closest example is Number in Typescript vs. the plethora of Integer, Float, UInt, etc., in better languages. Some type systems can cater to “I want this number only to be natural”; some can’t. Some can say, “I want this number to be 0 or more,” but some can’t.</p>
+<p>Typescript community plugs this gap with <a href="https://wiki.haskell.org/Newtype">newtypes</a><sup><a href="#user-content-fn-2" id="user-content-fnref-2" data-footnote-ref="" aria-describedby="footnote-label">2</a></sup> and <a href="https://prosopo.io/articles/typescript-branding/">branded</a> types. I’ll skip newtypes here and further; despite being a stricter and sometimes much more helpful abstraction, its DevEx <a href="https://monadical.com/posts/property-based-testing-for-temporal-graph-storage.html">has been terrible</a> so far, and we’re pragmatic after all, so I’ll ignore their existence.</p>
+<p>Nominal types, or Branded types, though, help us close this gap of “I want this to be an integer [without going into BigInt],” “I want this number to be non-negative,” and “I want User ID not to be assignable to Blog ID.” These types are effectively strings runtime, but during compilation, they hint that they’re not, and sometimes that’s what we need.</p>
+<p>They exist in this weird limbo between compile and runtime (validation-time) checks.</p>
+<p>Now, there’s a third, both weakest as a guarantee and strongest in the sense of “can do it all” kind of checks - runtime-only checks. When you see a type <code>{createdAt, updatedAt}</code>, you can assume createdAt is less or equal to updatedAt, but nobody will check it for you unless you do it yourself and do it runtime<sup><a href="#user-content-fn-3" id="user-content-fnref-3" data-footnote-ref="" aria-describedby="footnote-label">3</a></sup>.</p>
+<p>Hopefully, these 3 “levels” of strictness—<strong>full compile-time</strong>, <strong>“pretended” compile-time/nominal types</strong> and <strong>runtime YOLO</strong>—explain why I couldn’t just shut up about branded types and include them in the comparison. If I can make my types stricter without sacrificing DevEx, I see no reason not to do so.</p>
+<h3 id="libraries-selection-process">Libraries Selection Process</h3>
+<p>I’ll review all of the libraries.</p>
+<p>Except those that don’t fit the criteria of:</p>
+<ul>
+<li>Lively: have a reasonable amount of fresh commits.</li>
+<li>Popular: have GitHub stars, talked about.</li>
+<li>Typescript support: not just “run” but support enough of the type system. Sorry, runtime js validators.</li>
+</ul>
+<p>I may or may not include some of my favourite libs worthy of discussion. For example, a lib that focuses on JSON schema standard, parsing type definitions as an extra build step, and parsing string literals right in Typescript type system to extract type definitions.</p>
+<h2 id="extra-factors-and-context">Extra factors and context</h2>
+<h3 id="typescript-type-system-shenanigans">Typescript type system shenanigans</h3>
+<p>So, more often than not, we engineers say, “Don’t repeat yourself,” we engineers say, “Don’t repeat yourself.” We repeat that over and over. Repeating (or rather, the absence of such) is one of the cornerstones of validator libraries’ design.</p>
+<p>Indeed, do you want to write your validation logic and then write types for it? Can I just write <code>object({ n: integer() }</code> and not duplicate it in types as <code>type O = {n: Integer}</code>?</p>
+<p>All the libraries that passed the criteria for this review support this convenience, with some inessential exceptions.</p>
+<blockquote>
+<p>I’m convicted that defining types one extra time isn’t a big deal, though, as long as the type system doesn’t allow for lies like <code>object({ n: integer() }; type O = {s: string}</code>. You’ll see that in some cases, we’ll have to write extra type definitions, notably for recursive structures, to help Typescript inver and not fall into infinite recursion.</p>
+</blockquote>
+<p>This property is called “inference.” They “infer” types from runtime validation code. What’s important to emphasize, though, is that Typescript works only one way in this regard.</p>
+<p>By default, Typescript won’t infer any runtime code from compile-time code unless you add extra build steps that do so in an arcane<sup><a href="#user-content-fn-4" id="user-content-fnref-4" data-footnote-ref="" aria-describedby="footnote-label">4</a></sup> way. Instead, it organically understands the type of this or that runtime value if you define your types properly, which the library authors do.</p>
+<p>That’s how <code>object({ {n: integer() })</code> automatically becomes a type <code>{n: Integer}</code> without any extra effort from the user.</p>
+<p>It helps a lot when writing your code; after defining the validator, you can infer a type from it and reuse it across your app, most notably as function argument types. That’s what validators ultimately are about – checking runtime external values and telling your functions they’re safe and ready to be worked with.</p>
+<p>For better visualization, I’ll repurpose a well-known <a href="https://en.wikipedia.org/wiki/Hexagonal_architecture_(software)">ports and adapters architecture</a> diagram<sup><a href="#user-content-fn-5" id="user-content-fnref-5" data-footnote-ref="" aria-describedby="footnote-label">5</a></sup>:</p>
+<p><img src="https://loskutoff.com/static/blog/parsers-jamboree/inputs.png" alt="Inputs" title="https://bijijoo.com/2011/leonid-brezhnev"/></p>
+<p>So, the magic of inference happens mostly without your involvement. The important thing is that your business logic gets nice, sanitized data.</p>
+<h3 id="parsers-and-codecs-dichotomy">Parsers and codecs dichotomy</h3>
+<p>What if I told you that you can handle not only your input data but the output data as well?</p>
+<p>We tidy our tables before and after dining in a communal dining area<sup><a href="#user-content-fn-6" id="user-content-fnref-6" data-footnote-ref="" aria-describedby="footnote-label">6</a></sup>. Why won’t we tidy the data that leaves our apps?</p>
+<p>It comes especially handy with Javascript: JS tools often use JSON.stringify your values before sending them over the network. That could cause a lot of trouble with types like Set:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="plaintext"><code><span class="line"><span></span></span>
+<span class="line"><span>JSON.stringify(new Set([&#39;1&#39;, &#39;2&#39;])); // -&gt; ‘{}’</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span></span></span></code></pre>
+<p>The problem here isn’t rather validation but proper conversion into serializable values.</p>
+<p>The libraries that can do that have the “codecs” semantics, meaning they “decode” the input data and can “encode” the “business logic” objects back into a serializable format.</p>
+<p><img src="https://loskutoff.com/static/blog/parsers-jamboree/outputs.png" alt="Outputs" title="https://bijijoo.com/2011/leonid-brezhnev"/></p>
+<p>If the library can declaratively perform both encoding and decoding, e.g., <code>Array -&gt; Set -&gt; Array</code>, I’m going to “grade” it higher (sorry, Zod and other one-way parsers, but that doesn’t apply to you, although we can technically define two isomorphic transformations there, it won’t be a core feature but an afterthought).</p>
+<p>As a nice side effect, the codec semantics allow for much better composability: a codec A -&gt; B -&gt; C can be piped with a codec C -&gt; D -&gt; E, which can be piped with E -&gt; F -&gt; A, etc.</p>
+<p><img src="https://loskutoff.com/static/blog/parsers-jamboree/bricks.png" alt="Lego Bricks" title="https://openclipart.org/detail/184889/bricks"/></p>
+<h3 id="frontend-as-a-1st-class-citizen">Frontend as a 1st-class citizen</h3>
+<p>The diagrams above may give the impression that validators are usable only for backend APIs, but that’s not the case at all!</p>
+<p>It’s Javascript, and we’re going to leverage this fact entirely.</p>
+<p>There are a lot of form libraries that have adapters for popular validators (perhaps a topic for another article).</p>
+<p>You still have to talk with the APIs and parse their results (do you trust them? Do you always trust your own backend, actually<sup><a href="#user-content-fn-7" id="user-content-fnref-7" data-footnote-ref="" aria-describedby="footnote-label">7</a></sup>?).</p>
+<p>You may be of an adventurous nature and let your users write into your <a href="https://firebase.google.com/docs/firestore">Firestore</a>, or you may be making a .io game when users talk with each other through webRTC. Or you may want to be more classy and validate forms.</p>
+<p>Doesn’t it remind you of the same ports and adapters we’ve seen already?</p>
+<p><img src="https://loskutoff.com/static/blog/parsers-jamboree/frontend.png" alt="Frontend" title="https://bijijoo.com/2011/leonid-brezhnev"/></p>
+<p>If that’s not enough, we can also use <a href="https://en.wikipedia.org/wiki/Monorepo">monorepos</a> to share codecs/parsers code and type information — what a blessing that is!</p>
+<p>That said, you see where I’m going. All the libraries in this review have to be able to work on the front end.</p>
+<p>Now, that was a long interlude! Unfortunately, it’s over. It’s time to get dirty (with unvalidated JSONs) now. I’ll go by alphabet, for not picking any favourites.</p>
+<h2 id="libraries">Libraries</h2>
+<p>Each library will have several code widgets: the editable JSON (try this out) that I use for testing, the source code that does validation/transformations, with comments on API here and there, the view output of the validated object (it’s JS inner representation at this point, not necessary JSON, so some liberties taken: I print “JS object” along with the string representation to show it), and the view output of this object converted back (with encoders, if present) to the initial JSON-serializable type.</p>
+<p><img src="https://loskutoff.com/static/blog/parsers-jamboree/interface.png" alt="Interface" title="Interface"/></p>
+<h2 id="ajv">AJV</h2>
+<p>Bearing a recursive name Ajv JSON [schema] Validator, it’s one of the special cases in this review. They specialize and focus on <a href="https://json-schema.org/">JSON Schema</a> and <a href="https://jsontypedef.com/">JSON Type Definition</a> standards support. I’ll use the former here for no reason except that the library’s name literally has “JSON Schema” in it.</p>
+<p>The library is mature, tremendously popular, and is well-maintained<sup><a href="#user-content-fn-8" id="user-content-fnref-8" data-footnote-ref="" aria-describedby="footnote-label">8</a></sup>.</p>
+<iframe src="https://parsers-jamboree.apps.loskutoff.com/ajv" height="500"></iframe>
+<p>You’ll see that it doesn’t cover some test cases that it is supposed to. This is because many typechecks aren’t well-typed, and I’d have to digress to “any” implementing them. This is understandable; with a focus towards JSON Schema definitions, I guess it’s very difficult to translate Typescript types 1x1. I decided to mark them as failed because of the reasons in the introduction: Typescript has to be supported fully, or no deal.</p>
+<p>A downside, at least for some, is that it doesn’t infer types. You’ll have to duplicate the type definition and the JSON Schema definition you have. As I mentioned in the introduction, I don’t consider this a big issue, but some may get annoyed. This is probably the only library here that makes you do that.</p>
+<p>Another peculiarity of this library is that it mutates its argument on parsing. I had to think about it briefly because it broke my app and corrupted input data for all other validators.</p>
+<p>It shouldn’t be an issue in your production code; it’s unlikely that anything can go wrong in actual use cases.</p>
+<h2 id="arktype">Arktype</h2>
+<p>Arktype has a unique concept: it parses <a href="https://www.typescriptlang.org/docs/handbook/2/template-literal-types.html">template literals</a> parallel in runtime and compile time. Its own template literal syntax mirrors Typescript. These points together allow for very positive DevEx, especially since the library provides its plugins for popular IDEs.</p>
+<iframe src="https://parsers-jamboree.apps.loskutoff.com/arktype" height="500"></iframe>
+<p>Pay attention to how parsers are defined. It’s a true joy (no pun intended, <a href="https://github.com/hapijs/joi">Joy</a>) to work with it. It feels like magic, a work of art, or both.</p>
+<p>It seems to have very good development traction and is in the stage of active development right now. That said, some features that I’m looking for aren’t ready yet.</p>
+<p>The lib’s inner workings are even more peculiar because the authors test it by converting types into runtime <a href="https://github.com/arktypeio/arktype/tree/main/ark/attest">https://github.com/arktypeio/arktype/tree/main/ark/attest</a></p>
+<p>If I were giving prizes, Arktype would’ve taken “the highest hopes” one.</p>
+<p>They <a href="https://x.com/arktypeio/status/1816172678748700833">recently</a> released the beta of 2.0, and I will update their benchmark when it is released. Notably, they will add morphs so I can change my input array to output sets, ISO strings to dates, etc</p>
+<h2 id="decoders">Decoders</h2>
+<p>This library doesn’t compare itself with others or have unique features. The API is neat and has everything you’d expect from a validator library: pre-processors, refinements, transformations. Decoders don’t seem well-composable, though, as I had to redefine some things twice. It also doesn’t seem to have enough Typescript support for discriminated unions<sup><a href="#user-content-fn-9" id="user-content-fnref-9" data-footnote-ref="" aria-describedby="footnote-label">9</a></sup>, so many important tests fail.</p>
+<iframe src="https://parsers-jamboree.apps.loskutoff.com/decoders" height="500"></iframe>
+<h2 id="effect-schema">Effect-schema</h2>
+<p>The creation of <a href="https://effect.website/">effect.ts</a> developers effect-schema is probably the most feature-complete. I haven’t found any way to break it, and it perfectly handles complex Typescript inference. It’s well-maintained but not well-known yet. I consider it to be <a href="https://github.com/gcanti/io-ts/blob/master/index.md">io-ts’s</a> successor, especially for its very similar API, and for that, the io-ts creator went to work with the effect-ts team. Io-ts has existed for quite a while, so I deem effect-schema mature. It’s well-maintained and updated thanks to effect.ts strong development push.</p>
+<iframe src="https://parsers-jamboree.apps.loskutoff.com/effect-schema" height="500"></iframe>
+<p>It adheres to the “codecs” semantics, being able to convert values back and forth.</p>
+<h2 id="rescript-schema">Rescript-schema</h2>
+<p>A library focused on DevEx and small bundle size. It is the <a href="https://moltar.github.io/typescript-runtime-type-benchmarks/">fastest of them all</a>.</p>
+<p>RESCRIPT IFRAME HERE <a href="https://parsers-jamboree.apps.loskutoff.com/rescript-schema">https://parsers-jamboree.apps.loskutoff.com/rescript-schema </a></p>
+<p>It has another superpower that makes it stand out: it’s written in <a href="https://rescript-lang.org/">Rescript</a> JS dialect and is bundled for Typescript.</p>
+<h2 id="runtypes">Runtypes</h2>
+<p>Although not too lively by the time I wrote this, Runtypes still covers many Typescript concepts some other libraries fail to recognize, including template literals, branded types, and unions.</p>
+<p>I struggled to find its special power (and there’s no comparison/motivation versus other libs in the readme either) until I discovered that the maintainers’ principal stance is <a href="https://github.com/runtypes/runtypes/issues/56">not to do any transformation</a>. So, an Array always stays Array and never becomes Set and vice versa. It’s a respectable point of view, and I empathize with it, although the reality is that the default expectation from a validator library is to be able to convert types. If we ignore that, though, Runtypes covers a lot of ground feature-wise.</p>
+<iframe src="https://parsers-jamboree.apps.loskutoff.com/runtypes" height="500"></iframe>
+<h2 id="schemata-ts">Schemata-ts</h2>
+<p>Another slow-maintained but feature-rich library. It features JSON Schema generation. It is positioned as the successor to io-ts. I think it’s a <a href="https://github.com/fp-tx/core">reaction</a> to the fp-ts and io-ts maintainers leaving for effect.ts. The sentiment is understandable, but I think effect.ts has much more traction because they have much more development resources at this point.</p>
+<iframe src="https://parsers-jamboree.apps.loskutoff.com/schemata-ts" height="500"></iframe>
+<p>Notably, the only failed test is a simple refinement to ensure the array is unique before converting it to a set. Maybe it is my skill issues. With more effort, it could’ve been possible, but I also consider the DevEx aspect here, so it’s one “fail.”</p>
+<h2 id="superstruct">Superstruct</h2>
+<p>The purpose of Superstruct, among other things, is to provide detailed errors, make custom types easy, and <a href="https://github.com/ianstormtaylor/superstruct?tab=readme-ov-file#why">introduce more exceptions</a> into your code.</p>
+<p>Superstuct is one of few libraries with a motivation in the readme. “Why” compares itself with several libs except Zod. I find this a bit weird since Zod is the King of validators today.</p>
+<iframe src="https://parsers-jamboree.apps.loskutoff.com/superstruct" height="500"></iframe>
+<h2 id="typebox">Typebox</h2>
+<p>Typebox is a feature-rich type checker whose superpower is its ability to generate JSON Schema (which makes it compatible with, e.g., Ajv). It gives the impression that the library is very mature and well-tended.</p>
+<iframe src="https://parsers-jamboree.apps.loskutoff.com/typebox" height="500"></iframe>
+<p>A unique feature is that it generates JSON Schema “out-of-the-box” as a core feature. It fails some of my feature tests due to this adherence to JSON Schema, but with all things considered, I probably would’ve chosen it anyway if I had to work with JSON Schema. One thing that seems weird about the API is its many unrelated to the validation task, e.g., “<a href="https://github.com/sinclairzx81/typebox?tab=readme-ov-file#mutate">mutate</a>” for mutating a nested object.</p>
+<h2 id="valibot">Valibot</h2>
+<p>Another library with a special feature/superpower. This one takes pride in its small bundle size, leverages tree-shaking with a functional API, and declares high performance. Originally a <a href="https://valibot.dev/thesis.pdf">Bachelor’s thesis</a>, it was <a href="https://www.builder.io/blog/introducing-valibot">endorsed</a> by several famous people, including Miško Hevery, one of the AngularJS creators. It seems to be actively maintained.</p>
+<iframe src="https://parsers-jamboree.apps.loskutoff.com/valibot" height="500"></iframe>
+<p>I enjoyed its API; it was a breeze to use it, although some things were counter-intuitive, for instance, the <a href="https://github.com/fabian-hiller/valibot/issues/685">default Set combinator</a> that doesn’t take an Array (as I would expect from a library that parses JSON) but instead requires another Set (much more rare case, many codebases may never encounter the need of that). Custom type definition typing was also weak when writing this (see source code above). Overall, I liked it, and I’d take this library if I needed a tiny bundle size. However, the API also seems immature in some places.</p>
+<h2 id="valita">Valita</h2>
+<p>The library’s primary goal is to be as powerful as Zod but with higher performance.</p>
+<iframe src="https://parsers-jamboree.apps.loskutoff.com/valita" height="500"></iframe>
+<p>What stands out is that they took their stance against implementing asynchronous parsing. I support this decision and think that async is not a concern of validation libraries. Although many others include this feature, I think it primarily serves the “marketing” (making the library more popular because it’s a very often requested feature) rather than keeping the library’s feature integrity.</p>
+<h2 id="yup">Yup</h2>
+<p>One of the most popular validators, likely a part of the popularity, is due to its release long ago and taking the niché early. I wasn’t able to make it validate many cases and keep typing at the same time. Perhaps it fares better for JS projects.</p>
+<iframe src="https://parsers-jamboree.apps.loskutoff.com/yup" height="500"></iframe>
+<h2 id="zod">Zod</h2>
+<p>Zod is the Elvis of validators. It dominates this area of Typescript software, and not without a reason. It’s battle-tested, feature-rich, and, importantly, allows wide support in the ecosystem; more often than not, I see other libraries and frameworks that need to outsource validation, referring to Zod as the default choice.</p>
+<iframe src="https://parsers-jamboree.apps.loskutoff.com/zod" height="500"></iframe>
+<p>I did <a href="https://github.com/colinhacks/zod/issues/3628">manage to break</a> it on the crossing between the recursive structures feature and discriminated union feature, but it doesn’t mean it doesn’t support them separately.</p>
+<p>I’d have taken Zod into my codebase if I was looking for the safest choice.</p>
+<h2 id="test-cases-elaborated">Test cases elaborated</h2>
+<p>I’m not going to name any “winners” but encourage you to consider what’s better for your project on your own. Despite which libraries passed more or less of my checks, there’s more context and considerations than just test cases. The features you need, the performance you chase to achieve, the code style of your project, and the needs of the people you’re working with are all important factors to consider..</p>
+<iframe src="https://parsers-jamboree.apps.loskutoff.com/summary?iframe" height="630px"></iframe>
+<p>That said, some elaboration on the test cases I used is due. Most of it will repeat the introduction’ “criteria,” but others are extra considerations that don’t just concern the data itself.</p>
+<p>Many tests also focus not just on features but also on such features working together. If a library declares a feature, I expect it to work with all other features of this library to a reasonable extent.</p>
+<p><strong>acceptsTypedInput:</strong> A “compile-time” test that shows that the lib can not only work on <code>unknown</code>s(/<code>any</code>s) but on other types. I find this feature very useful when I want to additionally validate/transform the results of third-party libs, such as <a href="https://www.npmjs.com/package/@stripe/stripe-js">StripeJS</a>. Still, I don’t want to be able to make the mistake of sending an unrelated object to validation.</p>
+<p><strong>addFavouriteRed:</strong> Adds a duplicated valid colour to the favouriteColours field. Although in some cases it’s ok, other times I’d like to have no garbage in my database. Having duplicated values in a collection with “set” semantics means that one side of the interaction doesn’t know what it’s doing, and this is a potential timebomb better to defuse the earliest.</p>
+<p><strong>addFavouriteTiger:</strong> Adds an invalid colour to the favouriteColours field. Enough said.</p>
+<p><strong>addFileSystemDupeFile:</strong> This test adds a duplicated value to the file system tree. My tree has the “unique list” semantics, so that shouldn’t be possible.</p>
+<p><strong>addFileSystemUFOType:</strong> An enum test that is not unlike the Tiger test but in composition with recursive data structures.</p>
+<p><strong>addTwoAtsToEmail:</strong> Well, technically, an Email can have two “at”s, and there’s no good way to check an email anyway, so it’s mostly about checking whether the lib supports custom regex. I purposely try not to use the lib included email checkers; moreover, if the library checks an email but doesn’t warn about its caveats in the docs, I consider it a shortcoming.</p>
+<p><strong>emailFormatAmbiguityIsAccountedFor:</strong> Many libraries warn about email validation caveats in docs, but some include default email validations and don’t warn that it’s im<a href="https://www.reddit.com/r/coding/comments/4d5lqh/it_is_impossible_to_validate_an_email_address/">possible</a> to <a href="https://web.archive.org/web/20160522060130/https://elliot.land/validating-an-email-address">validate an email</a>. I wasn’t sure whether to include this benchmark as it boundaries with nitpicking, but given many libs really care about it, I decided it’s going to stay.</p>
+<p><strong>clearName:</strong> Checks for very basic refines, e.g., very often, you don’t expect some strings be empty, like the name of the user.</p>
+<p><strong>prefixCustomerId:</strong> This is basically a “regex” case but with a point to explore whether the lib supports template literals. It’s not strictly needed, but I keep it here as a sign that template literals can’t be automatically tested runtime. I moved them into another “manual” test case.</p>
+<p><strong>setCreatedAtCyborgWar:</strong> Feeds the validator an invalid date value. I expect only the ISO date format returned by <code>new Date().toString()</code>, which JSON.stringify does. There’s a separate argument for why I prefer ISO timestamps rather than Unix timestamps, but it doesn’t matter here: how libraries handle this case matters. Not only battery-included ISO validations are accepted. If it’s easy enough to define a custom validation for an ISO date, I consider it a success, too.</p>
+<p><strong>setHalfVisits:</strong> Sets the “visits” counter to a float value. Who wants 1.5 visits to their service? There’s a vast array of domain values that benefit from being integers. Typescript doesn’t account for them by default, and we need to help it.</p>
+<p><strong>setProfileArtist:</strong> sets a “profile” belonging to a Listener to an Artist. Listeners’ fields aren’t Artists’ fields here, so it shouldn’t be possible.</p>
+<p><strong>setSubscriptionTypeBanana:</strong> A fundamental Enum check.</p>
+<p><strong>switchDates:</strong> A tricky check that the lib allows defining refinements involving multiple fields. createdAt being after updatedAt indicates an error down the line that we’d like to catch as early as possible. This type of check, in my opinion, plays along with Typescript the worst of them all. I watch for at least some reasonable type-safety here.</p>
+<p><strong>encodedEqualsInput:</strong> This check stands aside from the others. The library is supposed to define a codec A -&gt; B -&gt; A. This check requires A to equal A in runtime: we don’t want to lose/mutate data. The example is “2024-07-18T21:54:30Z” needs to become a Date, and when it goes back to string, it’s better to be “2024-07-18T21:54:30Z” again.</p>
+<p><strong>templateLiterals:</strong> Typescript supports<a href="https://www.typescriptlang.org/docs/handbook/2/template-literal-types.html"> template literals</a>, so the validator library supporting Typescript is expected to support it too.</p>
+<p><strong>transformationsPossible:</strong> Whether a transform A -&gt; B is supported. Some libraries take a stance of “only validation.” I respect the Unix philosophy approach but always encounter the need to transform eventually. If I get a string “2024-07-18T21:54:30Z”, I don’t want it to stay a string; it’s not entirely useful. In my code base, I want it to be Date (or any <a href="https://day.js.org/">other</a> <a href="https://date-fns.org/">convenient</a> <a href="https://github.com/moment/luxon">format</a>) until it’s ready to be sent over the network again and become “2024-07-18T21:54:30Z”</p>
+<p><strong>branded:</strong> Whether branded types are recognized. This is a hard requirement that the lib has to cater to. I don’t do only primitives anymore. I usually recommend that everyone else consider stricter types “for free” with branding techniques, especially since they go so well with the validator/parser/decoding approach. That said, branded types can be implemented “manually” for any lib that supports transformations.</p>
+<p><strong>typedErrors:</strong> If errors returned by the library are “any” or “unknown,” I don’t consider it to be supporting Typescript. That also means the throw-only semantics will not pass it, even when the “as” casting is in the docs. Also, I think that a validator library, more than anything else, should realize that failed validation is a valid code execution branch to be tended to. Throwing here means using exceptions for control flow, which is a widely recognized no-no.</p>
+<p><strong>canGenerateJsonSchema:</strong> Whether the schema definition can be serialized for cross-system communication. Became more relevant with OpenAI introducing <a href="https://openai.com/index/introducing-structured-outputs-in-the-api/">structured outputs</a>. Structured outputs are the reason I added it as a separate test.</p>
+<h2 id="enough">Enough!</h2>
+<p>So, this was quite an opinionated review indeed.</p>
+<p>Hopefully, I will stand out above many of the “10 best ts validator libraries” articles because I adhered to a transparent methodology for comparing them, which should help you make an educated decision.</p>
+<p>Who won your heart is really up to you and up to your project. Does it have rigid type system adepts? Does it require top-notch performance? Are your colleagues already too busy with more important things than JSON validation and would like to go the path of less resistance?</p>
+<p>And importantly, what <em>do you</em> feel fits and is enjoyable to work with?</p>
+<p>Leave a comment about your favourite libs and most looked-for features!</p>
+<h2 id="notes">Notes</h2>
+<section data-footnotes="" class="footnotes"><h2 class="sr-only" id="footnote-label">Footnotes</h2>
+<ol>
+<li id="user-content-fn-1">
+<p>Ackchyually, it does matter to me as I regard sending ISO date to be superior as it bumps observability of the system, but it really doesn’t matter in the scope of this review. <a href="#user-content-fnref-1" data-footnote-backref="" aria-label="Back to reference 1" class="data-footnote-backref">↩</a></p>
+</li>
+<li id="user-content-fn-2">
+<p><a href="https://kubyshkin.name/posts/newtype-in-typescript/">https://kubyshkin.name/posts/newtype-in-typescript/</a> <a href="#user-content-fnref-2" data-footnote-backref="" aria-label="Back to reference 2" class="data-footnote-backref">↩</a></p>
+</li>
+<li id="user-content-fn-3">
+<p>Now, it’s not strictly true and you can try to elevate some of such cases into the “branded” universe, but DevEx going to suffer too much, in my opinion. <a href="#user-content-fnref-3" data-footnote-backref="" aria-label="Back to reference 3" class="data-footnote-backref">↩</a></p>
+</li>
+<li id="user-content-fn-4">
+<p>Well, maybe it’s not so difficult, I just never looked into it. <a href="#user-content-fnref-4" data-footnote-backref="" aria-label="Back to reference 4" class="data-footnote-backref">↩</a></p>
+</li>
+<li id="user-content-fn-5">
+<p>Also called “Hexagonal” but I don’t really care about having hexes here. <a href="#user-content-fnref-5" data-footnote-backref="" aria-label="Back to reference 5" class="data-footnote-backref">↩</a></p>
+</li>
+<li id="user-content-fn-6">
+<p>Unless you’re too rich to be knowing what it is. I can’t help you then (and you don’t probably need any help anyways). <a href="#user-content-fnref-6" data-footnote-backref="" aria-label="Back to reference 6" class="data-footnote-backref">↩</a></p>
+</li>
+<li id="user-content-fn-7">
+<p>API change may happen when you don’t have versioning, and deploy didn’t fully come through, or cached frontend code didn’t refresh properly, or you improperly JSON.stringify-ed a non-toString()able object. This class of problems shouldn’t ever happen but it still does, and we want to catch it ASAP. <a href="#user-content-fnref-7" data-footnote-backref="" aria-label="Back to reference 7" class="data-footnote-backref">↩</a></p>
+</li>
+<li id="user-content-fn-8">
+<p>Here and further - “at the moment of writing this”. <a href="#user-content-fnref-8" data-footnote-backref="" aria-label="Back to reference 8" class="data-footnote-backref">↩</a></p>
+</li>
+<li id="user-content-fn-9">
+<p><a href="https://basarat.gitbook.io/typescript/type-system/discriminated-unions">https://basarat.gitbook.io/typescript/type-system/discriminated-unions</a> <a href="#user-content-fnref-9" data-footnote-backref="" aria-label="Back to reference 9" class="data-footnote-backref">↩</a></p>
+</li>
+</ol>
+</section> <script src="https://utteranc.es/client.js" repo="dearlordylord/blog" issue-term="pathname" theme="github-dark" crossorigin="anonymous" async>
     </script>  </div> </article>  </div> </main> </body></html>
