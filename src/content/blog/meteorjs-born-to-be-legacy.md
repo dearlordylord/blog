@@ -3,8 +3,6 @@ title: "Born to be legacy, or MeteorJS: fractal of helloworld-oriented design"
 legacyDate: 2015-04-16 00:00:15 +0700
 tags: meteorjs, roast
 publication-date: 04/26/2023
-image-url: /static/blog/50-shades-of-rust/splashcrab.jpg
-opengraphImage: /static/blog/50-shades-of-rust/splashcrab.jpg
 ---
 
 * Update2 (04-09-2024): It's an archived post I wrote in 2015. It's not kind, but it turned out to predict the future quite correctly. MeteorJS ecosystem, built on 3rd party packages, experiences a lack of support. Even the packages that Meteor team took under their patronage are not maintained well (https://github.com/Meteor-Community-Packages/meteor-scss/pull/296).
