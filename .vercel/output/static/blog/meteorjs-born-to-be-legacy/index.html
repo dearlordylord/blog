@@ -1,0 +1,197 @@
+<!DOCTYPE html><html lang="en" class="h-full bg-slate-1 text-slate-12 transition-colors ease-in-out"> <head><!-- Global Metadata --><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><!-- icon generator guy recommendation https://stackoverflow.com/a/48969053/2123547 --><link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png"><link rel="shortcut icon" href="/icons/favicon.ico"><!-- / icon generator guy recommendation --><meta name="generator" content="Astro v4.8.2"><!-- Canonical URL --><link rel="canonical" href="https://www.loskutoff.com/blog/meteorjs-born-to-be-legacy/"><!-- /Canonical URL --><!-- Primary Meta Tags --><title>Born to be legacy, or MeteorJS: fractal of helloworld-oriented design</title><meta name="title" content="Born to be legacy, or MeteorJS: fractal of helloworld-oriented design"><meta name="description" content="Igor's programming blog"><link rel="sitemap" href="/sitemap-index.xml"><!-- /Primary Meta Tags --><!-- Open Graph / Facebook --><meta property="og:type" content="website"><meta property="og:url" content="https://www.loskutoff.com/blog/meteorjs-born-to-be-legacy/"><meta property="og:title" content="Born to be legacy, or MeteorJS: fractal of helloworld-oriented design"><meta property="og:description" content="Igor's programming blog"><meta property="og:image" content="https://www.loskutoff.com/static/blog/50-shades-of-rust/splashcrab.jpg"><!-- /Open Graph / Facebook --><!-- X --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://www.loskutoff.com/blog/meteorjs-born-to-be-legacy/"><meta property="twitter:site" content="@ohdearlordylord"><meta property="twitter:title" content="Born to be legacy, or MeteorJS: fractal of helloworld-oriented design"><meta property="twitter:description" content="Igor's programming blog"><meta property="twitter:image" content="https://www.loskutoff.com/static/blog/50-shades-of-rust/splashcrab.jpg?1725484366253"><meta property="twitter:image:alt"><!-- /X --><!-- RSS Feed --><link rel="alternate" type="application/rss+xml" title="oh dear lordy lord" href="https://www.loskutoff.com/rss.xml"><!-- /RSS Feed --><!-- Third-party scripts --><link rel="stylesheet" href="/_astro/_slug_.KtXkW0NO.css"><script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+		var script = document.createElement('script');
+		script.defer = true;
+		script.src = '/_vercel/insights/script.js';
+		var head = document.querySelector('head');
+		head.appendChild(script);
+	</script></head> <body class="h-full"> <main class="flex h-full flex-col gap-6 p-6 md:flex-row"> <header class="flex flex-col border-b border-slate-3 print:hidden md:h-full md:border-b-0 md:border-r"> <h2 class="flex w-full justify-left font-mono text-slate-12"> <a href="/" class="md:w-min p-3 rounded-lg animate transition-all duration-200 hover:bg-slate-4" rel="prefetch"> 
+oh dear lordy lord
+ </a> <span id="astro-color-scheme-switch" data-astro-cid-zzomblhz>  <button> <span class="sr-only">Toggle Theme</span> <span class="dark:hidden"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 256 256"><path d="M120,40V16a8,8,0,0,1,16,0V40a8,8,0,0,1-16,0Zm72,88a64,64,0,1,1-64-64A64.07,64.07,0,0,1,192,128Zm-16,0a48,48,0,1,0-48,48A48.05,48.05,0,0,0,176,128ZM58.34,69.66A8,8,0,0,0,69.66,58.34l-16-16A8,8,0,0,0,42.34,53.66Zm0,116.68-16,16a8,8,0,0,0,11.32,11.32l16-16a8,8,0,0,0-11.32-11.32ZM192,72a8,8,0,0,0,5.66-2.34l16-16a8,8,0,0,0-11.32-11.32l-16,16A8,8,0,0,0,192,72Zm5.66,114.34a8,8,0,0,0-11.32,11.32l16,16a8,8,0,0,0,11.32-11.32ZM48,128a8,8,0,0,0-8-8H16a8,8,0,0,0,0,16H40A8,8,0,0,0,48,128Zm80,80a8,8,0,0,0-8,8v24a8,8,0,0,0,16,0V216A8,8,0,0,0,128,208Zm112-88H216a8,8,0,0,0,0,16h24a8,8,0,0,0,0-16Z"></path></svg></span> <span class="hidden dark:block"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 256 256"><path d="M233.54,142.23a8,8,0,0,0-8-2,88.08,88.08,0,0,1-109.8-109.8,8,8,0,0,0-10-10,104.84,104.84,0,0,0-52.91,37A104,104,0,0,0,136,224a103.09,103.09,0,0,0,62.52-20.88,104.84,104.84,0,0,0,37-52.91A8,8,0,0,0,233.54,142.23ZM188.9,190.34A88,88,0,0,1,65.66,67.11a89,89,0,0,1,31.4-26A106,106,0,0,0,96,56,104.11,104.11,0,0,0,200,160a106,106,0,0,0,14.92-1.06A89,89,0,0,1,188.9,190.34Z"></path></svg></span> </button>  </span>  <script>(function(){const strategy = "button";
+const defaultTheme = undefined;
+
+  const themeSwitch = document.getElementById("astro-color-scheme-switch");
+  const theme = localStorage.getItem("theme");
+  const themeMatcher = window.matchMedia("(prefers-color-scheme: dark)");
+  let systemTheme = themeMatcher.matches ? "dark" : "light";
+
+  themeMatcher.addEventListener("change", (event) => {
+    const theme = event.matches ? "dark" : "light";
+    systemTheme = theme;
+    if (localStorage.getItem("theme") === "system") {
+      updateAppliedTheme(theme);
+    }
+  });
+
+  function updateAppliedTheme(value) {
+    document.documentElement.classList.remove("light", "dark");
+    document.documentElement.classList.add(value);
+    document.documentElement.setAttribute("data-theme", value);
+  }
+
+  function updateTheme(value) {
+    const theme = value === "system" ? systemTheme : value;
+    updateAppliedTheme(theme);
+    localStorage.setItem("theme", value);
+  }
+
+  function setupThemeSwitch(selector, eventType, themeUpdater) {
+    const element = themeSwitch.querySelector(selector);
+    if (!element) {
+      throw new Error(
+        `plugin-astro-color-scheme: <${selector}> element must be present inside 'themeSwitch' or change the 'strategy' attribute`
+      );
+    }
+
+    if (selector === "form") {
+      element.value = theme || defaultTheme || systemTheme;
+      Array.from(element.querySelectorAll("input")).forEach((input) => {
+        input.checked = (theme || defaultTheme || systemTheme) === input.value;
+      });
+    } else {
+      element.value = theme || defaultTheme || systemTheme;
+    }
+
+    if (selector === "input") {
+      element.checked = defaultTheme !== element.value;
+    }
+
+    updateTheme(element.value);
+    element.addEventListener(eventType, themeUpdater);
+  }
+
+  switch (strategy) {
+    case "button":
+      setupThemeSwitch("button", "click", (event) => {
+        const button = event.currentTarget;
+        const settheme = button.value === "dark" ? "light" : "dark";
+        button.value = settheme;
+        updateTheme(settheme);
+      });
+      break;
+    case "select":
+      setupThemeSwitch("select", "change", (event) => {
+        const select = event.currentTarget;
+        updateTheme(select.value);
+      });
+      break;
+    case "checkbox":
+      setupThemeSwitch("input", "change", (event) => {
+        const checkbox = event.currentTarget;
+        const settheme = checkbox.value === "dark" ? "light" : "dark";
+        checkbox.value = settheme;
+        updateTheme(settheme);
+      });
+      break;
+    case "radio":
+      setupThemeSwitch("form", "click", (event) => {
+        updateTheme(event.currentTarget.value);
+      });
+      break;
+    default:
+      updateTheme(theme || defaultTheme || systemTheme);
+  }
+})();</script> </h2> <nav class="flex h-full justify-center gap-4 font-black md:flex-col md:justify-start"> <a href="/blog" class="md:w-min p-3 rounded-lg animate transition-all duration-200 hover:bg-slate-4" rel="prefetch"> Blog </a> </nav> <div class="mr-8 mb-4 flex w-full justify-center gap-4"> <a href="https://github.com/dearlordylord" class="md:w-min p-3 rounded-lg animate transition-all duration-200 hover:bg-slate-4" rel="prefetch" target="_blank">  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 256 256"><path d="M208.31,75.68A59.78,59.78,0,0,0,202.93,28,8,8,0,0,0,196,24a59.75,59.75,0,0,0-48,24H124A59.75,59.75,0,0,0,76,24a8,8,0,0,0-6.93,4,59.78,59.78,0,0,0-5.38,47.68A58.14,58.14,0,0,0,56,104v8a56.06,56.06,0,0,0,48.44,55.47A39.8,39.8,0,0,0,96,192v8H72a24,24,0,0,1-24-24A40,40,0,0,0,8,136a8,8,0,0,0,0,16,24,24,0,0,1,24,24,40,40,0,0,0,40,40H96v16a8,8,0,0,0,16,0V192a24,24,0,0,1,48,0v40a8,8,0,0,0,16,0V192a39.8,39.8,0,0,0-8.44-24.53A56.06,56.06,0,0,0,216,112v-8A58.14,58.14,0,0,0,208.31,75.68ZM200,112a40,40,0,0,1-40,40H112a40,40,0,0,1-40-40v-8a41.74,41.74,0,0,1,6.9-22.48A8,8,0,0,0,80,73.83a43.81,43.81,0,0,1,.79-33.58,43.88,43.88,0,0,1,32.32,20.06A8,8,0,0,0,119.82,64h32.35a8,8,0,0,0,6.74-3.69,43.87,43.87,0,0,1,32.32-20.06A43.81,43.81,0,0,1,192,73.83a8.09,8.09,0,0,0,1,7.65A41.72,41.72,0,0,1,200,104Z"></path></svg>  </a> <!-- TODO TIL --> <!-- TODO presentations --> <!-- TODO apps --> <!-- TODO resume --> <!-- TODO dnd --> <a href="https://linkedin.com/in/igor-loskutov/" class="md:w-min p-3 rounded-lg animate transition-all duration-200 hover:bg-slate-4" rel="prefetch" target="_blank">  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 256 256"><path d="M216,24H40A16,16,0,0,0,24,40V216a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V40A16,16,0,0,0,216,24Zm0,192H40V40H216V216ZM96,112v64a8,8,0,0,1-16,0V112a8,8,0,0,1,16,0Zm88,28v36a8,8,0,0,1-16,0V140a20,20,0,0,0-40,0v36a8,8,0,0,1-16,0V112a8,8,0,0,1,15.79-1.78A36,36,0,0,1,184,140ZM100,84A12,12,0,1,1,88,72,12,12,0,0,1,100,84Z"></path></svg>  </a> <a href="https://twitter.com/ohdearlordylord" class="md:w-min p-3 rounded-lg animate transition-all duration-200 hover:bg-slate-4" rel="prefetch" target="_blank">  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 256 256"><path d="M247.39,68.94A8,8,0,0,0,240,64H209.57A48.66,48.66,0,0,0,168.1,40a46.91,46.91,0,0,0-33.75,13.7A47.9,47.9,0,0,0,120,88v6.09C79.74,83.47,46.81,50.72,46.46,50.37a8,8,0,0,0-13.65,4.92c-4.31,47.79,9.57,79.77,22,98.18a110.93,110.93,0,0,0,21.88,24.2c-15.23,17.53-39.21,26.74-39.47,26.84a8,8,0,0,0-3.85,11.93c.75,1.12,3.75,5.05,11.08,8.72C53.51,229.7,65.48,232,80,232c70.67,0,129.72-54.42,135.75-124.44l29.91-29.9A8,8,0,0,0,247.39,68.94Zm-45,29.41a8,8,0,0,0-2.32,5.14C196,166.58,143.28,216,80,216c-10.56,0-18-1.4-23.22-3.08,11.51-6.25,27.56-17,37.88-32.48A8,8,0,0,0,92,169.08c-.47-.27-43.91-26.34-44-96,16,13,45.25,33.17,78.67,38.79A8,8,0,0,0,136,104V88a32,32,0,0,1,9.6-22.92A30.94,30.94,0,0,1,167.9,56c12.66.16,24.49,7.88,29.44,19.21A8,8,0,0,0,204.67,80h16Z"></path></svg>  </a> </div> </header> <div class="w-full">  <article class="flex w-full flex-col items-center gap-6"> <h1 class="text-center text-4xl font-bold">Born to be legacy, or MeteorJS: fractal of helloworld-oriented design</h1> <img src="/static/blog/50-shades-of-rust/splashcrab.jpg" class="mb-6 w-full rounded-xl border border-slate-3 shadow-lg md:max-w-4xl">  <hr> <div class="prose prose-slate dark:prose-invert flex w-full flex-col md:max-w-4xl">  <ul>
+<li>
+<p>Update2 (04-09-2024): It’s an archived post I wrote in 2015. It’s not kind, but it turned out to predict the future quite correctly. MeteorJS ecosystem, built on 3rd party packages, experiences a lack of support. Even the packages that Meteor team took under their patronage are not maintained well (<a href="https://github.com/Meteor-Community-Packages/meteor-scss/pull/296">https://github.com/Meteor-Community-Packages/meteor-scss/pull/296</a>).</p>
+</li>
+<li>
+<p>Update * Slowly things are getting better. Most of the issues noted in this article aren’t actual anymore.
+Meteor community did a great job moving from Meteor packages to npm, from Blaze to React/Angular2/Vue,
+from minimongo reactivity to <a href="http://www.apollostack.com/">Graphql</a>. I won’t say all those custom Meteor infrastructure things were failures,
+as at the time it was the best choice to obtain quick traction and user base.</p>
+</li>
+</ul>
+<p>Here I’ll share some thoughts about MeteorJS bad parts that I faced working with it.
+It isn’t about starting holy war, but rather constructive criticism, and I really hope I’ll help Meteor community become better.</p>
+<p>I really want to be wrong here. Please point in comments if I’m wrong, and return me my trust in framework and in community.</p>
+<p>So there’s my main statement: MeteorJS is optimized for Hello World applications;
+you can write serious application on top of it, but you have to hack it around to do so.</p>
+<p>MeteorJS advertises itself as easy to use. It does so many things for you. It attracts developers with shiny demonstrations,
+aggressively extending it’s community, writing nice tutorials for new developers which are easy to follow but which are utterly wrong.</p>
+<p>How many times did you saw tutorial with usage of a Session reactive source, for like <em>everything</em>?</p>
+<p>* <em>Session reactive source is a (string)key-value store that is maintained for the whole application
+and accessible globally from any code part</em></p>
+<p>Of course you can use namespaces in form of prefixes (but who <em>really</em> doing it?) or ReactiveVars like me.
+But I don’t see it’s usage as a recommended, as a result there’s plead of new developers who learning to do things wrong.</p>
+<p>Session is only a part of big <code>global</code> problem, that, in it’s turn, a part of packages / dependencies loading problem.
+I’ll write about it later, but will concentrate on problem of globals.</p>
+<p>So my second statement would be: Packages in Meteor are globals, and it is fundamentally wrong.
+If you think globals are OK I hope there’s time machine for you so you could travel back to nineties and never come back.</p>
+<p>I agree, globals are very easy to use and easy to attract fresh blood to community, but only if you don’t care about blood quality.</p>
+<p>What tangible problems globals give me right now are a) problem with load order and dependencies b) problem with packages.</p>
+<p>A. Load order issues</p>
+<p>So as we all know, Meteor load files deep-first, alphabetical-first, ‘main.js’-last.
+That becomes an issue when you have some inner dependencies to watch, i.e. you have services/SomeService/index.js and someFeature/index.js
+which depends in SomeService at initialisation. When you move someFeature/index.js to someFeature/subfolder/subfolder/index.js you don’t have a
+SomeService global initialized anymore.</p>
+<p>Some can argue about Meteor.loaded callback. That’s ok as long as service isn’t use this callback too.</p>
+<p>As a result, you don’t structure your application as you want, but rather as you can.</p>
+<p>That can be resolved with packages, but you don’t want to move all your application-specific functionality in packages just to get load order,
+besides, packaging system has it’s own problems.</p>
+<p>B. Globals and packages</p>
+<p>How packages are being imported into your applications is the globals too.
+Packages are supposed to have ‘export’ API that describes what globals would be imported in your app.</p>
+<p>Sounds great, but let’s look in details how it works.</p>
+<p>First, you create package: you get some library, bundle it in dist.js like this:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#E1E4E8">MyPackage </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> {</span><span style="color:#6A737D">/* your package API */</span><span style="color:#E1E4E8">};</span></span>
+<span class="line"></span></code></pre>
+<p>and then, in <code>package.js</code>, you write something like <code>api.export('MyPackage', ['client'])</code> so it is being exported to client side.</p>
+<p>So far so good, but wait a second, say you, what if I have a package that need to be built from modules with <a href="http://webpack.github.io/">webpack</a> or <a href="http://browserify.org/">browserify</a>?
+Unfortunately you can’t do it; you have to <strong>include built dist.js in your repository</strong>. For some it isn’t a problem; but I personally distaste it.
+So that doesn’t lead to bit problems. Ok, just include it. It is your package. Wait, what? It isn’t your package?
+And package owners distaste including dist in their package too? Then just fork it and build it yourself. That’s a good solution.
+Except it wouldn’t work.</p>
+<p>And there’s the reason - package managers like browserify and webpack packing built packages in <a href="http://en.wikipedia.org/wiki/Immediately-invoked_function_expression">IFFE</a>
+(Immediately invoked function expression). More simply put, it looks like this:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#E1E4E8">(</span><span style="color:#F97583">function</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">global</span><span style="color:#E1E4E8">){</span></span>
+<span class="line"><span style="color:#6A737D">    // assign stuff to 'global', works with AMD, Require, just window etc, but not with Meteor.</span></span>
+<span class="line"><span style="color:#E1E4E8">})(</span><span style="color:#79B8FF">this</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"></span></code></pre>
+<p>Unfortunately, <code>MyPackage = {}</code> isn’t the same thing as <code>this.MyPackage = {}</code> in package file.
+In <code>this</code> case your <code>api.export</code> will export <code>undefined</code> instead of your package.
+And I have a hack for this. Just don’t export this variable in <code>api.use</code>, and you’ll be fine (no idea why it works).
+But seriously? That’s pretty crucial infrastructure functionality and you’re beyond 1.0 already.</p>
+<p>As a bonus, if you have another globals that you want to depend on in your package, you don’t have them in <code>this</code>. So you have to emulate <code>this</code> like</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#F97583">var</span><span style="color:#E1E4E8"> meteorHack </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> {packageIDependOn: packageIDependOn};</span></span>
+<span class="line"><span style="color:#E1E4E8">(</span><span style="color:#F97583">function</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">global</span><span style="color:#E1E4E8">){</span></span>
+<span class="line"><span style="color:#6A737D">    // assign MyPackage to 'global', using packageIDependOn</span></span>
+<span class="line"><span style="color:#E1E4E8">})(meteorHack);</span></span>
+<span class="line"><span style="color:#E1E4E8">MyPackage </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> meteorHack.MyPackage;</span></span>
+<span class="line"></span></code></pre>
+<p>You can argue that it is automatic build and you don’t have to add some hacks manually. I don’t like it too, but it how does it works right now.</p>
+<p>Ok, we dealt with dist.js, included it with package.js in our fork and pull requested the library owner.</p>
+<p>Now library owner has to decide, whether accept it or not. So things that have to be accepted:</p>
+<ul>
+<li>
+<p>dist.js - that will increase repo size, will impose commit discipline (commit code first, then build) (or commit everything at once and have dirty commit history)</p>
+</li>
+<li>
+<p>package.js. So some guy that doesn’t know Meteor have to accept
+some file named <code>package.js</code> and another users of this package will see it every time they look at source directory tree
+and wonder if it is some npm build custom script (what will be you first thought, implying you see already package.json?).
+Really, really confusing.</p>
+</li>
+<li>
+<p>mentioned above hack for dist.js</p>
+</li>
+</ul>
+<p>Well, you always can maintain your own fork and share it with community under your name. But today you work with MeteorJS, and tomorrow
+you’re hired on CometJS or PonyJS or WhateverJS project and you have to maintain your Meteor legacy packages.
+Remembering to repackage them every time on new version and apply manual hacks to it.</p>
+<p>So to summarise written above:</p>
+<p>currently Meteor have oversimplified system on these levels:</p>
+<ul>
+<li>
+<p>application programming (globals everywhere, or Template.instance() to get the template current instance from helper)</p>
+</li>
+<li>
+<p>package programming (globals again, and only <code>MyPackage = ...</code> working)</p>
+</li>
+<li>
+<p>documentation level (documentation and articles enforcing idea that Meteor is simple and pleasant to work with, and enforcing using ‘easy’ solutions like globals and global Session store)</p>
+</li>
+</ul>
+<p>This ‘simplicity’ gives you big problems when you want to do advanced things.</p>
+<p>So I call this design helloworld-oriented, fit very well to attract young developers and especially fit well to attract near-programming management/startup owners
+who already heard all this buzz about ten-million funding and about fullstack JS tendency.</p> <script src="https://utteranc.es/client.js" repo="dearlordylord/blog" issue-term="pathname" theme="github-dark" crossorigin="anonymous" async>
+    </script>  </div> </article>  </div> </main> </body></html>
