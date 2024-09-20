@@ -1,17 +1,34 @@
 ---
-title: "Parsers Jamboree"
-tags: programming, types
-description: todo
-opengraphImage: /static/blog/parsers-jamboree/infer-botticelli.jpg
+title: "Typescript Validators Jamboree: A Fair(ly cruel) Review of Typescript Validation Libraries"
+tags: typescript, programming, validation
+description: "Typescript Validators Showdown: A Comprehensive Review"
+opengraphImage: /static/blog/parsers-jamboree/validators-jamboree.png
 opengraphImageAlt: Infer by Botticelli
-reading-time: 5
+reading-time: 24
 author: Igor Loskutov
 social-media-url: https://github.com/dearlordylord
+social-media-handle: ohdearlordylord
+keywords: typescript, validators, parsers, ajv, arktype, effect-ts, effect-schema, rescript-schema, superstruct, typebox, valibot, valita, yup, zod
+publication-date: 21/08/2024
+published: 2024-08-21T13:44:27Z
+image-url: /static/blog/validators-jamboree.png
+repo: https://github.com/dearlordylord/parsers-jamboree
 ---
 
-## Typescript Validators Jamboree
-A Fair(ly cruel) Review of Typescript Validation Libraries
+<center>
 
+# Typescript Validators Jamboree
+
+<big>
+
+**A Fair(ly cruel) Review of Typescript Validation Libraries**
+
+</big>
+
+*Written by Igor Loskutov. Originally published 2024-08-21 on the [Monadical blog](https://monadical.com/blog.html).*
+
+
+</center>
 
 ## Motivation
 
@@ -27,20 +44,7 @@ What’s a validator? I use this terminology rather frivolously here, as sometim
 
 So, for this review, the validator is something that takes a piece of data that’s supposed to be specifically structured and checks that it indeed conforms to such a structure, carrying this information further into your codebase:
 
-
-```mermaid
-graph TD
-   A[Specification: object should have a key someNumber whose value is a number and a key someString whose value is a string]
-   B["{ 'someNumber': 1, 'someString': 'string!' }"]
-   C["{ 'someNumber': 1, 'someString': 'string!' }"]
-   D["{ 'notExpected': 'hello?' }"]
-   E[Error: Invalid Input]
-
-   A -->|Validates| B
-   B -->|Converts to| C
-   A -->|Validates| D
-   D -->|Returns| E
-```
+![Mermaid graph](https://loskutoff.com/static/blog/parsers-jamboree/mermaid-flow.png)
 
 ## Disclaimer
 
@@ -59,9 +63,9 @@ In this review, I assume we all agree that catching errors earlier is better tha
 
 Among the other criteria, **expressiveness **will dominate the evaluation process. That means a special focus of this review is how well the validator libraries leverage the Typescript type system to solidify the gap between runtime “chaos” and compile-time “order.”
 
-> It also means that being able to “transform” outside world types into domain/language types is expected, although lacking this ability doesn’t justify disqualification.
+> It also means that being able to “transform” outside world types into domain/language types is expected.
 >
-> The most obvious example is when, through JSON, we receive an array of items that are supposed to be unique, e.g., the user’s favourite colours: we don’t tolerate when the user has favourited “pink” three times! In Javascript, this assumption naturally translates into the Set data structure, which the validator (
+> The most obvious example is when, through JSON, we receive an array of items that are supposed to be unique, e.g., the user’s favourite colours: we don’t tolerate when the user has favourited “pink” three times! In Javascript, this assumption naturally translates into the Set data structure.
 
 **Composability** is another critical focus. I’d like to reuse already defined validators and combine them freely like LEGO blocks. Who wouldn’t? Real life dictates that sometimes (and eventually happens on most codebases), your data becomes fragmented, be it [partial API results](https://docs.stripe.com/expand) or multiple sources of truth.
 
@@ -74,49 +78,6 @@ Therefore, this review “features” mostly feature comparisons, leading me to 
 
 ### The test case
 
-
-```mermaid
-graph TD
-   A[User]
-
-
-   subgraph Properties
-       direction TB
-       A --> B1[name: non-empty string]
-       A --> B2[email: quasi-valid email]
-       A --> B3[createdAt: ISO date string]
-       A --> B4[updatedAt: ISO date string, not before createdAt]
-       A --> B5[subscription: FREE, PRO, PREMIUM]
-       A --> B6[stripeId: starts with cus_]
-       A --> B7[visits: non-negative integer]
-       A --> B8[favouriteColours: red, green, blue, or #NNNNNN, no duplicates]
-       A --> B9[profile]
-       A --> B10[fileSystem]
-   end
-
-   subgraph Profile
-       direction TB
-       B9 --> C1[type: listener]
-       C1 --> D1[boughtTracks: non-negative integer]
-       B9 --> C2[type: artist]
-       C2 --> D2[publishedTracks: non-negative integer]
-   end
-
-
-   subgraph FileSystem
-       direction TB
-       B10 --> E1[type: directory]
-       E1 --> F1[name: string]
-       E1 --> F2[children: array of file or directory]
-
-       F2 --> G1[type: directory]
-       G1 --> H1[name: string]
-       G1 --> H2[children: fileSystem]
-
-       F2 --> G2[type: file]
-       G2 --> H3[name: string]
-   end
-```
 
 
 It’s not an actual use case but a combination of use cases I’ve encountered. The purpose is to check as many features as possible with a reasonably compact data structure.
@@ -197,7 +158,7 @@ Indeed, do you want to write your validation logic and then write types for it? 
 
 All the libraries that passed the criteria for this review support this convenience, with some inessential exceptions.
 
-> I’m convicted that defining types one extra time isn’t a big deal, though, as long as the type system doesn’t allow for lies like `object({ n: integer() }; type O = {s: string}`. You’ll see that in some cases, we’ll have to write extra type definitions, notably for recursive structures, to help Typescript inver and not fall into infinite recursion.
+> I’m convicted that defining types one extra time isn’t a big deal, though, as long as the type system doesn’t allow for lies like `object({ n: integer() }; type O = {s: string}`. You’ll see that in some cases, we’ll have to write extra type definitions, notably for recursive structures, to help Typescript infer and not fall into infinite recursion.
 
 This property is called “inference.” They “infer” types from runtime validation code. What’s important to emphasize, though, is that Typescript works only one way in this regard.
 
@@ -276,7 +237,7 @@ Bearing a recursive name Ajv JSON [schema] Validator, it’s one of the special 
 
 The library is mature, tremendously popular, and is well-maintained[^8].
 
-<iframe src="https://parsers-jamboree.apps.loskutoff.com/ajv" height="500"></iframe>
+<iframe src="https://parsers-jamboree.apps.loskutoff.com/ajv" height="500" width="100%"></iframe>
 
 You’ll see that it doesn’t cover some test cases that it is supposed to. This is because many typechecks aren’t well-typed, and I’d have to digress to “any” implementing them. This is understandable; with a focus towards JSON Schema definitions, I guess it’s very difficult to translate Typescript types 1x1. I decided to mark them as failed because of the reasons in the introduction: Typescript has to be supported fully, or no deal.
 
@@ -291,7 +252,7 @@ It shouldn’t be an issue in your production code; it’s unlikely that anythin
 
 Arktype has a unique concept: it parses [template literals](https://www.typescriptlang.org/docs/handbook/2/template-literal-types.html) parallel in runtime and compile time. Its own template literal syntax mirrors Typescript. These points together allow for very positive DevEx, especially since the library provides its plugins for popular IDEs.
 
-<iframe src="https://parsers-jamboree.apps.loskutoff.com/arktype" height="500"></iframe>
+<iframe src="https://parsers-jamboree.apps.loskutoff.com/arktype" height="500" width="100%"></iframe>
 
 Pay attention to how parsers are defined. It’s a true joy (no pun intended, [Joy](https://github.com/hapijs/joi)) to work with it. It feels like magic, a work of art, or both.
 
@@ -308,13 +269,13 @@ They [recently](https://x.com/arktypeio/status/1816172678748700833) released the
 
 This library doesn’t compare itself with others or have unique features. The API is neat and has everything you’d expect from a validator library: pre-processors, refinements, transformations. Decoders don’t seem well-composable, though, as I had to redefine some things twice. It also doesn’t seem to have enough Typescript support for discriminated unions[^9], so many important tests fail.
 
-<iframe src="https://parsers-jamboree.apps.loskutoff.com/decoders" height="500"></iframe>
+<iframe src="https://parsers-jamboree.apps.loskutoff.com/decoders" height="500" width="100%"></iframe>
 
 ## Effect-schema
 
 The creation of [effect.ts](https://effect.website/) developers effect-schema is probably the most feature-complete. I haven’t found any way to break it, and it perfectly handles complex Typescript inference. It’s well-maintained but not well-known yet. I consider it to be [io-ts's](https://github.com/gcanti/io-ts/blob/master/index.md) successor, especially for its very similar API, and for that, the io-ts creator went to work with the effect-ts team. Io-ts has existed for quite a while, so I deem effect-schema mature. It’s well-maintained and updated thanks to effect.ts strong development push.
 
-<iframe src="https://parsers-jamboree.apps.loskutoff.com/effect-schema" height="500"></iframe>
+<iframe src="https://parsers-jamboree.apps.loskutoff.com/effect-schema" height="500" width="100%"></iframe>
 
 It adheres to the “codecs” semantics, being able to convert values back and forth.
 
@@ -323,7 +284,7 @@ It adheres to the “codecs” semantics, being able to convert values back and 
 
 A library focused on DevEx and small bundle size. It is the [fastest of them all](https://moltar.github.io/typescript-runtime-type-benchmarks/).
 
-RESCRIPT IFRAME HERE [https://parsers-jamboree.apps.loskutoff.com/rescript-schema ](https://parsers-jamboree.apps.loskutoff.com/rescript-schema)
+<iframe src="https://parsers-jamboree.apps.loskutoff.com/rescript-schema" height="500" width="100%"></iframe>
 
 It has another superpower that makes it stand out: it’s written in [Rescript](https://rescript-lang.org/) JS dialect and is bundled for Typescript.
 
@@ -334,13 +295,13 @@ Although not too lively by the time I wrote this, Runtypes still covers many Typ
 
 I struggled to find its special power (and there’s no comparison/motivation versus other libs in the readme either) until I discovered that the maintainers’ principal stance is [not to do any transformation](https://github.com/runtypes/runtypes/issues/56). So, an Array always stays Array and never becomes Set and vice versa. It’s a respectable point of view, and I empathize with it, although the reality is that the default expectation from a validator library is to be able to convert types. If we ignore that, though, Runtypes covers a lot of ground feature-wise.
 
-<iframe src="https://parsers-jamboree.apps.loskutoff.com/runtypes" height="500"></iframe>
+<iframe src="https://parsers-jamboree.apps.loskutoff.com/runtypes" height="500" width="100%"></iframe>
 
 ## Schemata-ts
 
 Another slow-maintained but feature-rich library. It features JSON Schema generation. It is positioned as the successor to io-ts. I think it’s a [reaction](https://github.com/fp-tx/core) to the fp-ts and io-ts maintainers leaving for effect.ts. The sentiment is understandable, but I think effect.ts has much more traction because they have much more development resources at this point.
 
-<iframe src="https://parsers-jamboree.apps.loskutoff.com/schemata-ts" height="500"></iframe>
+<iframe src="https://parsers-jamboree.apps.loskutoff.com/schemata-ts" height="500" width="100%"></iframe>
 
 Notably, the only failed test is a simple refinement to ensure the array is unique before converting it to a set. Maybe it is my skill issues. With more effort, it could’ve been possible, but I also consider the DevEx aspect here, so it’s one “fail.”
 
@@ -351,13 +312,13 @@ The purpose of Superstruct, among other things, is to provide detailed errors, m
 
 Superstuct is one of few libraries with a motivation in the readme. “Why” compares itself with several libs except Zod. I find this a bit weird since Zod is the King of validators today.
 
-<iframe src="https://parsers-jamboree.apps.loskutoff.com/superstruct" height="500"></iframe>
+<iframe src="https://parsers-jamboree.apps.loskutoff.com/superstruct" height="500" width="100%"></iframe>
 
 ## Typebox
 
 Typebox is a feature-rich type checker whose superpower is its ability to generate JSON Schema (which makes it compatible with, e.g., Ajv). It gives the impression that the library is very mature and well-tended.
 
-<iframe src="https://parsers-jamboree.apps.loskutoff.com/typebox" height="500"></iframe>
+<iframe src="https://parsers-jamboree.apps.loskutoff.com/typebox" height="500" width="100%"></iframe>
 
 A unique feature is that it generates JSON Schema “out-of-the-box” as a core feature. It fails some of my feature tests due to this adherence to JSON Schema, but with all things considered, I probably would’ve chosen it anyway if I had to work with JSON Schema. One thing that seems weird about the API is its many unrelated to the validation task, e.g., “[mutate](https://github.com/sinclairzx81/typebox?tab=readme-ov-file#mutate)” for mutating a nested object.
 
@@ -366,7 +327,7 @@ A unique feature is that it generates JSON Schema “out-of-the-box” as a core
 
 Another library with a special feature/superpower. This one takes pride in its small bundle size, leverages tree-shaking with a functional API, and declares high performance. Originally a [Bachelor’s thesis](https://valibot.dev/thesis.pdf), it was [endorsed](https://www.builder.io/blog/introducing-valibot) by several famous people, including Miško Hevery, one of the AngularJS creators. It seems to be actively maintained.
 
-<iframe src="https://parsers-jamboree.apps.loskutoff.com/valibot" height="500"></iframe>
+<iframe src="https://parsers-jamboree.apps.loskutoff.com/valibot" height="500" width="100%"></iframe>
 
 I enjoyed its API; it was a breeze to use it, although some things were counter-intuitive, for instance, the [default Set combinator](https://github.com/fabian-hiller/valibot/issues/685) that doesn’t take an Array (as I would expect from a library that parses JSON) but instead requires another Set (much more rare case, many codebases may never encounter the need of that). Custom type definition typing was also weak when writing this (see source code above). Overall, I liked it, and I’d take this library if I needed a tiny bundle size. However, the API also seems immature in some places.
 
@@ -375,7 +336,7 @@ I enjoyed its API; it was a breeze to use it, although some things were counter-
 
 The library's primary goal is to be as powerful as Zod but with higher performance.
 
-<iframe src="https://parsers-jamboree.apps.loskutoff.com/valita" height="500"></iframe>
+<iframe src="https://parsers-jamboree.apps.loskutoff.com/valita" height="500" width="100%"></iframe>
 
 What stands out is that they took their stance against implementing asynchronous parsing. I support this decision and think that async is not a concern of validation libraries. Although many others include this feature, I think it primarily serves the “marketing” (making the library more popular because it’s a very often requested feature) rather than keeping the library’s feature integrity.
 
@@ -384,13 +345,13 @@ What stands out is that they took their stance against implementing asynchronous
 
 One of the most popular validators, likely a part of the popularity, is due to its release long ago and taking the niché early. I wasn’t able to make it validate many cases and keep typing at the same time. Perhaps it fares better for JS projects.
 
-<iframe src="https://parsers-jamboree.apps.loskutoff.com/yup" height="500"></iframe>
+<iframe src="https://parsers-jamboree.apps.loskutoff.com/yup" height="500" width="100%"></iframe>
 
 ## Zod
 
 Zod is the Elvis of validators. It dominates this area of Typescript software, and not without a reason. It’s battle-tested, feature-rich, and, importantly, allows wide support in the ecosystem; more often than not, I see other libraries and frameworks that need to outsource validation, referring to Zod as the default choice.
 
-<iframe src="https://parsers-jamboree.apps.loskutoff.com/zod" height="500"></iframe>
+<iframe src="https://parsers-jamboree.apps.loskutoff.com/zod" height="500" width="100%"></iframe>
 
 I did [manage to break](https://github.com/colinhacks/zod/issues/3628) it on the crossing between the recursive structures feature and discriminated union feature, but it doesn’t mean it doesn’t support them separately.
 
@@ -401,7 +362,7 @@ I’d have taken Zod into my codebase if I was looking for the safest choice.
 
 I’m not going to name any “winners” but encourage you to consider what’s better for your project on your own. Despite which libraries passed more or less of my checks, there’s more context and considerations than just test cases. The features you need, the performance you chase to achieve, the code style of your project, and the needs of the people you're working with are all important factors to consider..
 
-<iframe src="https://parsers-jamboree.apps.loskutoff.com/summary?iframe" height="630px"></iframe>
+<iframe src="https://parsers-jamboree.apps.loskutoff.com/summary?iframe" height="630px" width="100%"></iframe>
 
 That said, some elaboration on the test cases I used is due. Most of it will repeat the introduction’ “criteria,” but others are extra considerations that don’t just concern the data itself.
 
@@ -454,12 +415,15 @@ So, this was quite an opinionated review indeed.
 
 Hopefully, I will stand out above many of the “10 best ts validator libraries” articles because I adhered to a transparent methodology for comparing them, which should help you make an educated decision.
 
+
+
 Who won your heart is really up to you and up to your project. Does it have rigid type system adepts? Does it require top-notch performance? Are your colleagues already too busy with more important things than JSON validation and would like to go the path of less resistance?
 
 And importantly, what *do you* feel fits and is enjoyable to work with?
 
 Leave a comment about your favourite libs and most looked-for features!
 
+And PR is welcome: https://github.com/dearlordylord/parsers-jamboree
 
 ## Notes
 
@@ -490,3 +454,4 @@ Leave a comment about your favourite libs and most looked-for features!
 
 [^9]:
      https://basarat.gitbook.io/typescript/type-system/discriminated-unions
+

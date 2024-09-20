@@ -6,6 +6,9 @@ import wasm from "vite-plugin-wasm";
 import mdx from "@astrojs/mdx";
 
 import vercel from "@astrojs/vercel/static";
+import remarkMermaid from 'astro-diagram/remark-mermaid';
+
+
 // https://astro.build/config
 export default defineConfig({
   site: 'https://www.loskutoff.com',
@@ -19,5 +22,8 @@ export default defineConfig({
     webAnalytics: {
       enabled: true
     }
-  })
+  }),
+  markdown: {
+    remarkPlugins: [remarkMermaid],
+  }
 });
