@@ -1,0 +1,342 @@
+<!DOCTYPE html><html lang="en" class="h-full bg-slate-1 text-slate-12 transition-colors ease-in-out"> <head><!-- Global Metadata --><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><!-- icon generator guy recommendation https://stackoverflow.com/a/48969053/2123547 --><link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png"><link rel="shortcut icon" href="/icons/favicon.ico"><!-- / icon generator guy recommendation --><meta name="generator" content="Astro v4.8.2"><!-- Canonical URL --><link rel="canonical" href="https://www.loskutoff.com/blog/never-have-i-ever-1/"><!-- /Canonical URL --><!-- Primary Meta Tags --><title>Mindfulness in Typescript code branching. Exhaustiveness, pattern matching, and side effects. 1/2</title><meta name="title" content="Mindfulness in Typescript code branching. Exhaustiveness, pattern matching, and side effects. 1/2"><meta name="description" content="Igor's programming blog"><link rel="sitemap" href="/sitemap-index.xml"><!-- /Primary Meta Tags --><!-- Open Graph / Facebook --><meta property="og:type" content="website"><meta property="og:url" content="https://www.loskutoff.com/blog/never-have-i-ever-1/"><meta property="og:title" content="Mindfulness in Typescript code branching. Exhaustiveness, pattern matching, and side effects. 1/2"><meta property="og:description" content="Igor's programming blog"><meta property="og:image" content="https://www.loskutoff.com/static/blog/never-have-i-ever/ifelse-catdog-splash.png"><!-- /Open Graph / Facebook --><!-- X --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://www.loskutoff.com/blog/never-have-i-ever-1/"><meta property="twitter:site" content="@ohdearlordylord"><meta property="twitter:title" content="Mindfulness in Typescript code branching. Exhaustiveness, pattern matching, and side effects. 1/2"><meta property="twitter:description" content="Igor's programming blog"><meta property="twitter:image" content="https://www.loskutoff.com/static/blog/never-have-i-ever/ifelse-catdog-splash.png?1736273885173"><meta property="twitter:image:alt" content="Either / or"><!-- /X --><!-- RSS Feed --><link rel="alternate" type="application/rss+xml" title="oh dear lordy lord" href="https://www.loskutoff.com/rss.xml"><!-- /RSS Feed --><!-- Third-party scripts --><link rel="stylesheet" href="/_astro/_slug_.C5DjtHDR.css"><script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+		var script = document.createElement('script');
+		script.defer = true;
+		script.src = '/_vercel/insights/script.js';
+		var head = document.querySelector('head');
+		head.appendChild(script);
+	</script></head> <body class="h-full"> <main class="flex h-full flex-col gap-6 p-6 md:flex-row"> <header class="flex flex-col border-b border-slate-3 print:hidden md:h-full md:border-b-0 md:border-r"> <h2 class="flex w-full justify-left font-mono text-slate-12"> <a href="/" class="md:w-min p-3 rounded-lg animate transition-all duration-200 hover:bg-slate-4" rel="prefetch"> 
+oh dear lordy lord
+ </a> <span id="astro-color-scheme-switch" data-astro-cid-zzomblhz>  <button> <span class="sr-only">Toggle Theme</span> <span class="dark:hidden"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 256 256"><path d="M120,40V16a8,8,0,0,1,16,0V40a8,8,0,0,1-16,0Zm72,88a64,64,0,1,1-64-64A64.07,64.07,0,0,1,192,128Zm-16,0a48,48,0,1,0-48,48A48.05,48.05,0,0,0,176,128ZM58.34,69.66A8,8,0,0,0,69.66,58.34l-16-16A8,8,0,0,0,42.34,53.66Zm0,116.68-16,16a8,8,0,0,0,11.32,11.32l16-16a8,8,0,0,0-11.32-11.32ZM192,72a8,8,0,0,0,5.66-2.34l16-16a8,8,0,0,0-11.32-11.32l-16,16A8,8,0,0,0,192,72Zm5.66,114.34a8,8,0,0,0-11.32,11.32l16,16a8,8,0,0,0,11.32-11.32ZM48,128a8,8,0,0,0-8-8H16a8,8,0,0,0,0,16H40A8,8,0,0,0,48,128Zm80,80a8,8,0,0,0-8,8v24a8,8,0,0,0,16,0V216A8,8,0,0,0,128,208Zm112-88H216a8,8,0,0,0,0,16h24a8,8,0,0,0,0-16Z"></path></svg></span> <span class="hidden dark:block"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 256 256"><path d="M233.54,142.23a8,8,0,0,0-8-2,88.08,88.08,0,0,1-109.8-109.8,8,8,0,0,0-10-10,104.84,104.84,0,0,0-52.91,37A104,104,0,0,0,136,224a103.09,103.09,0,0,0,62.52-20.88,104.84,104.84,0,0,0,37-52.91A8,8,0,0,0,233.54,142.23ZM188.9,190.34A88,88,0,0,1,65.66,67.11a89,89,0,0,1,31.4-26A106,106,0,0,0,96,56,104.11,104.11,0,0,0,200,160a106,106,0,0,0,14.92-1.06A89,89,0,0,1,188.9,190.34Z"></path></svg></span> </button>  </span>  <script>(function(){const strategy = "button";
+const defaultTheme = undefined;
+
+  const themeSwitch = document.getElementById("astro-color-scheme-switch");
+  const theme = localStorage.getItem("theme");
+  const themeMatcher = window.matchMedia("(prefers-color-scheme: dark)");
+  let systemTheme = themeMatcher.matches ? "dark" : "light";
+
+  themeMatcher.addEventListener("change", (event) => {
+    const theme = event.matches ? "dark" : "light";
+    systemTheme = theme;
+    if (localStorage.getItem("theme") === "system") {
+      updateAppliedTheme(theme);
+    }
+  });
+
+  function updateAppliedTheme(value) {
+    document.documentElement.classList.remove("light", "dark");
+    document.documentElement.classList.add(value);
+    document.documentElement.setAttribute("data-theme", value);
+  }
+
+  function updateTheme(value) {
+    const theme = value === "system" ? systemTheme : value;
+    updateAppliedTheme(theme);
+    localStorage.setItem("theme", value);
+  }
+
+  function setupThemeSwitch(selector, eventType, themeUpdater) {
+    const element = themeSwitch.querySelector(selector);
+    if (!element) {
+      throw new Error(
+        `plugin-astro-color-scheme: <${selector}> element must be present inside 'themeSwitch' or change the 'strategy' attribute`
+      );
+    }
+
+    if (selector === "form") {
+      element.value = theme || defaultTheme || systemTheme;
+      Array.from(element.querySelectorAll("input")).forEach((input) => {
+        input.checked = (theme || defaultTheme || systemTheme) === input.value;
+      });
+    } else {
+      element.value = theme || defaultTheme || systemTheme;
+    }
+
+    if (selector === "input") {
+      element.checked = defaultTheme !== element.value;
+    }
+
+    updateTheme(element.value);
+    element.addEventListener(eventType, themeUpdater);
+  }
+
+  switch (strategy) {
+    case "button":
+      setupThemeSwitch("button", "click", (event) => {
+        const button = event.currentTarget;
+        const settheme = button.value === "dark" ? "light" : "dark";
+        button.value = settheme;
+        updateTheme(settheme);
+      });
+      break;
+    case "select":
+      setupThemeSwitch("select", "change", (event) => {
+        const select = event.currentTarget;
+        updateTheme(select.value);
+      });
+      break;
+    case "checkbox":
+      setupThemeSwitch("input", "change", (event) => {
+        const checkbox = event.currentTarget;
+        const settheme = checkbox.value === "dark" ? "light" : "dark";
+        checkbox.value = settheme;
+        updateTheme(settheme);
+      });
+      break;
+    case "radio":
+      setupThemeSwitch("form", "click", (event) => {
+        updateTheme(event.currentTarget.value);
+      });
+      break;
+    default:
+      updateTheme(theme || defaultTheme || systemTheme);
+  }
+})();</script> </h2> <nav class="flex h-full justify-center gap-4 font-black md:flex-col md:justify-start"> <a href="/blog" class="md:w-min p-3 rounded-lg animate transition-all duration-200 hover:bg-slate-4" rel="prefetch"> Blog </a> </nav> <div class="mr-8 mb-4 flex w-full justify-center gap-4"> <a href="https://github.com/dearlordylord" class="md:w-min p-3 rounded-lg animate transition-all duration-200 hover:bg-slate-4" rel="prefetch" target="_blank">  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 256 256"><path d="M208.31,75.68A59.78,59.78,0,0,0,202.93,28,8,8,0,0,0,196,24a59.75,59.75,0,0,0-48,24H124A59.75,59.75,0,0,0,76,24a8,8,0,0,0-6.93,4,59.78,59.78,0,0,0-5.38,47.68A58.14,58.14,0,0,0,56,104v8a56.06,56.06,0,0,0,48.44,55.47A39.8,39.8,0,0,0,96,192v8H72a24,24,0,0,1-24-24A40,40,0,0,0,8,136a8,8,0,0,0,0,16,24,24,0,0,1,24,24,40,40,0,0,0,40,40H96v16a8,8,0,0,0,16,0V192a24,24,0,0,1,48,0v40a8,8,0,0,0,16,0V192a39.8,39.8,0,0,0-8.44-24.53A56.06,56.06,0,0,0,216,112v-8A58.14,58.14,0,0,0,208.31,75.68ZM200,112a40,40,0,0,1-40,40H112a40,40,0,0,1-40-40v-8a41.74,41.74,0,0,1,6.9-22.48A8,8,0,0,0,80,73.83a43.81,43.81,0,0,1,.79-33.58,43.88,43.88,0,0,1,32.32,20.06A8,8,0,0,0,119.82,64h32.35a8,8,0,0,0,6.74-3.69,43.87,43.87,0,0,1,32.32-20.06A43.81,43.81,0,0,1,192,73.83a8.09,8.09,0,0,0,1,7.65A41.72,41.72,0,0,1,200,104Z"></path></svg>  </a> <!-- TODO TIL --> <!-- TODO presentations --> <!-- TODO apps --> <!-- TODO resume --> <!-- TODO dnd --> <a href="https://linkedin.com/in/igor-loskutov/" class="md:w-min p-3 rounded-lg animate transition-all duration-200 hover:bg-slate-4" rel="prefetch" target="_blank">  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 256 256"><path d="M216,24H40A16,16,0,0,0,24,40V216a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V40A16,16,0,0,0,216,24Zm0,192H40V40H216V216ZM96,112v64a8,8,0,0,1-16,0V112a8,8,0,0,1,16,0Zm88,28v36a8,8,0,0,1-16,0V140a20,20,0,0,0-40,0v36a8,8,0,0,1-16,0V112a8,8,0,0,1,15.79-1.78A36,36,0,0,1,184,140ZM100,84A12,12,0,1,1,88,72,12,12,0,0,1,100,84Z"></path></svg>  </a> <a href="https://twitter.com/ohdearlordylord" class="md:w-min p-3 rounded-lg animate transition-all duration-200 hover:bg-slate-4" rel="prefetch" target="_blank">  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 256 256"><path d="M247.39,68.94A8,8,0,0,0,240,64H209.57A48.66,48.66,0,0,0,168.1,40a46.91,46.91,0,0,0-33.75,13.7A47.9,47.9,0,0,0,120,88v6.09C79.74,83.47,46.81,50.72,46.46,50.37a8,8,0,0,0-13.65,4.92c-4.31,47.79,9.57,79.77,22,98.18a110.93,110.93,0,0,0,21.88,24.2c-15.23,17.53-39.21,26.74-39.47,26.84a8,8,0,0,0-3.85,11.93c.75,1.12,3.75,5.05,11.08,8.72C53.51,229.7,65.48,232,80,232c70.67,0,129.72-54.42,135.75-124.44l29.91-29.9A8,8,0,0,0,247.39,68.94Zm-45,29.41a8,8,0,0,0-2.32,5.14C196,166.58,143.28,216,80,216c-10.56,0-18-1.4-23.22-3.08,11.51-6.25,27.56-17,37.88-32.48A8,8,0,0,0,92,169.08c-.47-.27-43.91-26.34-44-96,16,13,45.25,33.17,78.67,38.79A8,8,0,0,0,136,104V88a32,32,0,0,1,9.6-22.92A30.94,30.94,0,0,1,167.9,56c12.66.16,24.49,7.88,29.44,19.21A8,8,0,0,0,204.67,80h16Z"></path></svg>  </a> </div> </header> <div class="w-full">  <article class="flex w-full flex-col items-center gap-6"> <h1 class="text-center text-4xl font-bold">Mindfulness in Typescript code branching. Exhaustiveness, pattern matching, and side effects. 1/2</h1> <img src="/static/blog/never-have-i-ever/ifelse-catdog-splash.png" alt="Either / or" class="mb-6 w-full rounded-xl border border-slate-3 shadow-lg md:max-w-4xl"> <time datetime="2025-02-01T13:44:27.000Z" class="whitespace-nowrap italic text-slate-11"> Feb 1, 2025 </time> <hr> <div class="prose prose-slate dark:prose-invert flex w-full flex-col md:max-w-4xl">  <h1 id="mindfulness-in-typescript-code-branching-exhaustiveness-pattern-matching-and-side-effects-12-exhaustive-absurd">Mindfulness in Typescript code branching. Exhaustiveness, pattern matching, and side effects. 1/2: “Exhaustive absurd”</h1>
+<blockquote>
+<p>This is the first post in a couple of posts about code branching in Typescript.
+The first post serves as an introduction to the topic and supposed to be entry-level. It shows useful techniques of how to improve branching safety with explicit exhaustiveness checks.</p>
+</blockquote>
+<p>Most of us developers have written their first <strong>if/else</strong> statement when we were just newborns (that is, 0-years-experienced newborns in the industry).</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="color:#F97583">if</span><span style="color:#E1E4E8"> (x </span><span style="color:#F97583">></span><span style="color:#79B8FF"> 5</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#E1E4E8">  console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'Greater than 5'</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">} </span><span style="color:#F97583">else</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8">  console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'Not greater than 5'</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span></code></pre>
+<p>We proceeded with learning switch/case, and usually end here. We’re ready to hack The Next Facebook. Nobody can stop us now, not even our teamlead. Or even SIGTERM. Ok, the last one was a bit dark.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="color:#F97583">switch</span><span style="color:#E1E4E8"> (x) {</span></span>
+<span class="line"><span style="color:#F97583">  case</span><span style="color:#79B8FF"> 5</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">    console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'Five'</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#F97583">    break</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#F97583">  case</span><span style="color:#79B8FF"> 6</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">    console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'Six'</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#F97583">    break</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#F97583">  default</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">    console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'Not five or six'</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span></code></pre>
+<p><img src="https://www.loskutoff.com/static/blog/never-have-i-ever/five-six-and-not.png" alt="five, six and not"></p>
+<p>Then we learn about OO and inheritance, and that it also can provide kind of branching:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="color:#F97583">class</span><span style="color:#B392F0"> Animal</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">  constructor</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">public</span><span style="color:#FFAB70"> name</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8">) {}</span></span>
+<span class="line"><span style="color:#B392F0">  makeSound</span><span style="color:#E1E4E8">()</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">    return</span><span style="color:#9ECBFF"> `${</span><span style="color:#79B8FF">this</span><span style="color:#9ECBFF">.</span><span style="color:#E1E4E8">name</span><span style="color:#9ECBFF">} makes a sound.`</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">class</span><span style="color:#B392F0"> Dog</span><span style="color:#F97583"> extends</span><span style="color:#B392F0"> Animal</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#FFAB70">  name</span><span style="color:#F97583"> =</span><span style="color:#9ECBFF"> 'Dog'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#B392F0">  makeSound</span><span style="color:#E1E4E8">()</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">    return</span><span style="color:#9ECBFF"> `${</span><span style="color:#79B8FF">this</span><span style="color:#9ECBFF">.</span><span style="color:#E1E4E8">name</span><span style="color:#9ECBFF">} barks.`</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">class</span><span style="color:#B392F0"> Cat</span><span style="color:#F97583"> extends</span><span style="color:#B392F0"> Animal</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#FFAB70">  name</span><span style="color:#F97583"> =</span><span style="color:#9ECBFF"> 'Cat'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#B392F0">  makeSound</span><span style="color:#E1E4E8">()</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">    return</span><span style="color:#9ECBFF"> `${</span><span style="color:#79B8FF">this</span><span style="color:#9ECBFF">.</span><span style="color:#E1E4E8">name</span><span style="color:#9ECBFF">} meows.`</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">// see, no if/else or anything</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#B392F0"> handleSound</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">animal</span><span style="color:#F97583">:</span><span style="color:#B392F0"> Animal</span><span style="color:#E1E4E8">)</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#F97583"> =></span><span style="color:#E1E4E8"> animal.</span><span style="color:#B392F0">makeSound</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> dog</span><span style="color:#F97583"> =</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Dog</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'Storm'</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> cat</span><span style="color:#F97583"> =</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Cat</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'Viper'</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">// "Storm barks."</span></span>
+<span class="line"><span style="color:#B392F0">handleSound</span><span style="color:#E1E4E8">(dog);</span></span>
+<span class="line"><span style="color:#6A737D">// "Viper meows."</span></span>
+<span class="line"><span style="color:#B392F0">handleSound</span><span style="color:#E1E4E8">(cat);</span></span>
+<span class="line"></span>
+<span class="line"></span></code></pre>
+<p><img src="https://www.loskutoff.com/static/blog/never-have-i-ever/catdog.png" alt="Catdog"></p>
+<blockquote>
+<p>We can also invert the control of the above using visitor pattern (<a href="https://en.wikipedia.org/wiki/Visitor_pattern">https://en.wikipedia.org/wiki/Visitor_pattern</a>) which I’m to detail in the next post.</p>
+</blockquote>
+<p>The most inquisitive of us probably wondered how we can do more complex branching and encountered pattern matching in such languages as Haskell, Scala, OCaml and Rust:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="scala"><code><span class="line"><span style="color:#F97583">def</span><span style="color:#B392F0"> listMatch</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">lst</span><span style="color:#E1E4E8">: </span><span style="color:#B392F0">List</span><span style="color:#E1E4E8">[</span><span style="color:#B392F0">Int</span><span style="color:#E1E4E8">])</span><span style="color:#F97583">:</span><span style="color:#B392F0"> String</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> lst </span><span style="color:#F97583">match</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">  case</span><span style="color:#B392F0"> Nil</span><span style="color:#F97583"> =></span><span style="color:#9ECBFF"> "Empty list"</span></span>
+<span class="line"><span style="color:#F97583">  case</span><span style="color:#B392F0"> List</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">, _, _) </span><span style="color:#F97583">=></span><span style="color:#9ECBFF"> "Starts with zero and has three elements"</span></span>
+<span class="line"><span style="color:#F97583">  case</span><span style="color:#B392F0"> List</span><span style="color:#E1E4E8">(x, y) </span><span style="color:#F97583">if</span><span style="color:#E1E4E8"> x </span><span style="color:#F97583">==</span><span style="color:#E1E4E8"> y </span><span style="color:#F97583">=></span><span style="color:#9ECBFF"> "Two identical elements"</span></span>
+<span class="line"><span style="color:#F97583">  case</span><span style="color:#E1E4E8"> _ </span><span style="color:#F97583">=></span><span style="color:#9ECBFF"> "Other"</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span></code></pre>
+<p>But is there a deeper meaning to this syntax? And are there intricacies it may have that we should be aware of?</p>
+<p><img src="https://www.loskutoff.com/static/blog/never-have-i-ever/ifelse-vs-arrow.png" alt="arrows"></p>
+<p>Here, I’ll hopefully present a way of deeper thinking about code branching. I’ll show how to improve type safety and composability of branching in Typescript.</p>
+<h2 id="why-branch">Why branch?</h2>
+<p>We need if/else or equivalents to do anything useful in classic programming.
+Without it, programs will be static and won’t do much.
+Making programmatic decisions will be very hard.
+Probably, you’ll map/reduce some data into some other data and that’ll be it.</p>
+<p>Assume that you want to send a notification to a user.
+A user may use different channels to receive notifications, and you want to dispatch properly:</p>
+<ul>
+<li>emails to an email APIs such as Sendgrid</li>
+<li>Slack to Slack APIs etc.</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="color:#F97583">type</span><span style="color:#B392F0"> Notification</span><span style="color:#F97583"> =</span></span>
+<span class="line"><span style="color:#F97583">  |</span><span style="color:#E1E4E8"> { </span><span style="color:#FFAB70">type</span><span style="color:#F97583">:</span><span style="color:#9ECBFF"> 'email'</span><span style="color:#E1E4E8">; </span><span style="color:#FFAB70">recipient</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8">; </span><span style="color:#FFAB70">subject</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8">; </span><span style="color:#FFAB70">body</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8"> }</span></span>
+<span class="line"><span style="color:#F97583">  |</span><span style="color:#E1E4E8"> { </span><span style="color:#FFAB70">type</span><span style="color:#F97583">:</span><span style="color:#9ECBFF"> 'sms'</span><span style="color:#E1E4E8">; </span><span style="color:#FFAB70">phoneNumber</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8">; </span><span style="color:#FFAB70">message</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8"> }</span></span>
+<span class="line"><span style="color:#F97583">  |</span><span style="color:#E1E4E8"> { </span><span style="color:#FFAB70">type</span><span style="color:#F97583">:</span><span style="color:#9ECBFF"> 'push'</span><span style="color:#E1E4E8">; </span><span style="color:#FFAB70">deviceId</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8">; </span><span style="color:#FFAB70">title</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8">; </span><span style="color:#FFAB70">body</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8"> }</span></span>
+<span class="line"><span style="color:#F97583">  |</span><span style="color:#E1E4E8"> { </span><span style="color:#FFAB70">type</span><span style="color:#F97583">:</span><span style="color:#9ECBFF"> 'slack'</span><span style="color:#E1E4E8">; </span><span style="color:#FFAB70">channelId</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8">; </span><span style="color:#FFAB70">text</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8"> }</span></span>
+<span class="line"></span></code></pre>
+<p>You can handle it with a naive switch/case:</p>
+<blockquote>
+<p>I’m going to use “break” or “return” for switches everywhere in this post; we won’t go into fallthrough logic.</p>
+</blockquote>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> handleNotification</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">notification</span><span style="color:#F97583">:</span><span style="color:#B392F0"> Notification</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">  switch</span><span style="color:#E1E4E8"> (notification.type) {</span></span>
+<span class="line"><span style="color:#F97583">    case</span><span style="color:#9ECBFF"> 'email'</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#B392F0">      sendEmail</span><span style="color:#E1E4E8">(notification.recipient, notification.subject, notification.body);</span></span>
+<span class="line"><span style="color:#F97583">      break</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#F97583">    case</span><span style="color:#9ECBFF"> 'sms'</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#B392F0">      sendSMS</span><span style="color:#E1E4E8">(notification.phoneNumber, notification.message);</span></span>
+<span class="line"><span style="color:#F97583">      break</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#F97583">    case</span><span style="color:#9ECBFF"> 'push'</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#B392F0">      sendPushNotification</span><span style="color:#E1E4E8">(notification.deviceId, notification.title, notification.body);</span></span>
+<span class="line"><span style="color:#F97583">      break</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#F97583">    case</span><span style="color:#9ECBFF"> 'slack'</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#B392F0">      postToSlack</span><span style="color:#E1E4E8">(notification.channelId, notification.text);</span></span>
+<span class="line"><span style="color:#F97583">      break</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span></code></pre>
+<blockquote>
+<p>The kind of type we match against (<code>Notification</code>) is called <a href="https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes-func.html#discriminated-unions">discriminated union</a>.</p>
+</blockquote>
+<blockquote>
+<p>This code has some potential issues I’ll talk about later. The main point here is that it shows why we want to branch our code at all.</p>
+</blockquote>
+<h3 id="playing-around-with-ifelse">Playing around with if/else</h3>
+<p>You also can rewrite the code above to if/else. That won’t change much, it’s just a bit more boilerplate in this case.</p>
+<blockquote>
+<p>if/else is much more powerful since you can give it any expression resulting in a boolean, e.g. <code>if (x > 5)</code>, whereas switch/case would only accept exact matches.</p>
+</blockquote>
+<p><img src="https://www.loskutoff.com/static/blog/never-have-i-ever/same-picture.jpeg" alt="if/else and switch? Same Picture!"></p>
+<p><i>Picture <a href="https://dev.to/sumusiriwardana/if-else-or-switch-case-which-one-to-pick-4p3h">source</a></i></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> handleNotification</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">notification</span><span style="color:#F97583">:</span><span style="color:#B392F0"> Notification</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">  if</span><span style="color:#E1E4E8"> (notification.type </span><span style="color:#F97583">===</span><span style="color:#9ECBFF"> 'email'</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#B392F0">    sendEmail</span><span style="color:#E1E4E8">(notification.recipient, notification.subject, notification.body);</span></span>
+<span class="line"><span style="color:#E1E4E8">  } </span><span style="color:#F97583">else</span><span style="color:#F97583"> if</span><span style="color:#E1E4E8"> (notification.type </span><span style="color:#F97583">===</span><span style="color:#9ECBFF"> 'sms'</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#B392F0">    sendSMS</span><span style="color:#E1E4E8">(notification.phoneNumber, notification.message);</span></span>
+<span class="line"><span style="color:#E1E4E8">  } </span><span style="color:#F97583">else</span><span style="color:#F97583"> if</span><span style="color:#E1E4E8"> (notification.type </span><span style="color:#F97583">===</span><span style="color:#9ECBFF"> 'push'</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#B392F0">    sendPushNotification</span><span style="color:#E1E4E8">(notification.deviceId, notification.title, notification.body);</span></span>
+<span class="line"><span style="color:#E1E4E8">  } </span><span style="color:#F97583">else</span><span style="color:#F97583"> if</span><span style="color:#E1E4E8"> (notification.type </span><span style="color:#F97583">===</span><span style="color:#9ECBFF"> 'slack'</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#B392F0">    postToSlack</span><span style="color:#E1E4E8">(notification.channelId, notification.text);</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span></code></pre>
+<p>In both cases, Typescript figures out the shape of the notification object after the “type” field check. You also won’t be able to write something like <code>notification.type === 'GIBBERISH'</code> or <code>case('yes?')</code>; it’ll stop you.</p>
+<p>A difference with switch/case is that it’s much more boilerplate, but if/else is more applicable to more general cases.</p>
+<h2 id="adding-new-cases">Adding new cases</h2>
+<p>Now, time for the bad news. We want to add a new case like <code>{ type: 'discord'; channel: string; message: string }</code>. We add it to the union type definition but forget to add to <code>handleNotification</code> function.</p>
+<p><code>handleNotification</code> works for a week until we notice users don’t get notified. They lost their money, business went down, marriages broke up. All of it because we forgot to handle <code>type === 'discord'</code>.</p>
+<p><img src="https://www.loskutoff.com/static/blog/never-have-i-ever/arrowhead-miss.png" alt="arrowhead miss"></p>
+<p>This is a recurring problem. Fortunately, there’s a solution already.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> absurd</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">x</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> never</span><span style="color:#E1E4E8">)</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> never</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">  throw</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Error</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">`panic! not reachable: ${</span><span style="color:#E1E4E8">x</span><span style="color:#9ECBFF">}`</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> handleNotification</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">notification</span><span style="color:#F97583">:</span><span style="color:#B392F0"> Notification</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">  switch</span><span style="color:#E1E4E8"> (notification.type) {</span></span>
+<span class="line"><span style="color:#6A737D">    // ... switch/case from handleNotification above and then ...</span></span>
+<span class="line"><span style="color:#F97583">    default</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#B392F0">      absurd</span><span style="color:#E1E4E8">(notification.type);</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span></code></pre>
+<blockquote>
+<p>This function is also called <code>assertNever</code> in <a href="https://www.typescriptlang.org/docs/handbook/unions-and-intersections.html#union-exhaustiveness-checking">TS documentation</a>. I’ll stick to <code>absurd</code> because it’s more fun.</p>
+</blockquote>
+<p>How it works? Each <code>case</code> (or <code>if/else</code>) Typescript narrows down the possible type of <code>notification.type</code>:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="color:#6A737D">// here, notification.type is full 'email' | 'sms' | 'push' | 'slack' | 'discord'</span></span>
+<span class="line"><span style="color:#F97583">switch</span><span style="color:#E1E4E8"> (notification.type) {</span></span>
+<span class="line"><span style="color:#F97583">  case</span><span style="color:#9ECBFF"> 'email'</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#F97583">    break</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#6A737D">  // if we end with "default" clause here, notification.type would be 'sms' | 'push' | 'slack' | 'discord', so, with no 'email'</span></span>
+<span class="line"><span style="color:#F97583">  case</span><span style="color:#9ECBFF"> 'sms'</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#F97583">    break</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#6A737D">  // if we end with "default" clause here, notification.type would be 'push' | 'slack' | 'discord', so, with no 'email' or 'sms'</span></span>
+<span class="line"><span style="color:#F97583">  case</span><span style="color:#9ECBFF"> 'push'</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#F97583">    break</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#6A737D">  // if we end with "default" clause here, notification.type would be 'slack' | 'discord', so, with no 'email' or 'sms' or 'push'</span></span>
+<span class="line"><span style="color:#F97583">  case</span><span style="color:#9ECBFF"> 'slack'</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#B392F0">    postToSlack</span><span style="color:#E1E4E8">(notification.channelId, notification.text);</span></span>
+<span class="line"><span style="color:#F97583">    break</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#6A737D">  // finally, we're ending with "default" clause here, and so notification.type is 'discord', with no 'email' or 'sms' or 'push' or 'slack'</span></span>
+<span class="line"><span style="color:#F97583">  default</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#B392F0">    absurd</span><span style="color:#E1E4E8">(notification.type);</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span></code></pre>
+<p>But at <code>absurd(notification.type)</code> expects <code>never</code> type! It won’t allow anything else, but we’re trying to feed it ‘discord’ string literal.
+And so it goes: compiler complaints, you realize your code has a bug, you fix it <strong>before</strong> shipping to your user and not <strong>after</strong> (that is, unless you also wrote good tests.)</p>
+<p>You fix it by adding another <code>case</code> clause:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> handleNotification</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">notification</span><span style="color:#F97583">:</span><span style="color:#B392F0"> Notification</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">  switch</span><span style="color:#E1E4E8"> (notification.type) {</span></span>
+<span class="line"><span style="color:#6A737D">    // ...</span></span>
+<span class="line"><span style="color:#F97583">    case</span><span style="color:#9ECBFF"> 'discord'</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#B392F0">      postToDiscord</span><span style="color:#E1E4E8">(notification.channelId, notification.message);</span></span>
+<span class="line"><span style="color:#F97583">      break</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#6A737D">    // default: ...</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span></code></pre>
+<blockquote>
+<p>What about more “type-free” comparisons like n > 5? Type narrowing doesn’t apply here. You have to figure yourself whether you covered all cases or not.</p>
+</blockquote>
+<h3 id="a-peculiar-case-of-never">A peculiar case of “never”</h3>
+<p><img src="https://www.loskutoff.com/static/blog/never-have-i-ever/nevermore.png" alt="nevermore"></p>
+<p><i>Artist: <a href="https://www.instagram.com/serytama.art/p/C59EwKrOQBR/">Serytama.art</a></i></p>
+<p><code>never</code> is a very <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html#never">special type</a> in Typescript.</p>
+<p>It’s assignable to anything, which isn’t very useful in our case, but is useful in more advanced cases.</p>
+<p>But another property we can and do leverage: nothing can be assigned to <code>never</code>, except <code>never</code> itself.</p>
+<p>So, the function <code>absurd</code> expects only <code>never</code> type.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> absurd</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">x</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> never</span><span style="color:#E1E4E8">)</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> never</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">  throw</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Error</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">`panic! not reachable: ${</span><span style="color:#E1E4E8">x</span><span style="color:#9ECBFF">}`</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"><span style="color:#B392F0">absurd</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'fizzbuzz'</span><span style="color:#E1E4E8">); </span><span style="color:#6A737D">// error: Argument of type '"fizzbuzz"' is not assignable to parameter of type 'never'.</span></span>
+<span class="line"></span></code></pre>
+<p>When our <code>notification.type</code> above is being checked, it narrows down gradually to lesser and lesser type, until only <code>discord</code> literal is left, and finally we narrow <code>discord</code> literal itself.</p>
+<p>When nothing is left out of our poor <code>notification.type</code> type, only <code>never</code> remains.</p>
+<p>There’s one extra way to show that in code; with an (arguably ugly) ternary:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="color:#6A737D">// some imaginary numeric "code"...</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> code</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> number</span><span style="color:#F97583"> =</span></span>
+<span class="line"><span style="color:#E1E4E8">  notification.type</span><span style="color:#6A737D">/*'email' | 'sms' | 'push' | 'slack' | 'discord'*/</span><span style="color:#F97583"> ===</span><span style="color:#9ECBFF"> 'email'</span><span style="color:#F97583"> ?</span><span style="color:#79B8FF"> 1</span><span style="color:#F97583"> :</span></span>
+<span class="line"><span style="color:#E1E4E8">    notification.type</span><span style="color:#6A737D">/*'sms' | 'push' | 'slack' | 'discord'*/</span><span style="color:#F97583"> ===</span><span style="color:#9ECBFF"> 'sms'</span><span style="color:#F97583"> ?</span><span style="color:#79B8FF"> 2</span><span style="color:#F97583"> :</span></span>
+<span class="line"><span style="color:#E1E4E8">      notification.type</span><span style="color:#6A737D">/*'push' | 'slack' | 'discord'*/</span><span style="color:#F97583"> ===</span><span style="color:#9ECBFF"> 'push'</span><span style="color:#F97583"> ?</span><span style="color:#79B8FF"> 3</span><span style="color:#F97583"> :</span></span>
+<span class="line"><span style="color:#E1E4E8">        notification.type</span><span style="color:#6A737D">/*'slack' | 'discord'*/</span><span style="color:#F97583"> ===</span><span style="color:#9ECBFF"> 'slack'</span><span style="color:#F97583"> ?</span><span style="color:#79B8FF"> 4</span><span style="color:#F97583"> :</span></span>
+<span class="line"><span style="color:#E1E4E8">          notification.type</span><span style="color:#6A737D">/*'discord'*/</span><span style="color:#F97583"> ===</span><span style="color:#9ECBFF"> 'discord'</span><span style="color:#F97583"> ?</span><span style="color:#79B8FF"> 5</span><span style="color:#F97583"> :</span></span>
+<span class="line"><span style="color:#B392F0">            absurd</span><span style="color:#E1E4E8">(notification.type</span><span style="color:#6A737D">/*never*/</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"></span></code></pre>
+<p>Importantly, when <code>never</code>-typed values in code, you can always assume this part of the code is unreachable, that is, if your typing has no bugs. In Typescript, it may happen e.g. because of casting with <code>as</code>. That’s why I accompany the <code>never</code> check in <code>absurd</code> with a <code>throw</code>. Better safe than sorry.</p>
+<h3 id="object-key-mapping">Object key mapping</h3>
+<p>There’s another technique to map behaviours that’s worth mentioning. It lets us, in some cases, avoid the need for <code>switch/case</code>, <code>if/else</code>, and still have exhaustive behaviour without using any <code>absurd</code> hacks.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> const</span><span style="color:#79B8FF"> handlers</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#B392F0">  email</span><span style="color:#E1E4E8">: (</span><span style="color:#FFAB70">notification</span><span style="color:#F97583">:</span><span style="color:#B392F0"> Notification</span><span style="color:#F97583"> &#x26;</span><span style="color:#E1E4E8"> {</span><span style="color:#FFAB70">type</span><span style="color:#F97583">:</span><span style="color:#9ECBFF"> 'email'</span><span style="color:#E1E4E8">}) </span><span style="color:#F97583">=></span><span style="color:#B392F0"> sendEmail</span><span style="color:#E1E4E8">(notification.recipient, notification.subject, notification.body),</span></span>
+<span class="line"><span style="color:#B392F0">  sms</span><span style="color:#E1E4E8">: (</span><span style="color:#FFAB70">notification</span><span style="color:#F97583">:</span><span style="color:#B392F0"> Notification</span><span style="color:#F97583"> &#x26;</span><span style="color:#E1E4E8"> {</span><span style="color:#FFAB70">type</span><span style="color:#F97583">:</span><span style="color:#9ECBFF"> 'sms'</span><span style="color:#E1E4E8">}) </span><span style="color:#F97583">=></span><span style="color:#B392F0"> sendSMS</span><span style="color:#E1E4E8">(notification.phoneNumber, notification.message),</span></span>
+<span class="line"><span style="color:#B392F0">  push</span><span style="color:#E1E4E8">: (</span><span style="color:#FFAB70">notification</span><span style="color:#F97583">:</span><span style="color:#B392F0"> Notification</span><span style="color:#F97583"> &#x26;</span><span style="color:#E1E4E8"> {</span><span style="color:#FFAB70">type</span><span style="color:#F97583">:</span><span style="color:#9ECBFF"> 'push'</span><span style="color:#E1E4E8">}) </span><span style="color:#F97583">=></span><span style="color:#B392F0"> sendPushNotification</span><span style="color:#E1E4E8">(notification.deviceId, notification.title, notification.body),</span></span>
+<span class="line"><span style="color:#B392F0">  slack</span><span style="color:#E1E4E8">: (</span><span style="color:#FFAB70">notification</span><span style="color:#F97583">:</span><span style="color:#B392F0"> Notification</span><span style="color:#F97583"> &#x26;</span><span style="color:#E1E4E8"> {</span><span style="color:#FFAB70">type</span><span style="color:#F97583">:</span><span style="color:#9ECBFF"> 'slack'</span><span style="color:#E1E4E8">}) </span><span style="color:#F97583">=></span><span style="color:#B392F0"> postToSlack</span><span style="color:#E1E4E8">(notification.channelId, notification.text),</span></span>
+<span class="line"><span style="color:#B392F0">  discord</span><span style="color:#E1E4E8">: (</span><span style="color:#FFAB70">notification</span><span style="color:#F97583">:</span><span style="color:#B392F0"> Notification</span><span style="color:#F97583"> &#x26;</span><span style="color:#E1E4E8"> {</span><span style="color:#FFAB70">type</span><span style="color:#F97583">:</span><span style="color:#9ECBFF"> 'discord'</span><span style="color:#E1E4E8">}) </span><span style="color:#F97583">=></span><span style="color:#B392F0"> postToDiscord</span><span style="color:#E1E4E8">(notification.channelId, notification.message),</span></span>
+<span class="line"><span style="color:#E1E4E8">};</span></span>
+<span class="line"><span style="color:#6A737D">// ...</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> notification</span><span style="color:#F97583">:</span><span style="color:#B392F0"> Notification</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> {type: </span><span style="color:#9ECBFF">'email'</span><span style="color:#E1E4E8">, recipient: </span><span style="color:#9ECBFF">'igor@loskutoff.com'</span><span style="color:#E1E4E8">, subject: </span><span style="color:#9ECBFF">'hello'</span><span style="color:#E1E4E8">, body: </span><span style="color:#9ECBFF">'world'</span><span style="color:#E1E4E8">};</span></span>
+<span class="line"><span style="color:#E1E4E8">handlers[notification.type](notification);</span></span>
+<span class="line"></span></code></pre>
+<p>Note <code>&#x26; {type: 'email'}</code> in the argument type. It would narrow down the type of <code>notification</code>, opening up the fields <code>receipient</code>, <code>subject</code> and <code>body</code> to be used in the handler.
+Same with <code>sms</code> and <code>push</code> and <code>slack</code> and <code>discord</code>.</p>
+<p>With <code>handlers</code>, you won’t be able to write a new type of notifications without adding a new handler, which is the main benefit of this technique.</p>
+<p>Dead code elimination works here as well: if you remove one of the handlers, its <code>&#x26; {type: }</code> won’t compile anymore, inviting you to remove the corresponding case as well, same as with <code>switch/case</code> or <code>if/else</code>.</p>
+<p>I currently see certain disdain for this technique in the community lately. The main argument is that it introduces a level of indirection.
+Although I’m sure this wariness has some grounding, I personally don’t care about these accusations and use the technique whenever I see fit.
+You can take it or leave it, because there’s a plenty of other ways to achieve the same goal.</p>
+<h3 id="eslint-rule">Eslint rule</h3>
+<p>Honorary mention to <a href="https://typescript-eslint.io/rules/switch-exhaustiveness-check/">switch-exhaustiveness-check</a>, whilst it’s not a “typescript”-native solution, is still good enough to preserve exhaustiveness for switch/case.</p>
+<p>It’s a ESlint rule that enforces exhaustiveness of enums and union types.</p>
+<h2 id="never-have-i-ever">Never have I ever…</h2>
+<p>In this post, I’ve introduced the concept of exhaustiveness checking and explored some of the ways to branch in Typescript.</p>
+<p>These tools alone, used properly, will drastically improve your type safety and save you from many runtime bugs.</p>
+<p>I haven’t talked about return types yet: it comes in the next post.</p>
+<p>There, I’ll also talk about more advanced notions, such as pattern matching with ts-pattern and in other languages, expressions and side effects, IIFE, discriminated unions and algebraic data types (spoiler: we used the latter two in the examples above), and what they do in OOP to achieve the same goal (spoiler: Visitor pattern).</p>
+<p>I’ll also present a case that in most situations, we don’t need the <code>absurd</code>-like function call at all, even if you don’t explicitly declare return type.</p> <script src="https://utteranc.es/client.js" repo="dearlordylord/blog" issue-term="pathname" theme="github-dark" crossorigin="anonymous" async>
+    </script>  </div> </article>  </div> </main> </body></html>
