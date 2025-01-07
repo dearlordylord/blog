@@ -13,10 +13,10 @@ published: 2025-02-01T13:44:27Z
 
 # Mindfulness in Typescript code branching. Exhaustiveness, pattern matching, and side effects. 1/2: "Exhaustive absurd"
 
-> This is the first post in a couple of posts about code branching in Typescript.
-> The first post serves as an introduction to the topic and supposed to be entry-level. It shows useful techniques of how to improve branching safety with explicit exhaustiveness checks.
+> This is part one of two in our series about code branching in Typescript.
+> The first post serves as an introduction to the topic and is intended to be entry-level. It shows useful techniques of how to improve branching safety with explicit exhaustiveness checks.
 
-Most of us developers have written their first **if/else** statement when we were just newborns (that is, 0-years-experienced newborns in the industry).
+As Developers, we probably all wrote our first **if/else** statement when we were just newborns (that is, 0-years-experienced newborns in the industry).
 
 ```ts
 if (x > 5) {
@@ -26,7 +26,9 @@ if (x > 5) {
 }
 ```
 
-We proceeded with learning switch/case, and usually end here. We're ready to hack The Next Facebook. Nobody can stop us now, not even our teamlead. Or even SIGTERM. Ok, the last one was a bit dark.
+We proceeded with learning switch/case, and usually end here. "We're ready to hack The Next Facebook. Nobody can stop us now, not even our teamlead. Or even SIGTERM!"
+
+Ok, the last one was a bit dark.
 
 ```ts
 switch (x) {
@@ -43,7 +45,7 @@ switch (x) {
 
 ![five, six and not](https://www.loskutoff.com/static/blog/never-have-i-ever/five-six-and-not.png)
 
-Then we learn about OO and inheritance, and that it also can provide kind of branching:
+Then we learn about OOP and inheritance, and that it also can provide branching:
 
 ```ts
 class Animal {
@@ -84,7 +86,7 @@ handleSound(cat);
 
 > We can also invert the control of the above using visitor pattern (https://en.wikipedia.org/wiki/Visitor_pattern) which I'm to detail in the next post.
 
-The most inquisitive of us probably wondered how we can do more complex branching and encountered pattern matching in such languages as Haskell, Scala, OCaml and Rust:
+The most inquisitive of us all probably wondered how we can do more complex branching and encountered pattern matching in such languages as Haskell, Scala, OCaml and Rust:
 
 ```scala
 def listMatch(lst: List[Int]): String = lst match {
@@ -95,21 +97,17 @@ def listMatch(lst: List[Int]): String = lst match {
 }
 ```
 
-But is there a deeper meaning to this syntax? And are there intricacies it may have that we should be aware of?
+But is there a deeper meaning to this syntax? And are there underlying intricacies we should be aware of?
 
 ![arrows](https://www.loskutoff.com/static/blog/never-have-i-ever/ifelse-vs-arrow.png)
 
-Here, I'll hopefully present a way of deeper thinking about code branching. I'll show how to improve type safety and composability of branching in Typescript.
+In this brief article, I'll hopefully present a way of deeper thinking about code branching. I'll show how to improve type safety and composability of branching in Typescript.
 
 ## Why branch?
 
-We need if/else or equivalents to do anything useful in classic programming.
-Without it, programs will be static and won't do much.
-Making programmatic decisions will be very hard.
-Probably, you'll map/reduce some data into some other data and that'll be it.
+We need if/else or equivalents to do anything useful in classic programming. Without it, programs will be static and won't do much. Making programmatic decisions will be very hard. Most likely you'll map/reduce some data into some other data and that'll be it.
 
-Assume that you want to send a notification to a user.
-A user may use different channels to receive notifications, and you want to dispatch properly:
+Assume that you want to send a notification to a user. A user may use different channels to receive notifications, and you want to dispatch properly:
 
 - emails to an email APIs such as Sendgrid
 - Slack to Slack APIs etc.
@@ -172,19 +170,19 @@ function handleNotification(notification: Notification) {
 }
 ```
 
-In both cases, Typescript figures out the shape of the notification object after the "type" field check. You also won't be able to write something like `notification.type === 'GIBBERISH'` or `case('yes?')`; it'll stop you.
+In both cases, Typescript figures out the shape of the notification object after the "type" field check. Additionally you won't be able to write something like `notification.type === 'GIBBERISH'` or `case('yes?')`; it will stop you.
 
-A difference with switch/case is that it's much more boilerplate, but if/else is more applicable to more general cases.
+A difference with switch/case is that if/else has more boilerplate, but also is more applicable to more general cases because it allows expressions (such as math comparison `x > 2`) in its "decision tree".
 
 ## Adding new cases
 
 Now, time for the bad news. We want to add a new case like `{ type: 'discord'; channel: string; message: string }`. We add it to the union type definition but forget to add to `handleNotification` function.
 
-`handleNotification` works for a week until we notice users don't get notified. They lost their money, business went down, marriages broke up. All of it because we forgot to handle `type === 'discord'`.
+`handleNotification` works for a week until we notice users aren't getting notified. They lose their money, the business goes down, marriages break up. All because we forgot to handle `type === 'discord'`.
 
 ![arrowhead miss](https://www.loskutoff.com/static/blog/never-have-i-ever/arrowhead-miss.png)
 
-This is a recurring problem. Fortunately, there's a solution already.
+This is a recurring problem. Fortunately, there exists a solution already.
 
 ```ts
 function absurd(x: never): never {
@@ -202,7 +200,7 @@ function handleNotification(notification: Notification) {
 
 > This function is also called `assertNever` in [TS documentation](https://www.typescriptlang.org/docs/handbook/unions-and-intersections.html#union-exhaustiveness-checking). I'll stick to `absurd` because it's more fun.
 
-How it works? Each `case` (or `if/else`) Typescript narrows down the possible type of `notification.type`:
+How does it work? Each `case` (or `if/else`) Typescript narrows down the possible type of `notification.type`:
 
 ```ts
 // here, notification.type is full 'email' | 'sms' | 'push' | 'slack' | 'discord'
@@ -225,8 +223,9 @@ switch (notification.type) {
 }
 ```
 
-But at `absurd(notification.type)` expects `never` type! It won't allow anything else, but we're trying to feed it 'discord' string literal.
-And so it goes: compiler complaints, you realize your code has a bug, you fix it **before** shipping to your user and not **after** (that is, unless you also wrote good tests.)
+But `absurd(notification.type)` expects `never` type! It won't allow anything else, yet we're trying to feed it 'discord' string literal.
+
+And so it goes: compiler complains, you realize your code has a bug, you fix it **before** shipping to your users and not **after** (that is, unless you also wrote good tests.)
 
 You fix it by adding another `case` clause:
 
@@ -264,7 +263,7 @@ function absurd(x: never): never {
 absurd('fizzbuzz'); // error: Argument of type '"fizzbuzz"' is not assignable to parameter of type 'never'.
 ```
 
-When our `notification.type` above is being checked, it narrows down gradually to lesser and lesser type, until only `discord` literal is left, and finally we narrow `discord` literal itself.
+When our `notification.type` above is checked, it narrows down gradually to lesser and lesser type, until only `discord` literal is left, and finally we narrow `discord` literal itself.
 
 When nothing is left out of our poor `notification.type` type, only `never` remains.
 
@@ -281,11 +280,11 @@ const code: number =
             absurd(notification.type/*never*/);
 ````
 
-Importantly, when `never`-typed values in code, you can always assume this part of the code is unreachable, that is, if your typing has no bugs. In Typescript, it may happen e.g. because of casting with `as`. That's why I accompany the `never` check in `absurd` with a `throw`. Better safe than sorry.
+Importantly, when `never`-typed values in code, you can always assume this part of the code is unreachable, assuming your typing has no bugs. In Typescript, it may happen e.g. because of casting with `as`. That's why I accompany the `never` check in `absurd` with a `throw`. Better safe than sorry.
 
 ### Object key mapping
 
-There's another technique to map behaviours that's worth mentioning. It lets us, in some cases, avoid the need for `switch/case`, `if/else`, and still have exhaustive behaviour without using any `absurd` hacks.
+There's another technique to map behaviours that's worth mentioning. It lets us (in some cases) avoid the need for `switch/case`, `if/else`, and still have exhaustive behaviour without using any `absurd` hacks.
 
 ```ts
 export const handlers = {
@@ -300,20 +299,18 @@ const notification: Notification = {type: 'email', recipient: 'igor@loskutoff.co
 handlers[notification.type](notification);
 ```
 
-Note `& {type: 'email'}` in the argument type. It would narrow down the type of `notification`, opening up the fields `receipient`, `subject` and `body` to be used in the handler.
-Same with `sms` and `push` and `slack` and `discord`.
+Note `& {type: 'email'}` in the argument type. It would narrow down the type of `notification`, opening up the fields `receipient`, `subject` and `body` to be used in the handler. Same with `sms` and `push` and `slack` and `discord`.
 
 With `handlers`, you won't be able to write a new type of notifications without adding a new handler, which is the main benefit of this technique.
 
 Dead code elimination works here as well: if you remove one of the handlers, its `& {type: }` won't compile anymore, inviting you to remove the corresponding case as well, same as with `switch/case` or `if/else`.
 
-I currently see certain disdain for this technique in the community lately. The main argument is that it introduces a level of indirection.
-Although I'm sure this wariness has some grounding, I personally don't care about these accusations and use the technique whenever I see fit.
+I see certain disdain for this technique in the community lately. The main argument is that it introduces a level of indirection. Although I'm sure this wariness has some grounding, I personally don't care about these accusations and use the technique whenever I see fit.
 You can take it or leave it, because there's a plenty of other ways to achieve the same goal.
 
 ### Eslint rule
 
-Honorary mention to [switch-exhaustiveness-check](https://typescript-eslint.io/rules/switch-exhaustiveness-check/), whilst it's not a "typescript"-native solution, is still good enough to preserve exhaustiveness for switch/case.
+Honorary mention to [switch-exhaustiveness-check](https://typescript-eslint.io/rules/switch-exhaustiveness-check/), which while not a "typescript"-native solution, is still good enough to preserve exhaustiveness for switch/case.
 
 It's a ESlint rule that enforces exhaustiveness of enums and union types.
 
@@ -323,10 +320,10 @@ In this post, I've introduced the concept of exhaustiveness checking and explore
 
 These tools alone, used properly, will drastically improve your type safety and save you from many runtime bugs.
 
-I haven't talked about return types yet: it comes in the next post.
+I haven't talked about return types yet; i'll save that for the follow up.
 
-There, I'll also talk about more advanced notions, such as pattern matching with ts-pattern and in other languages, expressions and side effects, IIFE, discriminated unions and algebraic data types (spoiler: we used the latter two in the examples above), and what they do in OOP to achieve the same goal (spoiler: Visitor pattern).
+In that post I'll also talk about more advanced notions, such as pattern matching with ts-pattern and in other languages, expressions and side effects, IIFE, discriminated unions and algebraic data types (spoiler: we used the latter two in the examples above), and what they do in OOP to achieve the same goal (spoiler: Visitor Pattern).
 
-I'll also present a case that in most situations, we don't need the `absurd`-like function call at all, even if you don't explicitly declare return type.
+I'll also present a case that in most situations, we won't need the `absurd`-like function call at all, even if you don't explicitly declare return type.
 
 
