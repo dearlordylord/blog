@@ -8,7 +8,7 @@ opengraphImageAlt: Either / or
 reading-time: 5
 author: Igor Loskutov
 social-media-url: https://github.com/dearlordylord
-published: 2025-02-01T13:44:27Z
+#published: 2025-02-01T13:44:27Z
 ---
 
 # Mindfulness in Typescript code branching. Exhaustiveness, pattern matching, and side effects. 1/2: "Exhaustive absurd"
