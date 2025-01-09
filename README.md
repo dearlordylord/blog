@@ -7,3 +7,6 @@ TODO: picture generator for blog, check OG sharing
 TODO: add more sections (TIL, projects etc)
 
 TODO: friendly anchors in blog posts
+
+
+pnpm run build
