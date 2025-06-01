@@ -10,6 +10,7 @@ social-media-url: https://github.com/dearlordylord
 social-media-handle: ohdearlordylord
 keywords: typescript, validators, parsers, ajv, arktype, effect-ts, effect-schema, rescript-schema, superstruct, typebox, valibot, valita, yup, zod
 publication-date: 21/08/2024
+published: 2024-08-21T13:44:27Z
 image-url: /static/blog/validators-jamboree.png
 repo: https://github.com/dearlordylord/parsers-jamboree
 ---
@@ -17,9 +18,9 @@ repo: https://github.com/dearlordylord/parsers-jamboree
 ## The Code Review Frustration
 
 Another day, another slop.
-Chasing 10x productivity, you run several claude code agents simultaneously and push the code with blazingly fast ferocity.
-No juniors left in the team, they just couldn't catch up.
-This morning, walking in the park with his dog, your teamlead wrote and deployed a 100 storypoints system just by casually talking on his phone to a remote agent.
+Chasing 10x productivity, you run several Claude code agents simultaneously and push code with blazing fast ferocity.
+No juniors left on the team — they just couldn't catch up.
+This morning, walking in the park with his dog, your team lead wrote and deployed a 100-story-point system just by casually talking on his phone to a remote agent.
 
 Meanwhile, you're stuck with a code review:
 
@@ -438,7 +439,7 @@ export const GitHubCodeReview = () => {
 
 <GitHubCodeReview />
 
-"It's fucking vibe code, I don't care!" - this sentiment is just a tip of the iceberg of a current industry problem:
+"It's fucking vibe code, I don't care!" — this sentiment is just the tip of the iceberg of a current industry problem:
 
 <center><big>Treating all code the same when it fundamentally isn't</big></center>
 
@@ -458,13 +459,13 @@ Meanwhile, every code review becomes a battle between two conflicting mental mod
 
 ## The Modular Solution: Giving Form to Chaos
 
-The solution isn neither to abandon AI coding not to accept messy codebases. It's to **architect the separation explicitly.**
+The solution is neither to abandon AI coding nor to accept messy codebases. It's to **architect the separation explicitly.**
 
-Think of it like this: Human code provides the "form" or "mold" that vibe code must fill. Just like the inpainting/outpainting feature in image generation. The human code contains your domain knowledge, business logic, and architectural decisions. The vibe code is just the implementation details that makes it work.
+Think of it like this: Human code provides the "form" or "mold" that vibe code must fill. Just like the inpainting/outpainting feature in image generation. The human code contains your domain knowledge, business logic, and architectural decisions. The vibe code is just the implementation details that make it work.
 
-When AI code is clearly separated and constrained by interfaces, tests, and clear boundaries, you also can regenerate it fearlessly while keeping your valuable insights intact.
+When AI code is clearly separated and constrained by interfaces, tests, and clear boundaries, you can also regenerate it fearlessly while keeping your valuable insights intact.
 
-### The overseer package approach
+### The Overseer Package Approach
 
 #### The High-Level View
 
@@ -481,23 +482,23 @@ This creates a "constraint sandwich" - your domain knowledge stays protected whi
 
 ## Two Flavors of Review: Classic vs YOLO
 
-With the modular approach and vibe code as "second class citizen" we can now reframe code review practices
+With the modular approach and vibe code as "second class citizen," we can now reframe code review practices:
 
 - **Classic review: High standards, educational, expertise-building**
 
 Continue your nitpicky craftsmanship, talk about loops vs. combinators, and document your findings into project code style for LLMs to conform to.
 
-Share knowledge, discover new details about system.
+Share knowledge, discover new details about the system.
 
 - **YOLO review**:
 
 "Does it work? Does it pass tests? **Doesn't it sneak around the overseer package requirements**? Does it look safe enough? Ship it."
 
-<center><big>clear separation of code "types" eliminates misunderstanding and friction</big></center>
+<center><big>Clear separation of code "types" eliminates misunderstanding and friction</big></center>
 
 ## The Control Paradox Solved
 
-There are deeper psychological and sociological nth-order benefits of this approach.
+There are deeper psychological and sociological nth-order benefits to this approach.
 
 ### Professional Confidence
 
@@ -511,17 +512,17 @@ While others choose between "fast and messy" or "slow and clean," you get both. 
 
 You'll maintain AI productivity gains while building systems that actually scale.
 
-### Better "boomer business" adoption
+### Better "Boomer Business" Adoption
 
-I believe that this approach could tip the scale for the businesses who are still indecisive about vibe coding due to reliability and security concerns.
+I believe that this approach could tip the scale for businesses who are still indecisive about vibe coding due to reliability and security concerns.
 
 ## Looking Forward: The Tooling Evolution
 
-I strongly believe that in near future the distinction of vibe code and human code will be admitted by industry and integrated into existing tools.
+I strongly believe that in the near future, the distinction between vibe code and human code will be admitted by industry and integrated into existing tools.
 
 ### Git-Level Integration
 
-Git commits automatically tagged as vibed. GitHub PRs showing clear visual distinction between human and AI contributions, up to code line level.
+Git commits automatically tagged as vibed. GitHub PRs showing clear visual distinction between human and AI contributions, up to the code line level.
 
 ### AI Agent Constraints
 
@@ -537,13 +538,13 @@ This separation makes AI coding auditable and controllable - exactly what the bl
 
 **So the idea of vibe code separation isn't just about individual productivity. It's about making AI coding enterprise-ready.**
 
-## Technical implementation in Typescript
+## Technical Implementation in TypeScript
 
 One of the ways to split vibe and human code using current tooling that I found is a per-package approach.
 
 It's easy to do with a monorepo, but another structural or file-naming convention could work well too.
 
-For the case of monorepo, I did with the "-interface" packages that contain concentrated domain knowledge and shape-setting code (tests, interfaces).
+For the case of monorepo, I used the "-interface" packages that contain concentrated domain knowledge and shape-setting code (tests, interfaces).
 
 I used dependency injection to draw more explicit frontiers between modules.
 
@@ -564,11 +565,11 @@ export const generateAndSyncTasks =
   };
 ```
 
-This is the "entry point" of a module that receives a Prd document, uses https://github.com/eyaltoledano/claude-task-master to generate tasks, and then syncs them to a task tracker.
+This is the "entry point" of a module that receives a PRD document, uses https://github.com/eyaltoledano/claude-task-master to generate tasks, and then syncs them to a task tracker.
 
 You can tell the coding agent to pick up from there, but it won't have enough guidance yet.
 
-Therefore, "we need to go deeper". That's an example how I defined the interface for taskmaster.generateTask, in its own package:
+Therefore, "we need to go deeper." That's an example of how I defined the interface for taskmaster.generateTask, in its own package:
 
 ```ts
 export type GenerateTasksDeps = {
@@ -597,17 +598,17 @@ export const generateTasks: GenerateTasksF = (deps) => async (prd, current) => {
   // not obvious: taskmaster CLI wants the prd first saved in file system
   await using _letFileGo = await deps.savePrd(prdPath, prd);
   const outputPath = castNonEmptyString("tasks/tasks.json");
-  await deps.cli.generate(path, outputPath); // don't clean up here
+  await deps.cli.generate(prdPath, outputPath); // don't clean up here
   // we read file system after CLI ran to return parsed tasks.json
   return await deps.readTasksJson(outputPath);
 };
 ```
 
-Past this point, it's already possible to tell claude code to generate the `GenerateTasksDeps` providing code that calls the CLI, saves and reads from file system.
+Past this point, it's already possible to tell Claude Code to generate the `GenerateTasksDeps` providing code that calls the CLI, saves and reads from the file system.
 
-Important details that we want to be preserved - "prd file is temporary and we want to have it in file system before calling cli", "we also want to read the result of cli call from file system" are well-preserved as strong contextual harness for llm code.
+Important details that we want to be preserved - "PRD file is temporary and we want to have it in the file system before calling CLI," "we also want to read the result of CLI call from the file system" are well-preserved as strong contextual harness for LLM code.
 
-Data shape definitions is also a great candidate to use as controlling code:
+Data shape definitions are also a great candidate to use as controlling code:
 
 ```ts
 export const TaskFileContent = Schema.Struct({
@@ -639,12 +640,12 @@ export interface TasksService {
 }
 ```
 
-And of course unit tests is a great candidate for putting into controlling packages, especially [property based tests](https://monadical.com/posts/property-based-testing-for-temporal-graph-storage.html).
+And of course, unit tests are a great candidate for putting into controlling packages, especially [property-based tests](https://monadical.com/posts/property-based-testing-for-temporal-graph-storage.html).
 
-Also, you can put there all the code that you *could* 100% vibe but better *don't* - that you're supposed to know it, if not by heart, then at least "at some point when you wrote/reviewed it".
+Also, you can put there all the code that you *could* 100% vibe but better *don't* - that you're supposed to know, if not by heart, then at least "at some point when you wrote/reviewed it."
 
-Tell the agent to conform those interfaces, test and shape-setting functions, writing the "-implementation" package counterpart to your "-interface". An example system query: https://github.com/Monadical-SAS/taiga-taskmaster/blob/master/.llm-docs/PACKAGE_ORGANISATION_AND_CODE_SEPARATION_STANDARDS.md
+Tell the agent to conform to those interfaces, test and shape-setting functions, writing the "-implementation" package counterpart to your "-interface." An example system query: https://github.com/Monadical-SAS/taiga-taskmaster/blob/master/.llm-docs/PACKAGE_ORGANISATION_AND_CODE_SEPARATION_STANDARDS.md
 
-To me, it worked handsomely. Agent was very strong at regenerating code anew if I didn't like something and wanted to add more context to the "control packages". And it never loses any context because of strict conformance to controlling code.
+To me, it worked handsomely. The agent was very strong at regenerating code anew if I didn't like something and wanted to add more context to the "control packages." And it never loses any context because of strict conformance to controlling code.
 
-And for PR process, it's now becomes clear which code it worth more attention and which you can just glance over, which unlocks much more of vibe power without compromising quality.
+And for the PR process, it now becomes clear which code is worth more attention and which you can just glance over, which unlocks much more of vibe power without compromising quality.
