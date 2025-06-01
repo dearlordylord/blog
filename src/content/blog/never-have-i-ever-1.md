@@ -2,21 +2,38 @@
 title: "Mindfulness in Typescript code branching. Exhaustiveness, pattern matching, and side effects. 1/2"
 tags: programming, types, branching, typescript
 description: In-depth analysis of if/else.
-publication-date: 02/01/2025
+publication-date: 09/01/2025
 opengraphImage: /static/blog/never-have-i-ever/ifelse-catdog-splash.png
 opengraphImageAlt: Either / or
 reading-time: 5
 author: Igor Loskutov
 social-media-url: https://github.com/dearlordylord
-#published: 2025-02-01T13:44:27Z
+published: 2025-09-01T13:44:27Z
+image-url: /static/ifelse-catdog-splash-2.png
+company-title: Senior If/Else Architect
+social-media-handle: ohdearlordylord
+author-image: /static/core/img/img-team-037.png
 ---
 
-# Mindfulness in Typescript code branching. Exhaustiveness, pattern matching, and side effects. 1/2: "Exhaustive absurd"
+<center>
+
+# Mindfulness in Typescript code branching. Exhaustiveness, pattern matching, and side effects.
+
+<big>
+
+1/2: "Exhaustive absurd", Or how to if/else
+
+</big>
+
+*Written by Igor Loskutov. Originally published 2025-01-09 on the [Monadical blog](https://monadical.com/blog.html).*
+
+
+</center>
 
 > This is part one of two in our series about code branching in Typescript.
 > The first post serves as an introduction to the topic and is intended to be entry-level. It shows useful techniques of how to improve branching safety with explicit exhaustiveness checks.
 
-As Developers, we probably all wrote our first **if/else** statement when we were just newborns (that is, 0-years-experienced newborns in the industry).
+As developers, we probably all wrote our first **if/else** statement when we were just newborns (that is, 0-years-experienced newborns in the industry).
 
 ```ts
 if (x > 5) {
@@ -26,9 +43,7 @@ if (x > 5) {
 }
 ```
 
-We proceeded with learning switch/case, and usually end here. "We're ready to hack The Next Facebook. Nobody can stop us now, not even our teamlead. Or even SIGTERM!"
-
-Ok, the last one was a bit dark.
+We proceeded with learning switch/case, and usually end here. "We're ready to hack The Next Facebook. Nobody can stop us now, not even our teamlead".
 
 ```ts
 switch (x) {
@@ -305,8 +320,7 @@ With `handlers`, you won't be able to write a new type of notifications without 
 
 Dead code elimination works here as well: if you remove one of the handlers, its `& {type: }` won't compile anymore, inviting you to remove the corresponding case as well, same as with `switch/case` or `if/else`.
 
-I see certain disdain for this technique in the community lately. The main argument is that it introduces a level of indirection. Although I'm sure this wariness has some grounding, I personally don't care about these accusations and use the technique whenever I see fit.
-You can take it or leave it, because there's a plenty of other ways to achieve the same goal.
+The most common sentiment against this technique I encounter is that it introduces a layer of indirection. I say indeed it does, as any separation of concerns technique. I also argue that separation of concerns objectively brings more benefits than a thin (it's language-level!) layer of indirection.
 
 ### Eslint rule
 
