@@ -2,13 +2,13 @@
 title: "Mindfulness in Typescript code branching. Exhaustiveness, pattern matching, and side effects. 1/2"
 tags: programming, types, branching, typescript
 description: In-depth analysis of if/else.
-publication-date: 09/01/2025
+publication-date: 09/01/2024
 opengraphImage: /static/blog/never-have-i-ever/ifelse-catdog-splash.png
 opengraphImageAlt: Either / or
 reading-time: 5
 author: Igor Loskutov
 social-media-url: https://github.com/dearlordylord
-published: 2025-09-01T13:44:27Z
+published: 2024-09-01T13:44:27Z
 image-url: /static/ifelse-catdog-splash-2.png
 company-title: Senior If/Else Architect
 social-media-handle: ohdearlordylord
@@ -25,7 +25,7 @@ author-image: /static/core/img/img-team-037.png
 
 </big>
 
-*Written by Igor Loskutov. Originally published 2025-01-09 on the [Monadical blog](https://monadical.com/blog.html).*
+*Written by Igor Loskutov. Originally published 2024-01-09 on the [Monadical blog](https://monadical.com/blog.html).*
 
 
 </center>

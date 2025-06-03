@@ -441,13 +441,17 @@ export const GitHubCodeReview = () => {
 
 <center><big>Treating all code the same when it fundamentally isn't</big></center>
 
-## The Regeneration Trap
+## The Ownership Trap
 
 Here's the brutal reality: **the moment you start treating AI-generated code as "precious," you lose AI's biggest superpower.**
 
-Coding agents excel at writing from scratch. They're good but not as good at modifying existing code. But once you've spent time reviewing, fixing, and "improving" that generated code, you become invested. You won't regenerate it anymore.
+Once you've spent time reviewing, fixing, and improving that generated code, you become invested. You're going to be extra careful about AI "breaking" it.
 
-This is the productivity killer nobody talks about. You get the initial speed boost, then gradually slide back to normal development velocity as your codebase fills up with "improved vibe code" that you're reluctant to throw away.
+And it's ok, some code should be like this! But many times you just want to vibe and have your 10x productivity dream come true.
+
+Treating vibe code as precious is the productivity killer nobody talks about. You get the initial speed boost, then gradually slide back to normal development velocity as your codebase fills up with "improved vibe code" that you're reluctant to throw away.
+
+And you aren't ready to regenerate it from scratch anymore — an LLM skill that it excels at sometimes when it's stuck with a loop of never ending edits.
 
 Meanwhile, every code review becomes a battle between two conflicting mental models:
 - Reviewer: "This could be cleaner" (treating it like human code)
@@ -469,8 +473,8 @@ When AI code is clearly separated and constrained by interfaces, tests, and clea
 
 Before scaring managers and leads with implementation details, here's the conceptual framework:
 
-1. **Interface packages** - Define contracts, data shapes, and test requirements (human-written)
-2. **Implementation packages** - Fulfill those contracts (Vibe-generated, marked as @vibe-coded in README or in files)
+1. **Interface packages** - Define contracts, data shapes, and the most important tests (human-written)
+2. **Implementation packages** - Fulfill those constraints (Vibe-generated, marked as @vibe-coded in README or in files)
 3. **Clear dependency direction** - Implementation depends on interfaces, never the reverse
 4. **Regeneration freedom** - Any @vibe-coded package can be deleted and rewritten without fear
 
@@ -500,7 +504,7 @@ There are deeper psychological and sociological nth-order benefits to this appro
 
 ### Professional Confidence
 
-When someone asks about a feature, you want to give an answer. "I don't know, I vibed it" destroys professional credibility. "Cursor can't find the answer today, try again tomorrow" makes you look incompetent.
+When someone asks about a feature, you want to give an answer. "I don't know, I vibed it" destroys professional credibility. "Cursor can't find the answer today, try again tomorrow" makes you incompetent.
 
 With explicit separation, you can confidently say: "The business logic is in the interface packages - here's exactly how it works. The implementation details are auto-generated, but the core logic is solid."
 
