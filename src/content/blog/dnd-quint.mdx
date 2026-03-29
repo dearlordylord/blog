@@ -10,24 +10,29 @@ import { VerificationChain } from "../../components/VerificationChain";
 
 I'll do anything to avoid learning tabletop game battle rules. Apparently "anything" includes writing a formal specification of D&D 5e combat.
 
-Dungeons and Dragons (D&D) is a (and, importantly, just "one of", albeit the most popular one) narrative tabletop game where a group of people create common story by acting as fictional characters by the game mechanic rules.
-These interactions can create great narrative moments, and the rule system provides a lot of variety for creating tactical interesting battles.
-I find that for me battle rules are hard to learn and remember - it's just that I personally value the narrative and storytelling part more.
-So I made a state machine that can run the battle rules for me while I focus on making engaging stories.
+D&D is a narrative tabletop game — one of many, albeit the most popular. Players act as fictional characters within a shared story, guided by mechanical rules.
+
+The rules create tactically interesting battles. I find them hard to learn and remember — I value the storytelling part more. So I made a state machine to run the battle rules for me.
 
 ## What I built
 
-A [Quint](https://github.com/informalsystems/quint) formal spec of the 2024 SRD[^srd] combat rules — conditions, action economy, grappling, death saves, spellcasting, as the whole single-actor state machine. An [XState v5](https://xstate.js.org/) implementation mirrors it exactly. Model-based conformance testing ([`@firfi/quint-connect`](https://github.com/dearlordylord/quint-connect-ts)) replays random traces against both and validates state. A thin React UI sits on top.
+A [Quint](https://github.com/informalsystems/quint) formal spec of the 2024 SRD[^srd] combat rules — conditions, action economy, grappling, death saves, spellcasting — modeled as a single-actor state machine. An [XState v5](https://xstate.js.org/) implementation mirrors it exactly.
+
+Model-based conformance testing ([`@firfi/quint-connect`](https://github.com/dearlordylord/quint-connect-ts)) replays random traces against both and compares state field-by-field. A thin React UI sits on top.
 
 <VerificationChain client:load />
 
 Each layer checks the one above it. The UI can't render a state the machine can't produce. The machine can't produce a state the spec forbids.
 
-The MBT traces are seed-deterministic: same seed means same trace every time, no randomness. I used the same approach for [property-based testing of temporal graph storage](/blog/graph-property-based): deterministic seeds let you reproduce any failure instantly and run thousands of random scenarios with full reproducibility. Here, the formal spec replaces hand-written properties as the oracle[^oracle].
+The MBT traces are seed-deterministic: same seed, same trace, fully reproducible. I used the same approach for [property-based testing of temporal graph storage](/blog/graph-property-based): deterministic seeds let you reproduce any failure and run thousands of scenarios.
+
+Here, the formal spec replaces hand-written properties as the oracle[^oracle].
 
 ## What is Quint
 
-[Quint](https://github.com/informalsystems/quint) is an executable specification language based on the temporal logic of actions (TLA) — the same foundation as [TLA+](https://lamport.azurewebsites.net/tla/tla.html), but with syntax familiar to engineers, borrowing from C-like languages at the lexical level and functional languages at the syntax level. You write pure functions that describe state transitions, and Quint can model-check them: exhaustively explore every reachable state and verify your invariants hold. Built by [Informal Systems](https://informal.systems/), the team behind Cosmos blockchain verification.
+[Quint](https://github.com/informalsystems/quint) is an executable specification language based on the temporal logic of actions (TLA) — the same foundation as [TLA+](https://lamport.azurewebsites.net/tla/tla.html), but with syntax familiar to engineers.
+
+You write pure functions that describe state transitions. Quint model-checks them: exhaustively explores every reachable state and verifies your invariants hold. Built by [Informal Systems](https://informal.systems/), the team behind Cosmos blockchain verification.
 
 ## Crowdsourced spec testing
 
@@ -35,7 +40,7 @@ The MBT traces are seed-deterministic: same seed means same trace every time, no
 
 One example. Grapple a creature, knock it prone. Its speed drops to 0. Standing from prone costs half your speed. Half of zero is zero. It's stuck on the ground forever.
 
-Community discussed this on Reddit. An LLM turned it into a formal assertion. The spec confirms it:
+An LLM turns a Reddit discussion into a formal assertion, then the spec confirms it:
 
 ```ts
 // qa_generated.qnt
