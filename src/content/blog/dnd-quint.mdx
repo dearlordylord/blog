@@ -12,7 +12,7 @@ I'll do anything to avoid learning tabletop game battle rules. Apparently "anyth
 
 D&D is a narrative tabletop game — one of many, albeit the most popular. Players act as fictional characters within a shared story, guided by mechanical rules.
 
-The rules create tactically interesting battles. I find them hard to learn and remember — I value the storytelling part more. So I made a state machine to run the battle rules for me.
+The rules create tactically interesting battles, but I find them hard to learn and remember — I value the storytelling part more. So I made a state machine to run the battle rules for me.
 
 ## What I built
 
@@ -22,11 +22,9 @@ Model-based conformance testing ([`@firfi/quint-connect`](https://github.com/dea
 
 <VerificationChain client:load />
 
-Each layer checks the one above it. The UI can't render a state the machine can't produce. The machine can't produce a state the spec forbids.
+The UI can't render a state the machine can't produce, and the machine can't produce a state the spec forbids.
 
-The MBT traces are seed-deterministic: same seed, same trace, fully reproducible. I used the same approach for [property-based testing of temporal graph storage](/blog/graph-property-based): deterministic seeds let you reproduce any failure and run thousands of scenarios.
-
-Here, the formal spec replaces hand-written properties as the oracle[^oracle].
+The MBT traces are seed-deterministic: same seed, same trace, reproducible. I used the same approach for [property-based testing of temporal graph storage](/blog/graph-property-based): deterministic seeds let you reproduce any failure and run thousands of scenarios — with the formal spec as oracle[^oracle] instead of hand-written properties.
 
 ## What is Quint
 
@@ -36,7 +34,7 @@ You write pure functions that describe state transitions. Quint model-checks the
 
 ## Crowdsourced spec testing
 
-1,000 machine-checked assertions distilled so far from a corpus of 12,700 Reddit and StackExchange Q&A arguments between dedicated D&D players. An LLM translates them into Quint. Surviving assertions validate the spec against community domain knowledge. The corpus has a lot more to give.
+1,000 machine-checked assertions distilled so far from a corpus of 12,700 Reddit and StackExchange Q&A arguments between dedicated D&D players. An LLM translates them into Quint. Surviving assertions validate the spec against what the community already knows. Still plenty of the corpus left to process.
 
 One example. Grapple a creature, knock it prone. Its speed drops to 0. Standing from prone costs half your speed. Half of zero is zero. It's stuck on the ground forever.
 
@@ -54,11 +52,14 @@ run qa_prone_and_grappled_cannot_stand = {
 }
 ```
 
-The same pipeline can be fed game session recordings — another source of real-world rule interactions to validate the spec against.
+The same pipeline can be fed game session recordings — another source of real-world rulings to check against the spec.
 
 Demo: [dnd-quint.dearlordylord.com](http://dnd-quint.dearlordylord.com/)
 Repo: [github.com/dearlordylord/5e-quint](https://github.com/dearlordylord/5e-quint)
 
+## But how do you run "combat" through it?
+
+Working on it. A proof of concept of an educational interactive table of combat statuses already exists for the lighter [Savage Worlds RPG](https://savage.dearlordylord.com/) — that project was the predecessor to this one. D&D's combat is more complex, but the state machine is already proven.
 
 [^srd]: The [System Reference Document 5.2.1](https://www.dndbeyond.com/resources/1781-systems-reference-document-srd) — Wizards of the Coast publishes the core D&D rules under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), so anyone can build on them.
 [^oracle]: A [test oracle](https://en.wikipedia.org/wiki/Test_oracle) is the source of truth that tells you what the correct result should be. In unit tests, it's the hardcoded expected value. In property-based testing, it's the invariant. In this project, each layer serves as oracle for the next: community Q&A validates the spec, the spec validates the XState implementation.
