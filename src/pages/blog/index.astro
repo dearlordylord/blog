@@ -26,7 +26,7 @@ const posts = (await getCollection("blog")).filter(p => p.data.published).sort(
           {
             posts.map((post) => (
                     <li>
-                        <a href={`/blog/${post.slug}/`} class="flex space-x-1">
+                        <a href={`/blog/${post.id.replace(/\.(md|mdx)$/, "")}/`} class="flex space-x-1">
                             <p>→</p>
                             <p>{post.data.title}</p>
                             <FormattedDate date={post.data.published} />

@@ -5,7 +5,7 @@ import sitemap from '@astrojs/sitemap';
 import wasm from "vite-plugin-wasm";
 import mdx from "@astrojs/mdx";
 
-import vercel from "@astrojs/vercel/static";
+import vercel from "@astrojs/vercel";
 import remarkMermaid from 'astro-diagram/remark-mermaid';
 
 

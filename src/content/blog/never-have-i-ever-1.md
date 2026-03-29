@@ -3,7 +3,7 @@ title: "Mindfulness in Typescript code branching. Exhaustiveness, pattern matchi
 tags: programming, types, branching, typescript
 description: In-depth analysis of if/else.
 publication-date: 09/01/2024
-opengraphImage: /static/blog/never-have-i-ever/ifelse-catdog-splash.png
+opengraphImage: /static/blog/never-have-i-ever/ifelse-catdog-splash.jpg
 opengraphImageAlt: Either / or
 reading-time: 5
 author: Igor Loskutov

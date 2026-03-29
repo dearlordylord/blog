@@ -1,12 +1,12 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 import BlogPost from "../../layouts/BlogPost.astro";
 
 export async function getStaticPaths() {
   const posts = await getCollection("blog");
   return posts.map((post) => ({
-    params: { slug: post.slug },
+    params: { slug: post.id.replace(/\.(md|mdx)$/, "") },
     props: post,
   }));
 }
@@ -19,12 +19,13 @@ if (!post) {
   console.error(`no post found by slug ${slug}`);
   return Astro.redirect("/404");
 }
-const { Content } = await post.render();
+const { Content } = await render(post);
+const postSlug = post.id.replace(/\.(md|mdx)$/, "");
 
 // TODO theme for utterances
 ---
 
-<BlogPost {...post.data} slug={post.slug} opengraphImage={post.data.opengraphImage}>
+<BlogPost {...post.data} slug={postSlug} opengraphImage={post.data.opengraphImage}>
     <Content />
     <script is:inline src="https://utteranc.es/client.js"
             repo="dearlordylord/blog"

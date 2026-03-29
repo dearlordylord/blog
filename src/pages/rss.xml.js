@@ -16,7 +16,7 @@ export async function get(context) {
     items: posts.map((post) => ({
       ...post.data,
       pubDate: post.published,
-      link: /*TODO that's terrible.*/`/blog/${post.slug}/`,
+      link: `/blog/${post.id.replace(/\.(md|mdx)$/, "")}/`,
       // Note: this will not process components or JSX expressions in MDX files.
       content: sanitizeHtml(parser.render(post.body), {
         allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img', 'iframe'])
