@@ -1,14 +1,14 @@
 ---
 title: "Formally Specifying Dungeons and Dragons rulebooks"
 description: "3,300 lines of formal spec, a seed-deterministic fuzzer, and 12,700 Reddit/Stackexchange arguments to avoid learning battle rules the normal way."
-publication-date: 03/29/2026
+published: 2026-03-29T13:44:27Z
 author: Igor Loskutov
 social-media-handle: dearlordylord
 ---
 
 import { VerificationChain } from "../../components/VerificationChain";
 
-I'll do anything to avoid learning tabletop game battle rules. Apparently "anything" includes writing a formal specification of D&D 5e combat.
+I'll do anything to avoid learning tabletop game battle rules. Apparently "anything" includes writing a formal specification of D&D (Dungeons and Dragons) 5e (5th edition, 2024) combat.
 
 D&D is a narrative tabletop game — one of many, albeit the most popular. Players act as fictional characters within a shared story, guided by mechanical rules.
 
@@ -16,7 +16,7 @@ The rules create tactically interesting battles, but I find them hard to learn a
 
 ## What I built
 
-A [Quint](https://github.com/informalsystems/quint) formal spec of the 2024 SRD[^srd] combat rules — conditions, action economy, grappling, death saves, spellcasting — modeled as a single-actor state machine. An [XState v5](https://xstate.js.org/) implementation mirrors it exactly.
+A [Quint](https://github.com/informalsystems/quint) formal spec of the 2024 SRD[^srd] combat rules — conditions, action economy, grappling, death saves, spell slots — modeled as a single-actor state machine. An [XState v5](https://xstate.js.org/) implementation mirrors it exactly.
 
 Model-based conformance testing ([`@firfi/quint-connect`](https://github.com/dearlordylord/quint-connect-ts)) replays random traces against both and compares state field-by-field. A thin React UI sits on top.
 
@@ -24,7 +24,7 @@ Model-based conformance testing ([`@firfi/quint-connect`](https://github.com/dea
 
 The UI can't render a state the machine can't produce, and the machine can't produce a state the spec forbids.
 
-The MBT traces are seed-deterministic: same seed, same trace, reproducible. I used the same approach for [property-based testing of temporal graph storage](/blog/graph-property-based): deterministic seeds let you reproduce any failure and run thousands of scenarios — with the formal spec as oracle[^oracle] instead of hand-written properties.
+The MBT traces are seed-deterministic: same seed, same trace, reproducible. I used the same approach for [property-based testing of temporal graph storage](/blog/graph-property-based): deterministic seeds let you reproduce any failure and run millions of scenarios — with the formal spec as oracle[^oracle] instead of hand-written properties.
 
 ## What is Quint
 
@@ -36,7 +36,7 @@ You write pure functions that describe state transitions. Quint model-checks the
 
 1,000 machine-checked assertions distilled so far from a corpus of 12,700 Reddit and StackExchange Q&A arguments between dedicated D&D players. An LLM translates them into Quint. Surviving assertions validate the spec against what the community already knows. Still plenty of the corpus left to process.
 
-One example. Grapple a creature, knock it prone. Its speed drops to 0. Standing from prone costs half your speed. Half of zero is zero. It's stuck on the ground forever.
+One example. [Grapple](https://roll20.net/compendium/dnd5e/Combat#toc_39) a creature, [knock it](https://roll20.net/compendium/dnd5e/Combat#toc_42) [prone](https://roll20.net/compendium/dnd5e/Conditions#toc_10). Its speed [drops to 0](https://roll20.net/compendium/dnd5e/Conditions#toc_4). The Prone condition says: ["if your Speed is 0, you can't right yourself."](https://www.dndbeyond.com/sources/dnd/br-2024/rules-glossary#ProneCondition) Stuck on the ground until the grapple breaks.
 
 An LLM turns a Reddit discussion into a formal assertion, then the spec confirms it:
 
@@ -48,18 +48,27 @@ run qa_prone_and_grappled_cannot_stand = {
   val grappledAndProne = pApplyCondition(grappled, CProne)
   val t = pStartTurn(TEST_CONFIG, grappledAndProne, Unarmored, 0, false, false)
   val tAfterStandAttempt = pStandFromProne(t)
-  assert(t.effectiveSpeed == 0 and tAfterStandAttempt.movementRemaining == t.movementRemaining)
+  assert(
+    grappledAndProne.prone and          // creature is prone
+    grappledAndProne.grappled and        // creature is grappled
+    t.effectiveSpeed == 0 and            // grappled ⇒ speed 0
+    tAfterStandAttempt == t              // stand attempt is a no-op
+  )
 }
 ```
 
 The same pipeline can be fed game session recordings — another source of real-world rulings to check against the spec.
+
+## MBT as a coding agent loop
+
+Run Quint traces in a perpetual loop. When a trace fails, write its seed to a file. A coding agent watches the file — when it's non-empty, it reproduces the failure, checks with the rules and project coding guidelines, and commits a fix. Rinse, repeat until the file stays empty. Voilà, self-healing system.
 
 Demo: [dnd-quint.dearlordylord.com](http://dnd-quint.dearlordylord.com/)
 Repo: [github.com/dearlordylord/5e-quint](https://github.com/dearlordylord/5e-quint)
 
 ## But how do you run "combat" through it?
 
-Working on it. A proof of concept of an educational interactive table of combat statuses already exists for the lighter [Savage Worlds RPG](https://savage.dearlordylord.com/) — that project was the predecessor to this one. D&D's combat is more complex, but the state machine is already proven.
+More on it later. For now, a proof of concept of an educational interactive table of combat statuses already exists for the lighter [Savage Worlds RPG](https://savage.dearlordylord.com/) — that project of mine was the predecessor to this one. D&D's combat is more complex, but the state machine is already proven.
 
 [^srd]: The [System Reference Document 5.2.1](https://www.dndbeyond.com/resources/1781-systems-reference-document-srd) — Wizards of the Coast publishes the core D&D rules under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), so anyone can build on them.
 [^oracle]: A [test oracle](https://en.wikipedia.org/wiki/Test_oracle) is the source of truth that tells you what the correct result should be. In unit tests, it's the hardcoded expected value. In property-based testing, it's the invariant. In this project, each layer serves as oracle for the next: community Q&A validates the spec, the spec validates the XState implementation.
