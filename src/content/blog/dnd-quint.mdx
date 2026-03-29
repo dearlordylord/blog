@@ -1,0 +1,61 @@
+---
+title: "Formally Specifying Dungeons and Dragons rulebooks"
+description: "3,300 lines of formal spec, a seed-deterministic fuzzer, and 12,700 Reddit/Stackexchange arguments to avoid learning battle rules the normal way."
+publication-date: 03/29/2026
+author: Igor Loskutov
+social-media-handle: dearlordylord
+---
+
+import { VerificationChain } from "../../components/VerificationChain";
+
+I'll do anything to avoid learning tabletop game battle rules. Apparently "anything" includes writing a formal specification of D&D 5e combat.
+
+Dungeons and Dragons (D&D) is a (and, importantly, just "one of", albeit the most popular one) narrative tabletop game where a group of people create common story by acting as fictional characters by the game mechanic rules.
+These interactions can create great narrative moments, and the rule system provides a lot of variety for creating tactical interesting battles.
+I find that for me battle rules are hard to learn and remember - it's just that I personally value the narrative and storytelling part more.
+So I made a state machine that can run the battle rules for me while I focus on making engaging stories.
+
+## What I built
+
+A [Quint](https://github.com/informalsystems/quint) formal spec of the 2024 SRD[^srd] combat rules — conditions, action economy, grappling, death saves, spellcasting, as the whole single-actor state machine. An [XState v5](https://xstate.js.org/) implementation mirrors it exactly. Model-based conformance testing ([`@firfi/quint-connect`](https://github.com/dearlordylord/quint-connect-ts)) replays random traces against both and validates state. A thin React UI sits on top.
+
+<VerificationChain client:load />
+
+Each layer checks the one above it. The UI can't render a state the machine can't produce. The machine can't produce a state the spec forbids.
+
+## What is Quint
+
+[Quint](https://github.com/informalsystems/quint) is an executable specification language based on the temporal logic of actions (TLA) — the same foundation as [TLA+](https://lamport.azurewebsites.net/tla/tla.html), but with syntax familiar to engineers, borrowing from C-like languages at the lexical level and functional languages at the syntax level. You write pure functions that describe state transitions, and Quint can model-check them: exhaustively explore every reachable state and verify your invariants hold. Built by [Informal Systems](https://informal.systems/), the team behind Cosmos blockchain verification.
+
+## The punchline
+
+Push all logic into a model-checked state machine, make the UI a stateless projection, and the UI inherits upstream guarantees for free. The whole thing is Quint, XState, React, and [TanStack Start](https://tanstack.com/start). Standard TypeScript stack.
+
+## The wildest part
+
+1,000 machine-checked assertions distilled so far from a corpus of 12,700 Reddit and StackExchange Q&A arguments between dedicated D&D players. An LLM translates them into Quint. Surviving assertions validate the spec against community domain knowledge. The corpus has a lot more to give.
+
+One example. Grapple a creature, knock it prone. Its speed drops to 0. Standing from prone costs half your speed. Half of zero is zero. It's stuck on the ground forever.
+
+Community discussed this on Reddit. An LLM turned it into a formal assertion. The spec confirms it:
+
+```ts
+// qa_generated.qnt
+run qa_prone_and_grappled_cannot_stand = {
+  val target = freshCreature(30)
+  val grappled = pGrapple(Medium, Medium, target, true, true).targetState
+  val grappledAndProne = pApplyCondition(grappled, CProne)
+  val t = pStartTurn(TEST_CONFIG, grappledAndProne, Unarmored, 0, false, false)
+  val tAfterStandAttempt = pStandFromProne(t)
+  assert(t.effectiveSpeed == 0 and tAfterStandAttempt.movementRemaining == t.movementRemaining)
+}
+```
+
+MBT also found 11 bug classes in the XState implementation that unit tests and TypeScript's type system missed — things like three function arguments with the same type (`ReadonlySet<DamageType>`) in the wrong order.
+
+Demo: [dnd-quint.dearlordylord.com](http://dnd-quint.dearlordylord.com/)
+Repo: [github.com/dearlordylord/5e-quint](https://github.com/dearlordylord/5e-quint)
+
+I will write more about this soon.
+
+[^srd]: The [System Reference Document 5.2.1](https://www.dndbeyond.com/resources/1781-systems-reference-document-srd) — Wizards of the Coast publishes the core D&D rules under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), so anyone can build on them.
