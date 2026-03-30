@@ -1,7 +1,9 @@
 ---
 title: "Formally Specifying Dungeons and Dragons rulebooks"
 description: "3,300 lines of formal spec, a seed-deterministic fuzzer, and 12,700 Reddit/Stackexchange arguments to avoid learning battle rules the normal way."
-published: 2026-03-29T13:44:27Z
+publication-date: 03/29/2026
+opengraphImage: /static/blog/dnd-quint/splash.png
+opengraphImageAlt: "D&D Player's Handbook cover alongside Quint formal spec code for death saves"
 author: Igor Loskutov
 social-media-handle: dearlordylord
 ---
@@ -18,7 +20,7 @@ The rules create tactically interesting battles, but I find them hard to learn a
 
 A [Quint](https://github.com/informalsystems/quint) formal spec of the 2024 SRD[^srd] combat rules — conditions, action economy, grappling, death saves, spell slots — modeled as a single-actor state machine. An [XState v5](https://xstate.js.org/) implementation mirrors it exactly.
 
-Model-based conformance testing ([`@firfi/quint-connect`](https://github.com/dearlordylord/quint-connect-ts)) replays random traces against both and compares state field-by-field. A thin React UI sits on top.
+Model-based conformance testing replays random traces against both and compares state field-by-field. A thin React UI sits on top.
 
 <VerificationChain client:load />
 
@@ -65,6 +67,7 @@ Run Quint traces in a perpetual loop. When a trace fails, write its seed to a fi
 
 Demo: [dnd-quint.dearlordylord.com](http://dnd-quint.dearlordylord.com/)
 Repo: [github.com/dearlordylord/5e-quint](https://github.com/dearlordylord/5e-quint)
+MBT bridge: [`@firfi/quint-connect`](https://github.com/dearlordylord/quint-connect-ts)
 
 ## But how do you run "combat" through it?
 
@@ -72,3 +75,7 @@ More on it later. For now, a proof of concept of an educational interactive tabl
 
 [^srd]: The [System Reference Document 5.2.1](https://www.dndbeyond.com/resources/1781-systems-reference-document-srd) — Wizards of the Coast publishes the core D&D rules under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), so anyone can build on them.
 [^oracle]: A [test oracle](https://en.wikipedia.org/wiki/Test_oracle) is the source of truth that tells you what the correct result should be. In unit tests, it's the hardcoded expected value. In property-based testing, it's the invariant. In this project, each layer serves as oracle for the next: community Q&A validates the spec, the spec validates the XState implementation.
+
+---
+
+<small>D&D is a trademark of Wizards of the Coast. This is unofficial fan content permitted under the [Fan Content Policy](https://company.wizards.com/en/legal/fancontentpolicy).</small>

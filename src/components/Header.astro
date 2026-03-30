@@ -1,7 +1,6 @@
 ---
 import HeaderLink from "./HeaderLink.astro";
 // https://docs.astro.build/en/reference/configuration-reference/#experimental-flags
-import { LinkedinLogo } from "@phosphor-icons/react/dist/ssr/LinkedinLogo";
 import { Moon } from "@phosphor-icons/react/dist/ssr/Moon";
 import { Sun } from "@phosphor-icons/react/dist/ssr/Sun";
 import { TwitterLogo } from "@phosphor-icons/react/dist/ssr/TwitterLogo";
@@ -19,7 +18,7 @@ const { className } = Astro.props;
 <header
         class:list={
           [
-            'flex flex-col border-b border-slate-3 print:hidden md:h-full md:border-b-0 md:border-r',
+            'flex flex-col border-b border-slate-3 print:hidden md:border-b-0 md:border-r',
             className
           ]
         }
@@ -36,12 +35,7 @@ const { className } = Astro.props;
             </button>
         </ThemeSwitch>
     </h2>
-    <nav
-            class="flex h-full justify-center gap-4 font-black md:flex-col md:justify-start"
-    >
-        <HeaderLink href="/blog">Blog</HeaderLink>
-    </nav>
-    <div class="mr-8 mb-4 flex w-full justify-center gap-4">
+    <div class="mt-4 mb-4 flex w-full justify-center gap-4">
         <HeaderLink href="https://github.com/dearlordylord" target="_blank">
             <GithubLogo size={18} />
         </HeaderLink>
@@ -50,9 +44,6 @@ const { className } = Astro.props;
         <!-- TODO apps -->
         <!-- TODO resume -->
         <!-- TODO dnd -->
-        <HeaderLink href="https://linkedin.com/in/igor-loskutov/" target="_blank">
-            <LinkedinLogo size={18} />
-        </HeaderLink>
         <HeaderLink href="https://twitter.com/ohdearlordylord" target="_blank">
             <TwitterLogo size={18} />
         </HeaderLink>

@@ -1,34 +1,39 @@
-
 ---
 import { SITE_TITLE, SITE_DESCRIPTION } from "../constants";
 import Layout from "../layouts/Base.astro";
-import TownMenu from '../components/town.tsx';
+import { getCollection } from "astro:content";
+import FormattedDate from "../components/Date.astro";
 
+
+const posts = (await getCollection("blog")).filter(p => p.data.published).sort(
+  (a, b) => b.data.published!.valueOf() - a.data.published!.valueOf()
+);
 
 ---
 
-<script is:inline>
-  // solves Safari's "back" button cache issue
-  // eslint-disable-next-line
-  if (performance.navigation.type === 2) location.reload();
-  // attempt to disable bfcache
-  window.addEventListener('unload', function(){});
-  window.addEventListener('beforeunload', function(){});
-</script>
-
-<Layout
-        title={SITE_TITLE}
-        description={SITE_DESCRIPTION}
->
-    <article
-            class="prose prose-lg prose-slate dark:prose-invert flex max-w-none flex-col items-center text-center"
-    >
-        <div class="w-full md:max-w-2xl">
-          <div class="content-center">
-              <TownMenu client:load />
-              <p>WASD or mouse to move</p>
-          </div>
-
-        </div>
-    </article>
+<Layout title={SITE_TITLE} description={SITE_DESCRIPTION} opengraphImage={undefined} opengraphImageAlt={undefined}>
+    <section class="w-full">
+      {
+        posts.length === 0 ? (
+                <p>No posts found</p>
+        ) : (
+                <h1 class="prose prose-lg prose-slate dark:prose-invert decoration-teal-9 mb-6 underline decoration-wavy">
+                    Les écrits
+                </h1>
+        )
+      }
+        <ul>
+          {
+            posts.map((post) => (
+                    <li>
+                        <a href={`/blog/${post.id.replace(/\.(md|mdx)$/, "")}/`} class="flex space-x-1">
+                            <p>→</p>
+                            <p>{post.data.title}</p>
+                            <FormattedDate date={post.data.published} />
+                        </a>
+                    </li>
+            ))
+          }
+        </ul>
+    </section>
 </Layout>
