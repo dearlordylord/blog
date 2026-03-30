@@ -13,15 +13,7 @@ const posts = (await getCollection("blog")).filter(p => p.data.published).sort(
 
 <Layout title={SITE_TITLE} description={SITE_DESCRIPTION} opengraphImage={undefined} opengraphImageAlt={undefined}>
     <section class="w-full">
-      {
-        posts.length === 0 ? (
-                <p>No posts found</p>
-        ) : (
-                <h1 class="prose prose-lg prose-slate dark:prose-invert decoration-teal-9 mb-6 underline decoration-wavy">
-                    Les écrits
-                </h1>
-        )
-      }
+      {posts.length === 0 && <p>No posts found</p>}
         <ul>
           {
             posts.map((post) => (

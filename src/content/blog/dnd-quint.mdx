@@ -69,9 +69,15 @@ Demo: [dnd-quint.dearlordylord.com](http://dnd-quint.dearlordylord.com/)
 Repo: [github.com/dearlordylord/5e-quint](https://github.com/dearlordylord/5e-quint)
 MBT bridge: [`@firfi/quint-connect`](https://github.com/dearlordylord/quint-connect-ts)
 
-## But how do you run "combat" through it?
+## I still have no idea what you're talking about. Also, how do you run "combat" through it?
 
-More on it later. For now, a proof of concept of an educational interactive table of combat statuses already exists for the lighter [Savage Worlds RPG](https://savage.dearlordylord.com/) — that project of mine was the predecessor to this one. D&D's combat is more complex, but the state machine is already proven.
+More on it later: I'll release a larger and probably a more intermediate or beginner-friendly post.
+
+As to combat, for now, a proof of concept of an educational interactive table of combat statuses already exists for the lighter [Savage Worlds RPG](https://savage.dearlordylord.com/) — that project of mine was the predecessor to this one.
+
+This table helps me and my group to understand their characters' options when they are in the pickle.
+
+D&D's combat is more complex, but the state machine concept is already proven.
 
 [^srd]: The [System Reference Document 5.2.1](https://www.dndbeyond.com/resources/1781-systems-reference-document-srd) — Wizards of the Coast publishes the core D&D rules under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), so anyone can build on them.
 [^oracle]: A [test oracle](https://en.wikipedia.org/wiki/Test_oracle) is the source of truth that tells you what the correct result should be. In unit tests, it's the hardcoded expected value. In property-based testing, it's the invariant. In this project, each layer serves as oracle for the next: community Q&A validates the spec, the spec validates the XState implementation.
