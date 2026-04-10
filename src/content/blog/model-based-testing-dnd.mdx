@@ -20,7 +20,7 @@ Thus, I did the hard part first. Without it, you can't prove full viability. A s
 
 The battle spec is less than half the creature code. You'd think it amounts to less than half the complexity, but that is far from true.
 
-A single creature's state space is a flat reducer. A glorified [character sheet](https://en.wikipedia.org/wiki/Character_sheet). Level up, take damage, gain a condition, lose a condition. The state space is large but flat. Combat makes it profound. Two creatures interacting means every action can trigger reactions, every reaction can trigger counter-reactions, and the whole thing nests before anyone's taken damage. This is where beginner and even proficient players often get confused.
+A single creature's state space is a flat reducer. A glorified [character sheet](https://en.wikipedia.org/wiki/Character_sheet). Level up, take damage, gain a condition, lose a condition. The state space is large but flat. Combat turns the flat reducer into a combinatorial mess. Two creatures interacting means every action can trigger reactions, every reaction can trigger counter-reactions, and the whole thing nests before anyone's taken damage. This is where beginner and even proficient players often get confused.
 
 Here's what the spec covers now: all the character classes (12 of them,) 14 conditions that modify what you can and can't do. Legendary creatures that act on other creatures' turns. Counterspell that interrupts spellcasting. Opportunity attacks that fire mid-movement and trigger full attack resolution chains. Both player characters and monsters, with character lists and stat blocks.
 
@@ -32,7 +32,7 @@ Last time it was one creature in the void. Now it's all classes, conditions, and
 
 ## The Interrupt Chain
 
-A single attack is not a single event.
+A single attack is apparently much more than just a single event.
 
 When one creature attacks another, the rules open a series of interrupt windows — moments where participants can react and alter the outcome mid-resolution. Each one can branch the game state.
 
@@ -48,11 +48,11 @@ var bSpellStack: List[SpellStackEntry]  // push on cast, pop on resolve
 
 **Phase 4: A save fails.** The target fails their saving throw. But the Ancient Dragon has Legendary Resistance — it spends a charge and the save auto-succeeds. This fires after the save result but before the fail effects apply.
 
-Now layer these on top of each other.
+Now to zoom out these a bit:
 
 A Rogue moves away from an enemy creature. The enemy has an unused reaction, so it gets an Opportunity Attack — one melee attack (even if the attacker has multiattack property, mind me!). That attack enters Phase 1 (can the Rogue cast Shield?), then Phase 2 (Uncanny Dodge?), then after-damage effects (concentration check if the Rogue was concentrating on a spell). All of this happens mid-movement, before the Rogue reaches their destination.
 
-An ally Wizard casts *Hold Monster* on the Dragon. Phase 3: Counterspell window. The Dragon's minion tries to counter it. A second ally counter-Counterspells. The stack pops: inner Counterspell resolves first, then the outer one. The spell goes through. The Dragon fails its save. Phase 4: Legendary Resistance. The Dragon burns a charge. Save flipped to success.
+An ally Wizard casts *Hold Monster* on the Dragon. Phase 3: Counterspell window. The Dragon's minion tries to counter it. A second ally counter-Counterspells. The stack pops: inner Counterspell resolves first, then the outer one. The spell goes through. The Dragon fails its save. Phase 4: Legendary Resistance. The Dragon burns a charge, flipping the failed save to a successful one.
 
 After all of this resolves, where does the state machine go back to? It depends on what started it. An attack on your turn resumes the turn. An Opportunity Attack mid-movement resumes movement. An AoE spell moves to the next target. The damage resolution is identical in all cases — only the resume point differs. In the spec, each source carries its own return address as a tagged union:
 
@@ -94,33 +94,37 @@ Quint pattern-matches on the tag to decide where to go next. XState does the sam
 
 <iframe src="https://dnd-quint.dearlordylord.com/embed/battle?step=3" width="100%" height="600px"></iframe>
 
-This is why the formal spec matters. The interrupt interactions create a combinatorial state space. The Quint fuzzer explores it; unit tests cover the paths you thought of.
+Formal spec helps a lot here, because the interrupt interactions only create a combinatorial state space — and there's much much more to the model than just them.
 
-The spec models all of this. But it doesn't model *everything*.
+The Quint fuzzer explores the combinatorial space automatically, then unit tests cover the paths thought of.
 
-## What's Spec vs What's DM
+But what about the important part of the game where a huge part of enjoyment emerges from — the narrative? Do we model The Narrative?
+
+## Players vs. Rules
 
 The spec doesn't model everything. It models everything *mechanically deterministic* — given the same inputs, there's exactly one correct answer. Everything else enters the spec as caller-provided input.
 
-**Dice rolls** are the simplest case. The spec never generates random numbers. The caller passes rolls as arguments, already resolved. The spec proves that given any roll, the downstream mechanics are correct. Randomness is the caller's problem.
+**Dice rolls** are the simplest case. The spec never generates random numbers. The caller passes rolls as arguments, already resolved. The spec proves that given any roll, the downstream mechanics are correct. Randomness is the caller's concern, although, I still prefer it to be [deterministic](https://www.loskutoff.com/blog/graph-property-based/)
 
-**Cover** works the same way. The spec receives it as a typed enum: `NoCover | HalfCover | ThreeQuartersCover | TotalCover`. It proves the AC and DEX save bonuses for each level. Whether that pillar constitutes half cover or three-quarters cover is DM's call on geometry they use. 
+**Cover** works the same way. The caller sends it as a typed enum: `NoCover | HalfCover | ThreeQuartersCover | TotalCover`, so the spec then proves the AC and DEX save bonuses for each level. Whether that crate or this pillar constitutes half-cover or three-quarters cover is DM's call on geometry they use.
 
 > Fun fact: traditionally, Dungeons and Dragons combat geometry is non-Euclidean.
 
 **Opportunity attacks** push this further. When a creature moves through a threatened area, the spec receives a *set* of threatening creatures as input, then tests: given *any* set, does the OA pipeline resolve correctly? It never asks "who's actually within 5 feet?" — that's spatial, a different problem entirely. The spec proves the (re)action economy and attack resolution work for any threat configuration the caller provides.
 
-This is a deliberate architectural choice, not a deferral. D&D supports both theatre-of-mind (no map, distances are narrative) and grid-based battlemaps. The DM picks one or improvises a hybrid. A spec that commits to a spatial model is wrong for half the tables. Ours takes spatial facts as inputs and proves the mechanics correct regardless of how the DM represents space.
+This is a deliberate choice. D&D supports both theatre-of-mind (no map, distances are narrative) and grid-based battlemaps. The DM picks one or improvises a hybrid.
 
-This pattern generalizes beyond D&D. Any domain with formal rules also has human decision points. The spec proves the mechanical parts correct regardless of what the human decides.
+A spec that commits to a spatial model is wrong for half the tables. Ours takes spatial facts as inputs and proves the mechanics correct regardless of how the DM represents space. I’m biased here: I usually prefer theatre-of-mind combat anyway.
 
-## What MBT Actually Caught
+The pattern of abstracting the "human decisions" away generalizes beyond tabletop RPGs or D&D. Any domain with formal rules also has human decision points. The spec proves the mechanical parts correct and that's it.
+
+## Nightly auto-bugfixes
 
 So: the spec encodes what the rules prescribe. The XState machine encodes the runtime behavior. When those two disagree, the model-based testing bridge catches it.
 
 The first night of fuzzing produced a thousand and half failures. All from one root cause: the XState machine didn't derive spell slots from class levels. Every spellcaster started with zero slots. Hand-written tests never caught it — they supplied explicit slot values in fixtures. The fuzzer used the actual class data and immediately noticed that nobody could cast anything.
 
-Fix deployed. New bugs surfaced. Then more. Here's that night, with auto-fixes done by Claude Code:
+Here's that night, with auto-fixes done by Claude Code:
 
 ```
 20:06  Fuzzing starts. 1,447 failures. One root cause: spell slot init.
@@ -173,7 +177,7 @@ These aren't exotic edge cases but the normal consequence of a state space too l
 
 ---
 
-## 12,700 Arguments, Machine-Checked
+## 12,700 Conversations, Machine-Checked
 
 The bugs above are things the spec found in my *implementation*. The QA pipeline finds bugs that *players* found in the *rules*.
 
@@ -211,17 +215,17 @@ Same grappler, same DC, very different outcomes depending on the target's save b
 
 The pipeline doesn't require Reddit threads exclusively. I've been experimenting with feeding it game session recordings — actual play transcripts where a DM makes a ruling mid-combat. Messier than Stack Exchange, but those are the rulings people actually play with.
 
-## The Feature Surface
+## The Invariants
 
 The spec has 62 safety invariants. They deserve a closer look. You already know the instinct behind them — you just call it different things depending on where you are in the stack.
 
-You write `assert()` at the top of a function. Precondition, postcondition, "this should never be null here." TigerBeetle's [TigerStyle](https://github.com/tigerbeetle/tigerbeetle/blob/main/docs/TIGER_STYLE.md) is the most disciplined version of this: paired assertions at call site and definition, checking both what *should* and what *should not* be true. Their principle: assertions downgrade catastrophic correctness bugs into liveness bugs. Crash early, corrupt nothing. Same instinct: state something that must hold, crash if it doesn't.
+You write `assert()` at the top of a function. Precondition, postcondition, "this should never be null here." TigerBeetle's [TigerStyle](https://github.com/tigerbeetle/tigerbeetle/blob/main/docs/TIGER_STYLE.md) is the most disciplined version of this: paired assertions at call site and definition, checking both what *should* and what *should not* be true. Their principle: assertions downgrade catastrophic correctness bugs into liveness bugs. Crash early, corrupt nothing.
 
-You put a Zod[^zod] schema at your API boundary. Same instinct, different layer. You're not checking logic. You're checking shape. Right structure, right types, values within range. The parser runs once, at the edge, and everything downstream trusts the output. It's a gate, not a monitor.
+You put a Zod[^zod] schema at your API boundary. Same intent, different abstraction layer. You're not checking logic (dynamic relations) but shape (static forms). Right structure, right types, values within range. The parser runs once, at the edge, and everything downstream trusts the output.
 
-You write a property-based test. Same instinct, scaled up. Instead of one example, you generate thousands of random inputs and check that a property holds across all of them. I used this approach for [property-based testing of temporal graph storage](https://www.loskutoff.com/blog/graph-property-based/). Deterministic seeds, millions of scenarios, properties as the oracle. The Quint MBT fuzzer works the same way: random traces, seed-reproducible, properties checked at every step.
+You write a property-based test. Same intent again, but scaled up. Instead of one example, you generate thousands of random inputs and check that a property holds across all of them. I used this approach for [property-based testing of temporal graph storage](https://www.loskutoff.com/blog/graph-property-based/). Deterministic seeds, millions of scenarios, properties as the oracle. The Quint MBT fuzzer works the same way: random traces, seed-reproducible, properties checked at every step.
 
-A Quint invariant is the same instinct taken to its limit. The model checker doesn't sample. It explores *every reachable state* the spec can produce. "HP never exceeds max" isn't tested against a thousand random creatures. It's proven for every creature the spec can construct. That's the jump: from "this held on all inputs I tried" to "this holds in every state the system can reach."
+A Quint invariant is this idea taken to its limit. The model checker explores *every reachable state* the spec can produce. Invariants are proven for every creature the spec can construct. The jump, compared to unit testing, is: from "this held on all inputs I tried" to "this holds in every state the system can reach."
 
 If you already validate at the boundary and assert at runtime, you know what invariants are. The spec just checks them across every state the system can reach instead of the states your tests happen to visit.
 
@@ -235,13 +239,13 @@ The SRD 5.2.1 is released under CC-BY-4.0 — unusually permissive for game cont
 
 The spec isn't tied to one implementation. The Quint model is the source of truth; XState happens to be the first runtime that mirrors it. But the same traces that validate XState can validate any implementation — Rust, Go, a Godot plugin. The MBT bridge doesn't care what language the target is written in. It generates traces from the spec and compares state. If the states match, the implementation is conformant.
 
-This gets interesting with coding agents. An agent can read the Quint spec, generate an implementation in any language, and the MBT pipeline immediately tells it whether the output is correct — not "compiles" correct, not "passes the tests I wrote" correct, but "matches the formal spec across thousands of random traces" correct. The feedback loop is foolproof: generate, run traces, fix divergences, repeat. The spec is the oracle the agent checks itself against. The perfect agentic harness.
+This is apparently handy with coding agents. An agent can read the Quint spec, generate an implementation in any language, and the MBT pipeline immediately tells it whether the output is correct — not "compiles" correct, not "passes the tests I wrote" correct, but "matches the formal spec across thousands of random traces" correct. The feedback loop is a guiding harness: generate, run traces, fix divergences, repeat. The spec is the oracle the agent checks itself against. I'd [argue](https://www.loskutoff.com/blog/vibe-code-how-to-stay-in-control/) this is one of the best harnesses I’ve found for coding agents: the agent gets a spec, generates code, runs traces, and has to fix the exact divergence.
 
-Not every project needs a formal spec. This one did because the rules are written down but the interactions are combinatorial, correctness matters, and a large community has already found the edge cases. The implementation is a state machine, which maps naturally to TLA-family specs.
+Not every project needs a formal spec. This one did because the rules are written down, but the interactions are combinatorial, correctness matters, and a large community has already found the edge cases. The implementation is a state machine, which maps naturally to TLA-family specs.
 
 This isn't the first attempt. MongoDB published their [TLA+ conformance checking](https://www.mongodb.com/blog/post/engineering/conformance-checking-at-mongodb-testing-our-code-matches-our-tla-specs) work in June 2025. Spec as oracle, trace replay against implementation. We do the same thing with Quint and XState, on a domain with community Q&A corpus feeding the spec validation.
 
-Other domains fit the pattern: financial regulations, protocol implementations, medical decision trees. Anywhere with written rules, combinatorial interactions, and a correctness requirement.
+Other domains seems to fit the pattern: financial regulations, protocol implementations, medical decision trees. Anywhere with written rules, combinatorial interactions, and a correctness requirement.
 
 ## Try It
 
