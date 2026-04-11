@@ -187,18 +187,20 @@ Nearly a thousand survived to become runnable assertions[^qa-tokens]. The rest e
 
 The **Prone Lock** is the simplest. Grapple a creature, shove it prone. Its speed drops to 0, and standing from prone costs half your speed — which is half of zero. Three function calls confirm the lock: grapple succeeds, shove succeeds, `effectiveSpeed == 0`. The creature can't move until the grapple ends.
 
-**Grapple Leapfrog.** An early test from when the project still used 2014 rules. Two players [cover 60 feet](https://rpg.stackexchange.com/q/136964) between them with only 30 feet of speed each. Bob grapples Alice (she willingly fails). Under the 2014 rules, his speed is halved while dragging. He Dashes to double it back to 30, carries her 30 feet, releases. Alice's turn: same thing, opposite direction. Net displacement: 60 feet. The 2024 rules changed grappling to cost 1 extra foot per foot moved, which closes the drag-and-release exploit.
+**Grapple Leapfrog.** This one came from an early 2014-rules test and turned out to be a good example of corpus quality problems. The linked Stack Exchange thread asks whether two creatures can alternate grapple-drag-release turns to cover 60 feet between them with only 30 feet of speed each. The accepted answer says yes; the top-voted answer says no. My old QA pipeline seeded assertions from accepted answers, so this test encoded the accepted interpretation rather than any stronger notion of consensus. Useful as a warning about the dataset; not a good showcase of "the community already knows" a rule.
 
 ```
-run qa_grapple_leapfrog = {
+run qa_grapple_drag_dash_budget = {
   val bob = freshCreature(30)
   val alice = freshCreature(30)
-  // 2014 rules: speed halved while grappling same-size creature
+  // 2014-era model: dragging a same-size grappled creature halves speed.
+  // Dash adds current effective speed to the turn's movement budget.
   val bobTurn = pStartTurn(TEST_CONFIG, bob, Unarmored, 0, true, false)
-  val bobDashed = pUseAction(bobTurn, bob, ADash)  // 15 + 15 = 30
+  val bobDashed = pUseAction(bobTurn, bob, ADash)
   val aliceTurn = pStartTurn(TEST_CONFIG, alice, Unarmored, 0, true, false)
   val aliceDashed = pUseAction(aliceTurn, alice, ADash)
-  assert(bobDashed.movementRemaining + aliceDashed.movementRemaining == 60)
+  assert(bobDashed.movementRemaining == 30)
+  assert(aliceDashed.movementRemaining == 30)
 }
 ```
 
