@@ -2,9 +2,6 @@
 title: "Applying Branded Types to Connascence of Execution"
 description: "Three TypeScript examples of replacing execution-order coupling with stronger domain types."
 ---
-/bin/bash: warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8)
-# Applying Branded Types to Connascence of Execution
-
 > In memory of [Jim Weirich](https://connascence.io/pages/about.html). I didn't know you, but your code smells great.
 
 ## Connascence of Execution
