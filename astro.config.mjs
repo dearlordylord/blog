@@ -11,7 +11,7 @@ import remarkMermaid from 'astro-diagram/remark-mermaid';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://www.loskutoff.com',
+  site: 'https://www.dearlordylord.com',
   integrations: [react(), tailwind(), sitemap(), mdx()],
   vite: {
     plugins: [wasm() //, topLevelAwait()

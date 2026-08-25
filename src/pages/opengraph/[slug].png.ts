@@ -85,7 +85,7 @@ const renderCard = async (title: string): Promise<Uint8Array> => {
         ${titleLines}
       </text>
 
-      <text x="76" y="572" fill="#94a3b8" font-family="sans-serif" font-size="24" font-weight="500">loskutoff.com</text>
+      <text x="76" y="572" fill="#94a3b8" font-family="sans-serif" font-size="24" font-weight="500">dearlordylord.com</text>
       <circle cx="1115" cy="550" r="34" fill="none" stroke="#22d3ee" stroke-opacity="0.8" stroke-width="3" />
       <path d="M1102 550h26m-10-10 10 10-10 10" fill="none" stroke="#22d3ee" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
     </svg>
