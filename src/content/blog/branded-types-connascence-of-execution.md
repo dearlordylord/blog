@@ -1,6 +1,7 @@
 ---
 title: "Branded Types and Connascence of Execution"
 description: "Three TypeScript examples of replacing execution-order coupling with stronger domain types."
+published: 2026-08-25T14:45:09Z
 ---
 > In memory of [Jim Weirich](https://connascence.io/pages/about.html). I didn't know you, but your code smells great.
 
