@@ -7,15 +7,15 @@ published: 2026-08-25T14:45:09Z
 
 ## Connascence of Execution
 
-There's a great classification of code smells at [connascence.io](https://connascence.io).
-
-I think it has more value today than the GoF's work because it's more pertinent to the industry, especially in the context of generative programming. And it's indeed greatly underappreciated and not widely known enough.
+There's a great classification of design "smells" at [connascence.io](https://connascence.io).[^connascence-smells]
 
 Here, I hope to bring it to the community's attention by combining it with my own experience through the prism of one specific code smell and how to battle it.
 
 I'll argue that battling it is not just a question of personal preference, but offers a benefit-to-effort ratio too great to ignore.
 
 The code smell in question is [Connascence of Execution](https://connascence.io/execution.html).
+
+I think it has more value today than the GoF's work because it's more pertinent to the industry, especially in the context of generative programming. I think it's indeed greatly underappreciated and not widely known enough.
 
 > Present day. Present time.
 
@@ -33,13 +33,21 @@ Connascence of Execution is about the order of operations affecting the outcome 
 
 Imperative programmers like this very much. If we banned writing into a closed file, that would violate their freedoms.
 
-But I think that restricting "what we can do" in fact gives us more freedom. Declarative code makes maintenance and refactoring much more affordable. Sometimes even seamless.
+But I think that restricting "what we can do" in fact gives us more freedom. 
+
+Better-typed approach makes maintenance and refactoring much more affordable. Sometimes even seamless.
+
+In our domain, closing is only valid after writing. Indeed, I won't open a file just to close it.
 
 ```ts
+declare function openFile(file: ClosedFile): OpenFile;
+declare function writeFile(file: OpenFile, contents: string): WrittenFile;
+declare function closeFile(file: WrittenFile): CompletedFile;
+
 const closed = fileAt(path);
 const open = openFile(closed);
 const written = writeFile(open, contents);
-const completed = closeFile(written);
+const completed = closeFile(written); // Our domain requires a write before closing.
 ```
 
 ```ts
@@ -49,7 +57,7 @@ closeFile(open); // Compile-time error: OpenFile is not WrittenFile.
 
 I think it's quite obvious, without explanation, that this API is much safer.
 
-Unless we have some new programming language that does it implicitly under the hood of the first example.
+Unless a language can track those state transitions while preserving syntax like that of the first example.
 
 ```ts
 file.open(); // changes type to "opened"
@@ -57,11 +65,11 @@ file.close(); // changes type to "closed"
 file.write("Hello"); // fails compile-time
 ```
 
-But we don't. At least I don't think we do—let me know if I'm wrong. TypeScript certainly doesn't do that, and this post's examples are in TypeScript.
+TypeScript cannot. [Rust can model such transitions explicitly with typestate](https://docs.rust-embedded.org/book/static-guarantees/typestate-programming.html). That's another story.
 
 ## 2. Physical calculation. Primitives.
 
-Let me bring in another example to introduce how I think we should think about primitives.
+Let me bring in another example to introduce how I suggest we should think about primitives.
 
 I will try to show that the file code and the code below do, in fact, share very similar ideas underneath.
 
@@ -77,6 +85,7 @@ force += externalForce;
 ```
 
 ```ts
+// Because every value is represented as a number, a careless refactor can keep running while destroying the dimensional meaning of the calculation.
 let force = mass;
 
 force += externalForce;
@@ -129,22 +138,22 @@ addExternalForce(mass, externalForce);
 // Compile-time error: Kilograms is not BaseForce.
 ```
 
-> But Igor, this makes us type a lot of stuff.
-
-Then ask your coding agent. I heard that "coding is solved"—I don't know about that, but "typing" is definitely solved.
-
 ### Branded types and Effect.ts
 
 This example uses branded types. One implementation of the pattern is available in [Effect.ts](https://www.effect.website/docs/v4/code-style/branded-types).
 
-I think the approach is golden and, at the same time, underappreciated. So underrated.
+> But Igor, this makes us type a lot of stuff.
+
+Then ask your coding agent. I heard that "coding is solved"—I don't know about that, but "typing" is definitely solved.
+
+I think the approach is extremely valuable but underappreciated. 
 I believe that, in the near future, *not* using branded types for primitives will become akin to using `any`.
 
 Right now, we type our objects, but somehow forget to type our primitives.
 
 ## 3. Email
 
-That's an auxiliary example. The bigger idea has already been shown in 1 and 2, but nevertheless:
+The bigger idea has already been shown in 1 and 2, but nevertheless:
 
 ```ts
 const email = new MutableEmail();
@@ -152,7 +161,7 @@ const email = new MutableEmail();
 email.setRecipient("foo@example.com");
 email.setSender("me@mydomain.com");
 email.send();
-email.setSubject("Hello World"); // Runtime error: already sent—or, even worse, dead code.
+email.setSubject("Hello World"); // Sometimes appears to work because of a race.
 ```
 
 With a kind of builder pattern:
@@ -163,7 +172,7 @@ const ready = createEmail()
   .setRecipient(recipient)
   .setSender(sender);
 
-send(ready);
+send(ready); // assuming here that we handle double-call properly, like with idempotency
 ```
 
 ```ts
@@ -183,3 +192,5 @@ Not only bugs—readability issues too.
 I can already hear someone saying that my "correct" code examples are wordier.
 Well, readability is not only about symbols but about the mental strain involved in thinking about corner cases and data correctness, and proper typing handles that for you.
 I think that's a good thing. Indeed, a very nice thing. A computer doing what it's supposed to do: helping you reason.
+
+[^connascence-smells]: Not all connascence necessarily indicates a design smell or is inherently bad. In this post, however, I treat Connascence of Execution as an indicator of one.
