@@ -7,7 +7,9 @@ import MarkdownIt from 'markdown-it';
 const parser = new MarkdownIt();
 
 export async function GET(context) {
-  const posts = await getCollection("blog");
+  const posts = (await getCollection("blog"))
+    .filter((p) => p.data.published)
+    .sort((a, b) => b.data.published.valueOf() - a.data.published.valueOf());
   return rss({
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
@@ -15,7 +17,7 @@ export async function GET(context) {
     trailingSlash: false,
     items: posts.map((post) => ({
       ...post.data,
-      pubDate: post.published,
+      pubDate: post.data.published,
       link: `/blog/${post.id.replace(/\.(md|mdx)$/, "")}/`,
       // Note: this will not process components or JSX expressions in MDX files.
       content: sanitizeHtml(parser.render(post.body), {
