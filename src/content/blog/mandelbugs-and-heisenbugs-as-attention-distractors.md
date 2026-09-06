@@ -23,7 +23,7 @@ function connect() {
 
 There’s code with some async interaction. It fires promises, .then()s or awaits their results, bada-bing, bada-boom, and shows the user the correct result.
 
-There’s a bug. A bug that's almost impossible to reproduce. A bug that we don't really care about.
+There’s a bug. A bug that's almost impossible to reproduce.[^bug-classification] A bug that we don't really care about.
 
 ## Mandelbugs we don't even care about
 
@@ -60,8 +60,6 @@ Here I want to argue that no, it doesn’t. You stumble over this junk every now
 You stumble over it even more when trying to fix an actual bug. It’s obvious why: our brains are tuned to look for corner cases at those moments. By the way, maybe this distracts LLMs too, pulling in unnecessary neural connections.
 
 There are many bugs and only one you. Thoughts about corner cases clog up the context and get in the way of thinking about more serious things.
-
-TODO reference to mandelbug/heisenbug classification https://guanpingxiao.github.io/publications/ISSRE17.pdf
 
 A PR with a fix could look like this:
 
@@ -172,5 +170,7 @@ Those externalities are rarely minded during code review, sometimes yielding pri
 Making existing complexity explicit can never be a bad thing, as long as it occupies its proper abstraction level in the system. 
 
 I'll follow up with those specifics next time.
+
+[^bug-classification]: A Bohrbug is straightforward to reproduce. A Mandelbug makes things complicated: timing, the environment, or the order of operations can decide whether it shows up. Heisenbugs are the elusive, intermittently reproducible bugs treated as a subset of Mandelbugs in [Xiao et al.’s classification](https://guanpingxiao.github.io/publications/ISSRE17.pdf) (Section II).
 
 [^chekhov]: Chekhov’s gun is a storytelling principle: if you put a gun on the wall early in a story, it should go off later. A detail you draw attention to should have a purpose.
