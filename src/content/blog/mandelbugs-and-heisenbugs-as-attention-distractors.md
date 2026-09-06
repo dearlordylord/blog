@@ -45,7 +45,7 @@ Something could happen only when the users’ laptop it at certain temperature a
 
 (fun thing, a real elevation-related group of bugs happened to my HDD laptop while I travelled in Tibet) (which was later stolen on a city bus in Khimki, Russia, which event prompted me to learn to code)
 
-We can just say screw it and ignore this bug. The KPI won’t suffer. In fact, it’ll only get better. We didn’t spend time or mental energy (popularly known as “attention”) on it.
+We can just say screw it and ignore this bug. The KPI won’t suffer. In fact, it’ll only get better. We didn’t spend time or mental energy on it.
 
 The first thing I want to say is that this bug usually isn’t alone in a system. There are lots of them sitting there. It’s not even about them multiplying each other. They can be orthogonal.
 
@@ -53,7 +53,7 @@ The problem is that, as my intuition and experience grew, one day I started seei
 
 ## "We have such sights to show you," or "Chekhov guns you can't unsee."
 
-Does it make things any easier that these problems in the code never go off, like defective Chekhov guns?
+Does it make things any easier that these problems in the code never go off, like defective Chekhov guns?[^chekhov]
 
 Here I want to argue that no, it doesn’t. You stumble over this junk every now and then. You see that this process right here can corrupt the state.
 
@@ -172,3 +172,5 @@ Those externalities are rarely minded during code review, sometimes yielding pri
 Making existing complexity explicit can never be a bad thing, as long as it occupies its proper abstraction level in the system. 
 
 I'll follow up with those specifics next time.
+
+[^chekhov]: Chekhov’s gun is a storytelling principle: if you put a gun on the wall early in a story, it should go off later. A detail you draw attention to should have a purpose.
