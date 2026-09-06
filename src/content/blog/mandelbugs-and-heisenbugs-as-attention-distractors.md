@@ -1,5 +1,6 @@
 ---
-title: "Mandelbugs and Heisenbugs as attention distractors. Chekhov guns you can't unsee"
+title: "Mandelbugs and Heisenbugs as attention distractors"
+subtitle: "Chekhov guns you can't unsee"
 ---
 
 A post about human code? In 2026?

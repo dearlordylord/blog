@@ -7,7 +7,7 @@ import cx from 'classnames';
 
 type Props = CollectionEntry<"blog">["data"] & { slug: string };
 
-const { title, published, slug, opengraphImage, opengraphImageAlt } =
+const { title, subtitle, published, slug, opengraphImage, opengraphImageAlt } =
   Astro.props;
 
 const metadataImage = opengraphImage || buildOGURL(Astro.url, slug);
@@ -17,6 +17,7 @@ const metadataImage = opengraphImage || buildOGURL(Astro.url, slug);
 <Layout title={title} description={undefined} opengraphImage={metadataImage} opengraphImageAlt={opengraphImageAlt || title} >
     <article class="flex w-full flex-col items-center gap-6">
       {title && <h1 class="text-center text-4xl font-bold">{title}</h1>}
+      {subtitle && <p class="text-center text-2xl text-slate-11">{subtitle}</p>}
         {opengraphImage && <img
                 src={opengraphImage}
                 alt={opengraphImageAlt || ""}
