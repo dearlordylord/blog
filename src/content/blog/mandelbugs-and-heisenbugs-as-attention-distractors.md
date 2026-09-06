@@ -45,6 +45,8 @@ Something could happen only when the user’s laptop is at a certain temperature
 
 (fun thing, a real elevation-related group of bugs happened to my HDD laptop while I travelled in Tibet) (which was later stolen on a city bus in Khimki, Russia, which event prompted me to learn to code)
 
+<img src="/static/blog/mandelbugs/tibet-mountain-landscape.jpg" alt="An earthen structure on a rocky plain beneath mountains in Tibet" width="1600" height="1050" loading="lazy" decoding="async" />
+
 We can just say screw it and ignore this bug. The KPI won’t suffer. In fact, it’ll only get better. We didn’t spend time or mental energy on it.
 
 The first thing I want to say is that this bug usually isn’t alone in a system. There are lots of them sitting there. It’s not even about them multiplying each other. They can be orthogonal.
