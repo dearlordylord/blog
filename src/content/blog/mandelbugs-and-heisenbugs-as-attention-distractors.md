@@ -4,9 +4,9 @@ title: "Mandelbugs and Heisenbugs as attention distractors. Chekhov guns you can
 
 A post about human code? In 2026?
 
-But don’t worry, it all still applicable to AI 
+But don’t worry, it’s all still applicable to AI.
 
-Also, no token suffered in vain while writing this post. I put them all to good use.
+Also, no token suffered in vain while I was writing this post. I put them all to good use.
 
 ```ts
 function connect() {
@@ -35,13 +35,13 @@ function handleMessage(message: { value: number }) {
 }
 ```
 
-If, during websocket reconnection, it happens that the payload is still being read, then older callback would modify the state it isn't supposed to modify anymore.
+If, during websocket reconnection, it happens that the payload is still being read, then the older callback will modify the state it isn't supposed to modify anymore.
 
-The bug is, in fact, so dormant that you’re pretty sure it won’t never happen. I reproduced it with a payload of 64mb and with aggressive CPU throttling.
+The bug is, in fact, so dormant that you’re pretty sure it will never happen. I reproduced it with a payload of 64mb and with aggressive CPU throttling.
 
 Is it even a bug then? 
 
-Something could happen only when the users’ laptop it at certain temperature and elevation* 
+Something could happen only when the user’s laptop is at a certain temperature and elevation.*
 
 (fun thing, a real elevation-related group of bugs happened to my HDD laptop while I travelled in Tibet) (which was later stolen on a city bus in Khimki, Russia, which event prompted me to learn to code)
 
@@ -88,17 +88,17 @@ Not every project’s decision-maker would accept such a PR. This PR solves noth
 
 But I would. I argue that it's very good to have a fix here. Not for the sake of fixing the bug, but because it makes code more readable.
 
-More readable how, you ask me. It adds lines that would never be reached. "It adds complexity"
+“More readable how?” you ask me. It adds lines that would never be reached. "It adds complexity."
 
 ## "It adds complexity"
 
-But does it? Complexity was already there. Never present in runtime, but there in the model of the world that the reader builds in their head.
+But does it? Complexity was already there. Never present at runtime, but there in the model of the world that the reader builds in their head.
 
 And the reader (hopefully) sees corner cases and invalid states and the control flow that leads to data corruption. 
 
 That's our job. It's always been our job. 
 
-We see more lines on the file, but the **meaning** was always there. Whether you describe it with lines or pretend it doesn't exist.
+We see more lines in the file, but the **meaning** was always there. Whether you describe it with lines or pretend it doesn't exist.
 
 "This execution can lead to data corruption" is what I read in the example above. 
 
@@ -108,7 +108,7 @@ If I see it's not handled, I have to get distracted and remember that "this code
 
 As a result, NOT handling the mandelbug is an externality. It is a mental load pushed off as a tax on my decision-making process.
 
-Externalities are good in the short-term. They are always someone else's problem in the long-term. They become attention span hog if not handled.
+Externalities are good in the short term. They are always someone else's problem in the long term. They become attention span hogs if not handled.
 
 ## Good habits
 
@@ -128,7 +128,7 @@ async function search(query: string) {
 
 It's quite obvious that this code has a race condition. It also compiles just fine.
 
-We immediately catch that at least on PR review:
+We immediately catch that, at least during PR review:
 
 ```ts
 let latestSearch = 0
@@ -143,19 +143,19 @@ async function search(query: string) {
 
 Not that it's what you'll exactly have in production code, but you get the idea. There's no doubt we handle **that** type of race condition.
 
-But how we decide which race conditions to handle and which to ignore?
+But how do we decide which race conditions to handle and which to ignore?
 
 I'd argue we just handle them all indiscriminately. 
 
-That's another opportunity to reduce the cognitive load. Instead of **deciding** which race conditions to handle, we can **externalize** to having a good habit of handling them all.
+That's another opportunity to reduce the cognitive load. Instead of **deciding** which race conditions to handle, we can **externalize** that decision by having a good habit of handling them all.
 
-This way we also won't forget to do it when it really matters. Discipline it a good thing isn't it.
+This way we also won't forget to do it when it really matters. Discipline is a good thing, isn't it?
 
 ## Modeling processes
 
 There's another question of organising this computation. A guard approach like the ones above works but isn't always self-evident and expressive enough.
 
-We can do better with a "capacity-restricted" callback approach, or a reducer (event-based) approach (which is always tantamount to a state machine), or Effect.ts idiomatic approach.
+We can do better with a "capacity-restricted" callback approach, or a reducer (event-based) approach (which is always tantamount to a state machine), or an idiomatic Effect.ts approach.
 
 Which is nice, but I feel like it would be too much of a context switch in this post. So, I'll follow up with an "implementation" post a bit later.
 
