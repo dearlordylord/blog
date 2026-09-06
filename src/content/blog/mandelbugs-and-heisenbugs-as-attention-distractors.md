@@ -45,11 +45,11 @@ Is it even a bug then?
 
 Something could happen only when the user’s laptop is at a certain temperature and elevation.
 
-(fun thing, a real elevation-related group of bugs happened to my HDD laptop while I travelled in Tibet) (which was later stolen on a city bus in Khimki, Russia. That’s what prompted me to learn to code, believe it or not.)
+(fun thing, a real [elevation-related](https://www.seagate.com/gb/en/support/kb/what-is-the-maximum-altitude-at-which-a-seagate-hard-drive-will-function-205031en/) group of bugs happened to my HDD laptop while I travelled in Tibet) (which was later stolen on a city bus in Khimki, Russia. That’s what prompted me to learn to code, believe it or not.)
 
 <img src="/static/blog/mandelbugs/tibet-mountain-landscape.jpg" alt="An earthen structure on a rocky plain beneath mountains in Tibet" width="1600" height="1050" loading="lazy" decoding="async" />
 
-We can just say screw it and ignore this bug. The KPI won’t suffer. In fact, it’ll only get better. We didn’t spend time or mental energy on it.
+We can just say screw it and ignore this bug. The KPI won’t suffer. In fact, it’ll only get better. We won’t spend time or mental energy on it.
 
 This bug usually isn’t alone in a system. There are lots of them sitting there. It’s not even about them multiplying each other. They can be orthogonal.
 
@@ -68,29 +68,25 @@ There are many bugs and only one you. Whether they depend on obscure timing or d
 A PR with a fix could look like this:
 
 ```ts
-let ws = null;
-let connectionId = 0;
+let connectionId = 0
 
 function connect() {
-  const myId = ++connectionId;    
-  ws = new WebSocket(url);
+  const myId = ++connectionId
+  const socket = new WebSocket(url)
 
-  ws.onmessage = (event) => {
-    if (event.data instanceof Blob) {
-      event.data.arrayBuffer().then((buf) => {
-        if (myId !== connectionId) return;   // ignore (or handle somehow differently), a newer connection has since taken over
-        const decoded = decode(buf);
-        handleMessage(decoded);
-      });
-    }
-  };
-  ws.onclose = () => setTimeout(connect, 0);
+  socket.onmessage = async ({ data }: MessageEvent<Blob>) => {
+    const message = decode(await data.arrayBuffer())
+    if (myId !== connectionId) return
+    handleMessage(message)
+  }
+
+  socket.onclose = () => setTimeout(connect, 0)
 }
 ```
 
 Not every project’s decision-maker would accept such a PR. “This PR solves nothing.” That's a real conundrum. A pickle, if you will.
 
-But I would. I argue that it's very good to have a fix here. Not for the sake of fixing the bug, but because it makes code more readable.
+But I would accept it. I argue that it's very good to have a fix here. Not for the sake of fixing the bug, but because it makes code more readable.
 
 “More readable how?” you ask me. It adds a check for something that almost never happens. "It adds complexity."
 
@@ -104,7 +100,7 @@ That's our job. It's always been our job.
 
 We see more lines in the file, but the **meaning** was always there. Whether you describe it with lines or pretend it doesn't exist.
 
-"This execution can lead to data corruption" is what I read in the example above.
+"This execution can lead to data corruption" is what I read in the original example.
 
 If I see that it's handled in code, I can let it go, trust the code, and move on with my task or bug investigation.
 
@@ -112,7 +108,7 @@ If I see it's not handled, I get distracted and have to remind myself that “th
 
 As a result, NOT handling the Mandelbug is an externality. It is a mental load pushed off as a tax on my decision-making process.
 
-Ignoring them saves us effort in the short term. Someone else pays with their attention later.
+Ignoring these bugs saves us effort in the short term. Someone else pays with their attention later.
 
 ## Good habits
 
@@ -132,7 +128,7 @@ async function search(query: string) {
 
 It's quite obvious that this code has a race condition. It also compiles just fine.
 
-We immediately catch that, at least during PR review:
+We catch that during PR review, if not sooner:
 
 ```ts
 let latestSearch = 0
