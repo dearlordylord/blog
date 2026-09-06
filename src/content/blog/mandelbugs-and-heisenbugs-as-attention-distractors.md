@@ -37,7 +37,7 @@ function handleMessage(message: { value: number }) {
 
 If, during websocket reconnection, it happens that the payload is still being read, then older callback would modify the state it isn't supposed to modify anymore.
 
-The bug is, in fact, so dormant that you’re pretty sure it won’t never happen. I reproduced it with a payload of 64mb and with aggressive CPU throttling.[^testing]  
+The bug is, in fact, so dormant that you’re pretty sure it won’t never happen. I reproduced it with a payload of 64mb and with aggressive CPU throttling.
 
 Is it even a bug then? 
 
@@ -172,5 +172,3 @@ Those externalities are rarely minded during code review, sometimes yielding pri
 Making existing complexity explicit can never be a bad thing, as long as it occupies its proper abstraction level in the system. 
 
 I'll follow up with those specifics next time.
-
-[^testing]: TODO: Add text explaining how I tested this.
