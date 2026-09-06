@@ -35,13 +35,13 @@ function handleMessage(message: { value: number }) {
 }
 ```
 
-If, during websocket reconnection, it happens that the payload is still being read, then the older callback will modify the state it isn't supposed to modify anymore.
+If, during WebSocket reconnection, it happens that the payload is still being read, then the older callback will modify the state it isn't supposed to modify anymore.
 
-The bug is, in fact, so dormant that you’re pretty sure it will never happen. I reproduced it with a payload of 64mb and with aggressive CPU throttling.
+The bug is, in fact, so dormant that you’re pretty sure it will never happen. I reproduced it with a payload of 64 MB and with aggressive CPU throttling.
 
-Is it even a bug then? 
+Is it even a bug then?
 
-Something could happen only when the user’s laptop is at a certain temperature and elevation.*
+Something could happen only when the user’s laptop is at a certain temperature and elevation.
 
 (fun thing, a real elevation-related group of bugs happened to my HDD laptop while I travelled in Tibet) (which was later stolen on a city bus in Khimki, Russia, which event prompted me to learn to code)
 
@@ -96,25 +96,25 @@ But I would. I argue that it's very good to have a fix here. Not for the sake of
 
 But does it? Complexity was already there. Never present at runtime, but there in the model of the world that the reader builds in their head.
 
-And the reader (hopefully) sees corner cases and invalid states and the control flow that leads to data corruption. 
+And the reader (hopefully) sees corner cases and invalid states and the control flow that leads to data corruption.
 
-That's our job. It's always been our job. 
+That's our job. It's always been our job.
 
 We see more lines in the file, but the **meaning** was always there. Whether you describe it with lines or pretend it doesn't exist.
 
-"This execution can lead to data corruption" is what I read in the example above. 
+"This execution can lead to data corruption" is what I read in the example above.
 
 If I see that it's handled in code, I can let it go, trust the code, and move on with my task or bug investigation.
 
 If I see it's not handled, I have to get distracted and remember that "this code is all right". (not that I still don't ask myself "is it really all right?")
 
-As a result, NOT handling the mandelbug is an externality. It is a mental load pushed off as a tax on my decision-making process.
+As a result, NOT handling the Mandelbug is an externality. It is a mental load pushed off as a tax on my decision-making process.
 
 Externalities are good in the short term. They are always someone else's problem in the long term. They become attention span hogs if not handled.
 
 ## Good habits
 
-Ok, even if not everything is that obvious with the websocket example, let's move towards the "usefulness" on this spectrum.
+Ok, even if not everything is that obvious with the WebSocket example, let's move towards the "usefulness" on this spectrum.
 
 ```ts
 async function search(query: string) {
@@ -147,7 +147,7 @@ Not that it's what you'll exactly have in production code, but you get the idea.
 
 But how do we decide which race conditions to handle and which to ignore?
 
-I'd argue we just handle them all indiscriminately. 
+I'd argue we just handle them all indiscriminately.
 
 That's another opportunity to reduce the cognitive load. Instead of **deciding** which race conditions to handle, we can **externalize** that decision by having a good habit of handling them all.
 
@@ -167,9 +167,9 @@ Although it is usually argued that fixing "code that already works" isn't a good
 
 We have such overlooked externalities as unnecessary mental load and decision branching in race condition handling.
 
-Those externalities are rarely minded during code review, sometimes yielding priority to the instant gratification of false "simplification". 
+Those externalities are rarely minded during code review, sometimes yielding priority to the instant gratification of false "simplification".
 
-Making existing complexity explicit can never be a bad thing, as long as it occupies its proper abstraction level in the system. 
+Making existing complexity explicit can never be a bad thing, as long as it occupies its proper abstraction level in the system.
 
 I'll follow up with those specifics next time.
 
