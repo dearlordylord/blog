@@ -45,21 +45,21 @@ Something could happen only when the users’ laptop it at certain temperature a
 
 (fun thing, a real elevation-related group of bugs happened to my HDD laptop while I travelled in Tibet) (which was later stolen on a city bus in Khimki, Russia, which event prompted me to learn to code)
 
-Мы можем просто забить на этот баг. KPI не пострадает. На самом деле, только улучшится. Мы не тратили на него время и ментальную энергию (называемую в народе “внимание”).
+We can just say screw it and ignore this bug. The KPI won’t suffer. In fact, it’ll only get better. We didn’t spend time or mental energy (popularly known as “attention”) on it.
 
-Что я хочу сказать в первую очередь, так это то, что в системах этот баг, как правило, не один. Их много таких сидит. Дело даже не в том, что они друг друга умножают. Они могут быть ортогональны. 
+The first thing I want to say is that this bug usually isn’t alone in a system. There are lots of them sitting there. It’s not even about them multiplying each other. They can be orthogonal.
 
-Проблема их в том, что с ростом интуиции и опыта, я однажды начал их видеть.
+The problem is that, as my intuition and experience grew, one day I started seeing them.
 
 ## "We have such sights to show you," or "Chekhov guns you can't unsee."
 
-Стало ли легче от того, что такие проблемы в коде никогда не выстреливают, как дефектные Чеховские ружья?
+Does it make things any easier that these problems in the code never go off, like defective Chekhov guns?
 
-Здесь я хочу доказать, что нет, не легче. Ты иногда натыкаешься на этот мусор. Видишь что вот этот процесс может сломать состояние. 
+Here I want to argue that no, it doesn’t. You stumble over this junk every now and then. You see that this process right here can corrupt the state.
 
-Ещё больше натыкаешься когда пытаешься решить реальный баг. Это очевидно, почему: наш мозг настроен в такие моменты на поиски corner-cases. Кстати возможно LLM это тоже отвлекает, притягивая на себя ненужные нейронные связи.
+You stumble over it even more when trying to fix an actual bug. It’s obvious why: our brains are tuned to look for corner cases at those moments. By the way, maybe this distracts LLMs too, pulling in unnecessary neural connections.
 
-Багов много, ты один, мысли о corner cases забивают контекст и мешают думать о более серьезных вещах.
+There are many bugs and only one you. Thoughts about corner cases clog up the context and get in the way of thinking about more serious things.
 
 TODO reference to mandelbug/heisenbug classification https://guanpingxiao.github.io/publications/ISSRE17.pdf
 
