@@ -17,7 +17,10 @@ const escapeXml = (value: string): string =>
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&apos;");
 
-const wrapTitle = (title: string, maxCharacters: number): ReadonlyArray<string> => {
+const wrapTitle = (
+  title: string,
+  maxCharacters: number,
+): ReadonlyArray<string> => {
   const words = title.trim().split(/\s+/);
   const lines: Array<string> = [];
 
@@ -33,12 +36,12 @@ const wrapTitle = (title: string, maxCharacters: number): ReadonlyArray<string> 
   if (lines.length <= MAX_LINES) return lines;
 
   const visibleLines = lines.slice(0, MAX_LINES);
-  const lastLine = visibleLines[MAX_LINES - 1];
+  const lastLine = visibleLines[MAX_LINES - 1]!;
   visibleLines[MAX_LINES - 1] = `${lastLine.slice(0, maxCharacters - 1)}…`;
   return visibleLines;
 };
 
-const renderCard = async (title: string): Promise<Uint8Array> => {
+const renderCard = async (title: string): Promise<ArrayBuffer> => {
   const lines = wrapTitle(title, 24);
   const fontSize = lines.length <= 2 ? 76 : lines.length === 3 ? 66 : 56;
   const lineHeight = Math.round(fontSize * 1.14);
@@ -92,7 +95,9 @@ const renderCard = async (title: string): Promise<Uint8Array> => {
   `;
 
   const image = await sharp(Buffer.from(svg)).png().toBuffer();
-  return new Uint8Array(image);
+  const bytes = new Uint8Array(image.byteLength);
+  bytes.set(image);
+  return bytes.buffer;
 };
 
 export async function getStaticPaths() {

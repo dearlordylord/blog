@@ -225,7 +225,7 @@ That’s exactly it. <font color="green">PRNGs</font>. Deterministic[^13] <font 
 
 What the sequence generation looks like, laid out imperatively, is:
 
-```typescript=
+```typescript
 
 const seed = ‘123’;
 
@@ -253,7 +253,7 @@ In the example above, Generator is an object, which encapsulates both behaviour 
 
 First of all, we can separate those:
 
-```typescript=
+```typescript
 
 const state0 = initialGeneratorState(‘seed’);
 
@@ -278,7 +278,7 @@ Instead, let’s focus on usage with <font color="green">PRNG</font>.
 
 The code that invokes 16 sequential <font color="yellow" style="background-color: black">pseudo</font>-<font color="green">random</font> generator calls and combines them into a UUID looks like this:
 
-```typescript=
+```typescript
 
 // rng is PRNG state passed to us and is in the scope
 
@@ -311,7 +311,7 @@ return [newId, newRng];
 
 It doesn’t look as spectacular for NLPA, where I just read State and pass the new State further, but check how the DnD bruteforce lays out:
 
-```typescript=
+```typescript
 
 pipe(
 
@@ -372,7 +372,7 @@ The number of **Nodes** is basically how many nodes the generated graph will hav
 
 In TypeScript, we can define it like this:
 
-```typescript=
+```typescript
 
 declare const heterogeneity: number;
 
@@ -384,7 +384,7 @@ declare const nodes: number;
 
 Now, we can conveniently add nodes with heterogeneity:
 
-```typescript=
+```typescript
 
 const nodes = 1000;
 
@@ -396,7 +396,7 @@ const x = nodes + heterogeneity; // 1000.5
 
 And even pass density instead of heterogeneity to our methods:
 
-```typescript=
+```typescript
 
 const doSomethingWithHeterogeneityAndDensity = (heterogeneity: number, density: number) => {}
 
@@ -429,7 +429,7 @@ And it’s time to stop using primitives where they don’t belong!
 
 Follow me.
 
-```typescript=
+```typescript
 
 export type Heterogeneity = Newtype<{ readonly HETEROGENEITY: unique symbol }, Decimal01>;
 
@@ -441,7 +441,7 @@ export type ListLength = Newtype<{ readonly LIST_LENGTH: unique symbol }, NonNeg
 
 And the helper types used above are:
 
-```typescript=
+```typescript
 
 export type Decimal01 = Newtype<{ readonly DECIMAL01: unique symbol }, NonNegative>,
 
@@ -451,7 +451,7 @@ whereas `NonNegativeInteger` and `NonNegative` are helper types from the library
 
 I define the runtime bridges between Newtypes and primitives like this:
 
-```typescript=
+```typescript
 
 const moreThanOne = (n: number) => n > 1;
 
@@ -467,7 +467,7 @@ Prism is the bridge itself. It will take a primitive, ensure its bounds, and spi
 
 Sometimes, I also want to cast a primitive into a Newtype when I’m quite sure that I’m passing a correct value and ready to get an exception right in my face:
 
-```typescript=
+```typescript
 
 // where castToPrism is a helper function that does some mundane stuff
 
@@ -481,7 +481,7 @@ export const castDecimal01 = castToPrism(prismDecimal01)(
 
 Now we can have the previous examples from the start of this paragraph rewritten like this:
 
-```typescript=
+```typescript
 
 const nodes = castListLength(1000);
 
@@ -556,7 +556,7 @@ I found, though, that the [Web Worker](https://developer.mozilla.org/en-US/docs/
 
 The Web Worker code is stupidly simple:
 
-```typescript=
+```typescript
 
 /// <reference lib="webworker" />
 
@@ -681,4 +681,3 @@ And we have established software foundations for continuous property-based testi
 
 [^17]:
     But really, you can just use [workspaces](https://docs.npmjs.com/cli/v9/using-npm/workspaces)
-

@@ -2,7 +2,6 @@
 import { SITE_TITLE, SITE_DESCRIPTION } from "../constants";
 import Layout from "../layouts/Base.astro";
 import { getCollection } from "astro:content";
-import FormattedDate from "../components/Date.astro";
 
 function countWords(body: string | undefined): number {
   if (!body) return 0;
@@ -18,24 +17,33 @@ function countWords(body: string | undefined): number {
 const posts = (await getCollection("blog"))
   .filter((p) => p.data.published)
   .sort((a, b) => b.data.published!.valueOf() - a.data.published!.valueOf());
-
 ---
 
-<Layout title={SITE_TITLE} description={SITE_DESCRIPTION} opengraphImage={undefined} opengraphImageAlt={undefined}>
-    <section class="w-full">
-      {posts.length === 0 && <p>No posts found</p>}
-        <ul>
-          {
-            posts.map((post) => (
-                    <li>
-                        <a href={`/blog/${post.id.replace(/\.(md|mdx)$/, "")}/`} class="flex space-x-1">
-                            <p>→</p>
-                            <p>{post.data.title}</p>
-                            <p class="text-slate-8 whitespace-nowrap">· {countWords(post.body).toLocaleString()} words</p>
-                        </a>
-                    </li>
-            ))
-          }
-        </ul>
-    </section>
+<Layout
+  title={SITE_TITLE}
+  description={SITE_DESCRIPTION}
+  opengraphImage={undefined}
+  opengraphImageAlt={undefined}
+>
+  <section class="w-full">
+    {posts.length === 0 && <p>No posts found</p>}
+    <ul>
+      {
+        posts.map((post) => (
+          <li>
+            <a
+              href={`/blog/${post.id.replace(/\.(md|mdx)$/, "")}/`}
+              class="flex space-x-1"
+            >
+              <p>→</p>
+              <p>{post.data.title}</p>
+              <p class="text-slate-8 whitespace-nowrap">
+                · {countWords(post.body).toLocaleString()} words
+              </p>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
 </Layout>

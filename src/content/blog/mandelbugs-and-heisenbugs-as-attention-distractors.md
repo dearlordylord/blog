@@ -1,6 +1,7 @@
 ---
 title: "Mandelbugs and Heisenbugs as attention distractors"
 subtitle: "Chekhov guns you can't unsee"
+published: 2026-09-07T00:00:00Z
 ---
 
 A post about human code? In 2026?

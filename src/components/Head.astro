@@ -1,6 +1,6 @@
 ---
-import '../styles/global.scss';
-import { SITE_TITLE } from '../constants';
+import "../styles/global.css";
+import { SITE_TITLE } from "../constants";
 
 export interface Props {
   title: string;
@@ -24,9 +24,19 @@ const {
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 
 <!-- icon generator guy recommendation https://stackoverflow.com/a/48969053/2123547 -->
-<link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
-<link rel="shortcut icon" href="/icons/favicon.ico">
+<link
+  rel="icon"
+  type="image/png"
+  sizes="32x32"
+  href="/icons/favicon-32x32.png"
+/>
+<link
+  rel="icon"
+  type="image/png"
+  sizes="16x16"
+  href="/icons/favicon-16x16.png"
+/>
+<link rel="shortcut icon" href="/icons/favicon.ico" />
 <!-- / icon generator guy recommendation -->
 
 <meta name="generator" content={Astro.generator} />
@@ -57,18 +67,25 @@ const {
 <meta property="twitter:site" content="@ohdearlordylord" />
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
-<meta property="twitter:image" content={new URL(`${opengraphImage}?${Date.now()}`, Astro.url)} />
+<meta
+  property="twitter:image"
+  content={new URL(`${opengraphImage}?${Date.now()}`, Astro.url)}
+/>
 <meta property="twitter:image:alt" content={opengraphImageAlt} />
 <!-- /X -->
 
 <!-- RSS Feed -->
 <link
-        rel="alternate"
-        type="application/rss+xml"
-        title={SITE_TITLE}
-        href={`${Astro.site}rss.xml`}
+  rel="alternate"
+  type="application/rss+xml"
+  title={SITE_TITLE}
+  href={`${Astro.site}rss.xml`}
 />
 <!-- /RSS Feed -->
 
 <!-- Umami Analytics -->
-<script defer src="https://cloud.umami.is/script.js" data-website-id="6e5691db-2ca8-415c-b8a3-0affe91b0083"></script>
+<script
+  is:inline
+  defer
+  src="https://cloud.umami.is/script.js"
+  data-website-id="6e5691db-2ca8-415c-b8a3-0affe91b0083"></script>

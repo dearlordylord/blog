@@ -27,7 +27,7 @@ But I feel it has become gravely misunderstood. I’ll show that most of this �
 
 Negative Space is understood[^2] as assertions of function arguments like:
 
-```typescript=
+```typescript
 function calculateArea(width: number, height: number) {  
   assert(width > 0);
   assert(height > 0);
@@ -39,7 +39,7 @@ function calculateArea(width: number, height: number) {
 
 It looks nice and reasonable until we get another bunch of functions that expect width/height:
 
-```typescript=
+```typescript
 
 function stretch(widthOrHeight: number) {  
   assert(widthOrHeight > 0);  
@@ -74,7 +74,7 @@ There is, come with me.
 When we want to tell a String from a Number, it’s usually pretty clear.   
 A function `calculateArea` from the examples above won’t allow itself to be called like
 
-```typescript=  
+```typescript
 calculateArea("100", "200")  
 ```
 
@@ -90,7 +90,7 @@ I call this ambiguity boundary between runtime and compile-time. They often move
 
 In some sense, the example
 
-```typescript=  
+```typescript
 function calculateArea(width: number, height: number) {  
   assert(width > 0);  
   assert(height > 0);  
@@ -100,7 +100,7 @@ function calculateArea(width: number, height: number) {
 
 Reminds me
 
-```typescript=  
+```typescript
 function calculateArea(width: any, height: any) {  
   assert(typeof width === 'number');  
   assert(typeof height === 'number');  
@@ -116,7 +116,7 @@ I just see the same picture, it’s just that the boundary is fully moved toward
 
 One word: **newtypes**. Actually, a second word: **branded types**.
 
-```typescript=
+```typescript
 
 function calculateArea(width: Width, height: Height): Area {  
   // ...   
@@ -143,7 +143,7 @@ With this technique you also avoid most of the “Negative State” programming,
 
 Taking the approach one step further, you sometimes can achieve this:
 
-```typescript=  
+```typescript
 const w: Width = 100;  
 const h: Height = 200;  
 const w2: Width = w * 2; // scalar multiplication is possible  

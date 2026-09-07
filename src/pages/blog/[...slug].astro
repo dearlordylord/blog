@@ -1,6 +1,5 @@
 ---
 import { getCollection, render } from "astro:content";
-import type { CollectionEntry } from "astro:content";
 import BlogPost from "../../layouts/BlogPost.astro";
 
 export async function getStaticPaths() {
@@ -11,8 +10,6 @@ export async function getStaticPaths() {
   }));
 }
 
-type Props = CollectionEntry<"blog">;
-
 const { slug } = Astro.params;
 const post = Astro.props;
 if (!post) {
@@ -21,17 +18,25 @@ if (!post) {
 }
 const { Content } = await render(post);
 const postSlug = post.id.replace(/\.(md|mdx)$/, "");
+const utterancesAttributes = {
+  repo: "dearlordylord/blog",
+  "issue-term": "pathname",
+  theme: "github-dark",
+  crossorigin: "anonymous",
+  async: true,
+} as const;
 
 // TODO theme for utterances
 ---
 
-<BlogPost {...post.data} slug={postSlug} opengraphImage={post.data.opengraphImage}>
-    <Content />
-    <script is:inline src="https://utteranc.es/client.js"
-            repo="dearlordylord/blog"
-            issue-term="pathname"
-            theme="github-dark"
-            crossorigin="anonymous"
-            async>
-    </script>
+<BlogPost
+  {...post.data}
+  slug={postSlug}
+  opengraphImage={post.data.opengraphImage}
+>
+  <Content />
+  <script
+    is:inline
+    src="https://utteranc.es/client.js"
+    {...utterancesAttributes}></script>
 </BlogPost>
